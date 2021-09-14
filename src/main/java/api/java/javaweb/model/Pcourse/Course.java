@@ -1,5 +1,7 @@
 package api.java.javaweb.model.Pcourse;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,9 +19,11 @@ public class Course {
     String title;
     String desc;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="CAT_ID")
+    @JsonBackReference
     Category category;
+
     // @OneToOne Instructor instructor;
     // @OneToMany List<Section> sections;
 }

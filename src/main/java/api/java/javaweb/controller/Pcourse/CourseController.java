@@ -43,8 +43,8 @@ public class CourseController
     public Long save(@RequestBody CourseDTO dto) {
         logger.debug("CourseController :: save");
 
-            Course c = CourseMapper.dto2Model(dto);
-            c.setCategory(categorySrv.findById(dto.getCategoryId()));
+            Course c = CourseMapper.dto2Model(dto); //manual mapper, Todo: use mapStruct
+            c.setCategory(categorySrv.findById(dto.getCategoryId())); // loading Category Entity manually from id.
 
         return srv.save(c);
     }
