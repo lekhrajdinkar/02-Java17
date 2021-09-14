@@ -1,8 +1,17 @@
 package api.java.javaweb.model.Pcourse;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name="COURSE")
 public class Course {
     @Id Long id;
