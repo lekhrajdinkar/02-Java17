@@ -1,11 +1,8 @@
-package learn.java11.Javaall.DAO;
+package api.java.javaweb.DAO.Pcourse;
 
-import learn.java11.Javaall.model.Category;
-import org.springframework.data.domain.Pageable;
+import api.java.javaweb.model.Pcourse.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
 public interface CategoryDAO extends JpaRepository<Category,Long> {

@@ -1,10 +1,9 @@
-package learn.java11.Javaall.bootstrap;
+package api.java.javaweb.bootstrap.Pcourse;
 
-import learn.java11.Javaall.DAO.CategoryDAO;
-import learn.java11.Javaall.model.Category;
+import api.java.javaweb.DAO.Pcourse.CategoryDAO;
+import api.java.javaweb.model.Pcourse.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component

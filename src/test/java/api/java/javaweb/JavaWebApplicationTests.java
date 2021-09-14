@@ -1,10 +1,10 @@
-package learn.java11.Javaall;
+package api.java.javaweb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JavaAllApplicationTests {
+class JavaWebApplicationTests {
 
 	@Test
 	void contextLoads() {

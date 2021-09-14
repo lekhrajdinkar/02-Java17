@@ -1,4 +1,4 @@
-package learn.java11.Javaall.model;
+package api.java.javaweb.model.Pcourse;
 
 public class Person {
     Long id;
