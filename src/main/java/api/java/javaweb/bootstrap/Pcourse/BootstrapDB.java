@@ -1,7 +1,9 @@
 package api.java.javaweb.bootstrap.Pcourse;
 
 import api.java.javaweb.DAO.Pcourse.CategoryDAO;
+import api.java.javaweb.DAO.Pcourse.CourseDAO;
 import api.java.javaweb.model.Pcourse.Category;
+import api.java.javaweb.model.Pcourse.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class BootstrapDB implements CommandLineRunner {
 
     @Autowired CategoryDAO categoryDAO ;
+    @Autowired CourseDAO courseDAO ;
 
     @Override
     public void run(String... args) throws Exception {
@@ -19,7 +22,39 @@ public class BootstrapDB implements CommandLineRunner {
     }
 
     void LoadDB(){
-        Category c1 = new Category(1L, "Computer Science", "Programming languages and Tools");
+        // Category
+        Category c1 = new Category(1L, "Programming", "Learn leading Programming languages and Tools");
+        Category c2 = new Category(2L, "Music", "Excel yourself in playing Musical Instrument");
         categoryDAO.save(c1);
+        categoryDAO.save(c2);
+
+        // Course
+        Course c = new Course();
+            c.setCategory(c1);
+            c.setTitle("JavaScript MasterClass");
+            c.setDesc("Learn JavaScript with modern ES2021");
+            c.setId(1L);
+        courseDAO.save(c)   ;
+
+        c = new Course();
+        c.setCategory(c1);
+        c.setTitle("CSS MasterClass");
+        c.setDesc("Learn How to style web page with CSS grid and flexbox in 2021");
+        c.setId(2L);
+        courseDAO.save(c)   ;
+
+        c = new Course();
+        c.setCategory(c1);
+        c.setTitle("TypeScript MasterClass");
+        c.setDesc("Learn TypeSafety with Typescript in 2021");
+        c.setId(3L);
+        courseDAO.save(c)   ;
     }
 }
+
+/*
+    select * from course;
+    select * from category;
+ */
+
+

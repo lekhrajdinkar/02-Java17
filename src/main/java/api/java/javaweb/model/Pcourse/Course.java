@@ -1,9 +1,6 @@
 package api.java.javaweb.model.Pcourse;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,12 +9,17 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+
 @Entity(name="COURSE")
 public class Course {
-    @Id Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     String title;
     String desc;
-    // @ManyToOne Category category;
+
+    @ManyToOne
+    @JoinColumn(name="CAT_ID")
+    Category category;
     // @OneToOne Instructor instructor;
     // @OneToMany List<Section> sections;
 }

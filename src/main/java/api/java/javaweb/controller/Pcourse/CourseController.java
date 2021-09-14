@@ -1,5 +1,7 @@
 package api.java.javaweb.controller.Pcourse;
 
+import api.java.javaweb.DTO.Pcourse.CourseDTO;
+import api.java.javaweb.DTO.Pcourse.mapper.CourseMapper;
 import api.java.javaweb.model.Pcourse.Course;
 import api.java.javaweb.srv.Pcourse.CategorySrv;
 import api.java.javaweb.srv.Pcourse.CourseSrv;
@@ -20,6 +22,7 @@ public class CourseController
     Logger logger = LoggerFactory.getLogger(CourseController.class);
     
     @Autowired CourseSrv srv;
+    @Autowired CategorySrv categorySrv;
 
     //@Override
     @GetMapping("course/find-all")
@@ -37,8 +40,12 @@ public class CourseController
 
     //@Override
     @PostMapping("course/save")
-    public Long save(@RequestBody  Course course) {
+    public Long save(@RequestBody CourseDTO dto) {
         logger.debug("CourseController :: save");
-        return srv.save(course);
+
+            Course c = CourseMapper.dto2Model(dto);
+            c.setCategory(categorySrv.findById(dto.getCategoryId()));
+
+        return srv.save(c);
     }
 }
