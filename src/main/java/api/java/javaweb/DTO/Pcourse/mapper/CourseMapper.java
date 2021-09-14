@@ -9,6 +9,7 @@ public class CourseMapper {
                 .desc(model.getDesc())
                 .id(model.getId())
                 .title(model.getTitle())
+                .instructorId(model.getInstructor().getId())
                 .categoryId(model.getCategory().getId())
                 .build();
     }

@@ -24,6 +24,10 @@ public class Course {
     @JsonBackReference
     Category category;
 
-    // @OneToOne Instructor instructor;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="INST_ID")
+    @JsonBackReference
+    Instructor instructor;
+
     // @OneToMany List<Section> sections;
 }

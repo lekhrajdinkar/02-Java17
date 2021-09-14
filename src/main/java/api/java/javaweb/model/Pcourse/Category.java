@@ -18,6 +18,8 @@ import java.util.List;
 @Table(name = "CATEGORY")
 public class Category {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+
+    @Column(nullable = false, name = "title", length = 50)
     String title;
     String desc;
 

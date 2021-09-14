@@ -17,5 +17,6 @@ public class CourseDTO {
         String title;
         String desc;
         Long categoryId;
+        Long instructorId;
 }
 
