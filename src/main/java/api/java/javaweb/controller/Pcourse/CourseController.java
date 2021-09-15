@@ -5,6 +5,7 @@ import api.java.javaweb.DTO.Pcourse.mapper.CourseMapper;
 import api.java.javaweb.model.Pcourse.Course;
 import api.java.javaweb.srv.Pcourse.CategorySrv;
 import api.java.javaweb.srv.Pcourse.CourseSrv;
+import api.java.javaweb.srv.Pcourse.InstructorSrv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class CourseController
     
     @Autowired CourseSrv srv;
     @Autowired CategorySrv categorySrv;
+    @Autowired InstructorSrv instSrv;
 
     //@Override
     @GetMapping("course/find-all")
@@ -45,6 +47,7 @@ public class CourseController
 
             Course c = CourseMapper.dto2Model(dto); //manual mapper, Todo: use mapStruct
             c.setCategory(categorySrv.findById(dto.getCategoryId())); // loading Category Entity manually from id.
+            c.setInstructor(instSrv.findById(dto.getInstructorId()));
 
         return srv.save(c);
     }
