@@ -1,9 +1,34 @@
 package api.java.javaweb.model.Pcourse;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 
 @Entity(name="STUDENT")
 public class Student {
-    @Id Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    String name;
+    String email;
+
+    @ManyToMany //(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "STUDENT_COURSE",
+            joinColumns = { @JoinColumn(name = "COURSE_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "STUDENT_ID")}
+    )
+    //@JsonBackReference
+    @JsonManagedReference
+    List<Course> courses;
 }

@@ -29,5 +29,11 @@ public class Course {
     @JsonBackReference
     Instructor instructor;
 
+    @ManyToMany(mappedBy = "courses")
+    //@JsonManagedReference
+            @JsonBackReference
+    List<Student> students;
+
+
     // @OneToMany List<Section> sections;
 }
