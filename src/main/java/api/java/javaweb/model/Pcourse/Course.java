@@ -21,17 +21,17 @@ public class Course {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="CAT_ID")
-    @JsonBackReference
+    @JsonManagedReference(value = "category_course_json")
     Category category;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="INST_ID")
-    @JsonBackReference
+    @JsonManagedReference(value = "instructor_course_json")
     Instructor instructor;
 
     @ManyToMany(mappedBy = "courses")
     //@JsonManagedReference
-            @JsonBackReference
+    @JsonBackReference(value = "student_course_json")
     List<Student> students;
 
 

@@ -1,5 +1,6 @@
 package api.java.javaweb.model.Pcourse;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -22,7 +23,7 @@ public class Instructor {
 
     //Bidirectional mapping
     @OneToOne(mappedBy = "instructor")
-    @JsonManagedReference
+    @JsonBackReference(value = "instructor_course_json")
     Course course;
 
 }

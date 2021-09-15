@@ -6,6 +6,7 @@ import api.java.javaweb.srv.Pcourse.CategorySrv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,11 @@ public class CategoryController //implements CategoryApi
     }
 
     //@Override
-    @PostMapping("category/save")
+    @PostMapping(
+            value = "category/save",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Long save(@RequestBody  Category category) {
         logger.debug("CategoryController :: save");
         return srv.save(category);

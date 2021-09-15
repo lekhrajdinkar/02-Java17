@@ -25,7 +25,6 @@ public class Category {
 
     // Creating BI-DIRECTIONAL Association.
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-
-    @JsonManagedReference
+    @JsonBackReference(value = "category_course_json")
     List<Course> courses;
 }

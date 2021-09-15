@@ -29,6 +29,6 @@ public class Student {
             inverseJoinColumns = { @JoinColumn(name = "STUDENT_ID")}
     )
     //@JsonBackReference
-    @JsonManagedReference
+    @JsonManagedReference(value = "student_course_json")
     List<Course> courses;
 }
