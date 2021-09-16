@@ -1,23 +1,35 @@
 package api.java.javaweb.srv.Pcourse;
 
-import api.java.javaweb.DAO.Pcourse.CategoryDAO;
 import api.java.javaweb.DAO.Pcourse.CourseDAO;
-import api.java.javaweb.model.Pcourse.Category;
+import api.java.javaweb.DTO.Pcourse.CourseDTO;
+import api.java.javaweb.DTO.Pcourse.mapper.CourseMapper;
 import api.java.javaweb.model.Pcourse.Course;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Component
+@Service
+@Transactional
 public class CourseSrvImpl implements CourseSrv
 {
+    Logger logger = LoggerFactory.getLogger(CourseSrvImpl.class);
+
     @Autowired
     CourseDAO dao;
 
     @Override
     public List<Course> findAll() {
-        return dao.findAll();
+        List<Course> temp = dao.findAll();
+        return temp.stream().map(x -> {
+            logger.info(x.toString());
+            x.setCategory(x.getCategory());
+            return x;
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -41,5 +53,14 @@ public class CourseSrvImpl implements CourseSrv
     public Course delete(Course course) {
         dao.delete(course);
         return course;
+    }
+
+    // ------ DTO -----
+    @Override
+    public List<CourseDTO> findAllDto() {
+        List<Course> temp = findAll();
+        return temp.stream()
+                .map((Course x )-> CourseMapper.model2Dto(x))
+                .collect(Collectors.toList());
     }
 }

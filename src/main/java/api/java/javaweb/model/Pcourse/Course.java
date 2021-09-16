@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder
 
 @Entity(name="COURSE")
@@ -19,7 +20,7 @@ public class Course {
     String title;
     String desc;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
     @JoinColumn(name="CAT_ID")
     @JsonManagedReference(value = "category_course_json")
     Category category;

@@ -30,7 +30,15 @@ public class CourseController
     @GetMapping("course/find-all")
     public List<Course> findAll() {
         logger.debug("CourseController :: findAll");
+        List<Course>  res = srv.findAll();
+        res.stream().forEach(System.out::print);
         return srv.findAll();
+    }
+
+    @GetMapping("course/find-all-dto")
+    public List<CourseDTO> findAllDto() {
+        logger.debug("CourseController :: findAllDto");
+        return srv.findAllDto();
     }
 
     //@Override

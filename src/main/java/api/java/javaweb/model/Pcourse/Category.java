@@ -2,10 +2,7 @@ package api.java.javaweb.model.Pcourse;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -27,4 +24,14 @@ public class Category {
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     @JsonBackReference(value = "category_course_json")
     List<Course> courses;
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", desc='" + desc + '\'' +
+                //", courses=" + courses +
+                '}';
+    }
 }
