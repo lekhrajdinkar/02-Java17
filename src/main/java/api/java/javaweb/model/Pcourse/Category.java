@@ -1,6 +1,7 @@
 package api.java.javaweb.model.Pcourse;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -13,6 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "CATEGORY")
+
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 
