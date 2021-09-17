@@ -10,10 +10,11 @@ import api.java.javaweb.srv.Pcourse.InstructorSrv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,8 +70,28 @@ public class CourseController
     @GetMapping("course/q-find-by-cat")
     public List<CourseDTO> QFindByCategory() {
         logger.debug("CourseController :: QFindByCategory");
-        List<Course>  res =  dao.findByCategoryId(1L).get();
+        //List<Course>  res =  dao.find2ByCategoryId(1L).get();
+        List<Course>  res =  dao.find3ByCategoryId(1L);
         return res.stream()
+                .map((Course x )-> CourseMapper.model2Dto(x))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("course/q-find-by-inst")
+    public List<CourseDTO> QFindByInstructor() {
+        logger.debug("CourseController :: QFindByInstructor");
+        //List<Course>  res =  dao.find2ByCategoryId(1L).get();
+        List<Course>  res =  dao.find1ByInstructorId(1L);
+        return res.stream()
+                .map((Course x )-> CourseMapper.model2Dto(x))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("course/q-find-All-page/{page}/{size}")
+    public List<CourseDTO> QFindAllPage(@PathVariable int page, @PathVariable int size) {
+        logger.debug("CourseController :: QFindAllPage");
+        Page<Course> res = dao.findAllWithPagination( PageRequest.of(page, size));
+        return res.getContent().stream()
                 .map((Course x )-> CourseMapper.model2Dto(x))
                 .collect(Collectors.toList());
     }
