@@ -1,5 +1,6 @@
 package api.java.javaweb.controller.Pcourse;
 
+import api.java.javaweb.DAO.Pcourse.CourseDAO;
 import api.java.javaweb.DTO.Pcourse.CourseDTO;
 import api.java.javaweb.DTO.Pcourse.mapper.CourseMapper;
 import api.java.javaweb.model.Pcourse.Course;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class CourseController 
@@ -59,4 +61,18 @@ public class CourseController
 
         return srv.save(c);
     }
+
+    // ============ @Query
+
+    @Autowired CourseDAO dao;
+
+    @GetMapping("course/q-find-by-cat")
+    public List<CourseDTO> QFindByCategory() {
+        logger.debug("CourseController :: QFindByCategory");
+        List<Course>  res =  dao.findByCategoryId(1L).get();
+        return res.stream()
+                .map((Course x )-> CourseMapper.model2Dto(x))
+                .collect(Collectors.toList());
+    }
+
 }
