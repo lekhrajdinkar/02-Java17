@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Builder
-@EntityListeners(AuditListener.class)
+//@EntityListeners(AuditListener.class)
 @Entity(name="COURSE")
 public class Course {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
