@@ -6,8 +6,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenerationTime;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -46,12 +51,18 @@ public class Course {
 
     // @OneToMany List<Section> sections;
 
-    @Column(
-            name = "created_on"
-            //,columnDefinition = "DATETIME(6) DEFAULT CURRENT_TIMESTAMP"
-    )
-    //@Generated(GenerationTime.INSERT)
-    private LocalDateTime createdOn;
+//    @Column(
+//            name = "created_on"
+//            //,columnDefinition = "DATETIME(6) DEFAULT CURRENT_TIMESTAMP"
+//    )
+//    //@Generated(GenerationTime.INSERT)
+//    private LocalDateTime createdOn;
+
+    //Enver - Auditing Framework
+    @CreatedDate @Column @Temporal(TemporalType.DATE) private Date createdDate = new Date();
+    @LastModifiedDate @Column @Temporal(TemporalType.DATE) private Date modifiedDate= new Date();;
+    @CreatedBy private String createdBy = "SB";
+    @LastModifiedBy private String modifiedBy = "SB";
 
 //    //Life Cycle callback
 //    @PrePersist
