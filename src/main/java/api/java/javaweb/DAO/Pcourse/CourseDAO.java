@@ -8,6 +8,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,11 +42,11 @@ public interface CourseDAO extends JpaRepository<Course,Long> {
     @Query("SELECT c FROM COURSE c WHERE c.category.id = ?1 and c.active = true")
     Optional<List<Course>> find1ByCategoryId(Long id);
 
-    @Query("SELECT c FROM COURSE c WHERE c.category.id = ?1 and c.active = true")
+    @Query("SELECT c FROM COURSE c WHERE c.category.id = :id and c.active = true")
     Optional<List<Course>> find2ByCategoryId(Long id);
 
-    @Query("SELECT c FROM COURSE c WHERE c.category.id = :id and c.active = true")
-    List<Course> find3ByCategoryId(Long id);
+    @Query("SELECT c FROM COURSE c WHERE c.category.id = :id1 and c.active = true")
+    List<Course> find3ByCategoryId(@Param("id1") Long id);
 
     //======
     List<Course> findByInstructorIdEquals(Long id);
@@ -63,10 +64,13 @@ public interface CourseDAO extends JpaRepository<Course,Long> {
     // ...orderByXXXAsc
 
     List<Course> findByDesc(String desc);
-    List<Course> findByDescContaining(String desc);
+    List<Course> findByDescContaining(String desc); //Not, IgnoreCase
     List<Course> findByDescEndingWith(String desc);
     List<Course> findByDescStartingWith(String desc);
     List<Course> findByDescLike(String desc);
+
+    @Query("SELECT m FROM COURSE m WHERE m.desc LIKE %:desc%") // using Query
+    List<Course> findByDescMyLike(String desc);
 
 
 

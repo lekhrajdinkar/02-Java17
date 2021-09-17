@@ -90,7 +90,7 @@ public class CourseController
     @GetMapping("course/q-find-All-page/{page}/{size}")
     public List<CourseDTO> QFindAllPage(@PathVariable int page, @PathVariable int size) {
         logger.debug("CourseController :: QFindAllPage");
-        Page<Course> res = dao.findAllWithPagination( PageRequest.of(page, size));
+        Page<Course> res = dao.findAllWithPagination( PageRequest.of(page, size, Sort.by("title").descending().and(Sort.by("desc"))));
         return res.getContent().stream()
                 .map((Course x )-> CourseMapper.model2Dto(x))
                 .collect(Collectors.toList());

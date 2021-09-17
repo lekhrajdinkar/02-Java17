@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Builder
-
+@EntityListeners(AuditListener.class)
 @Entity(name="COURSE")
 public class Course {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
@@ -52,4 +52,14 @@ public class Course {
     )
     //@Generated(GenerationTime.INSERT)
     private LocalDateTime createdOn;
+
+//    //Life Cycle callback
+//    @PrePersist
+//    public void onPrePersist() {  }
+//
+//    @PreUpdate
+//    public void onPreUpdate() { }
+//
+//    @PreRemove
+//    public void onPreRemove() {  }
 }
