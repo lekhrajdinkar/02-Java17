@@ -4,6 +4,7 @@ import api.java.javaweb.model.Pcourse.Category;
 import api.java.javaweb.model.Pcourse.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,6 +23,13 @@ public interface CourseDAO extends JpaRepository<Course,Long> {
     Page<Course> findAllWithPagination(Pageable pageable);
 
     Page<Course> findAll(Pageable pageable) ;
+
+    @Query("SELECT c FROM COURSE c ORDER BY id")
+    Slice<Course> findCoursePageSlice(Pageable pageable) ;
+
+    @Query("SELECT c FROM COURSE c ORDER BY id")
+    List<Course> findCoursePageList(Pageable pageable) ;
+
     List<Course> findAll(Sort sort);
 
     Optional<List<Course>> findByActiveTrue();
