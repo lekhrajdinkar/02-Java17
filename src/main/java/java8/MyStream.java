@@ -1,12 +1,13 @@
 package java8;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.IntSummaryStatistics;
 import java.util.List;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 public class MyStream {
     static void p(Object ...o){ Arrays.stream(o).forEach(System.out::println);}
@@ -21,7 +22,7 @@ public class MyStream {
     static void printStream(FnIStreamGen streamGen){
         streamGen.generate().forEach(System.out::println);
     }
-    static void generate(){
+    static void generate() throws IOException {
 
         printStream(() -> Stream.of("aa", "bb", "cc","aa", "bb", "cc"));
         printStream(() -> Stream.builder().add("a").add("b").add("c").build());
@@ -30,6 +31,17 @@ public class MyStream {
 
         printStream(() -> Stream.generate(() -> "element").limit(5));
         printStream(() -> Stream.iterate(40, n -> n + 2).limit(5));
+
+        printStream(() -> {
+            Stream ret = null;
+            try {
+                ret = Files.lines(Path.of("classpath:stream.txt"));
+            } catch (IOException e) {
+                ret = Stream.empty();
+                p(e.getLocalizedMessage());
+            }
+            return ret;
+        });
 
     }
 
@@ -44,6 +56,7 @@ public class MyStream {
     // B. Operations
     // B.1. Immediate --> allows chaining, map,  filter,
     // B.2. Terminal --> no chaining, end with definite value. eg: count, isParallel, forEach(), any/all/noneMatch, reduce etc
+    // More : limit(2), skip(2),
     static void operationOnStream (){
         operationOnStream_distinct(Stream.of("aa1", "bb1", "cc1","aa1", "bb1", "cc1"));
         operationOnStream_map(Stream.of("aa1", "bb1", "cc1","aa1", "bb1", "cc1"));
@@ -51,6 +64,14 @@ public class MyStream {
         operationOnStream_filter(Stream.of("aa1", "bb1", "cc1"));
         operationOnStream_flatMap(Stream.of("aa1", "bb1", "cc1"));
         operationOnStream_reduce(Stream.of("aa1", "bb1", "cc1"));
+
+        IntSummaryStatistics r = operationOnStream_collect1(Stream.of(1,2,3,4,5));
+        p(r.getAverage(), r.getCount(), r.getMax(), r.getMin());
+
+        operationOnStream_collect2(Stream.of(1,2,3,4,5));
+        operationOnStream_collect3(Stream.of(1,2,3,4,5));
+        operationOnStream_collect4(Stream.of(1,2,3,4,5));
+        operationOnStream_collect5(Stream.of(1,2,3,4,5));
     }
     static void operationOnStream_distinct (Stream stream){
         //p(stream.distinct().count(), "xxxxxx");
@@ -71,6 +92,22 @@ public class MyStream {
     static void operationOnStream_reduce(Stream<String> stream){
         p(stream.reduce("", (agg, cur)-> agg + "_"+ cur));
     }
+
+    static IntSummaryStatistics operationOnStream_collect1(Stream<Integer> stream){
+        return stream.collect(Collectors.summarizingInt(i->i+100)); // 103, 515, 101
+    }
+    static void operationOnStream_collect2(Stream<Integer> stream){
+        p(stream.collect(Collectors.averagingInt(i->i+100))); //103
+    }
+    static void operationOnStream_collect3(Stream<Integer> stream){
+        p(stream.collect(Collectors.summingInt(i->i+100))); //515
+    }
+    static void operationOnStream_collect4(Stream<Integer> stream){
+        p(stream.collect(Collectors.partitioningBy(i-> i>3))); //{false=[1, 2, 3], true=[4, 5]}
+    }
+    static void operationOnStream_collect5(Stream<Integer> stream){
+        p(stream.collect(Collectors.groupingBy(i-> i>3))); //{false=[1, 2, 3], true=[4, 5]}
+    }
 }
 
 @FunctionalInterface
@@ -78,4 +115,13 @@ interface FnIStreamGen<T>{
     public Stream<T> generate();
 }
 
-// parallelStream -->
+/*
+ParallelStream --> runs cb in II.
+
+Java 8 streams can't be reused.
+We can instantiate a stream, and have an accessible reference to it,
+as long as only intermediate operations are called.
+Executing a terminal operation makes a stream inaccessible.
+
+tream Pipeline :  source, intermediate operation(s) and a terminal operation.
+*/
