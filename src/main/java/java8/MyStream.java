@@ -28,11 +28,15 @@ public class MyStream {
 
 
     // B. Operations
-    // B.1. Immediate --> allows chaining, map
-    // B.2. Terminal --> no chaining, end with definite value. eg: count, isParallel, forEach(), etc
+    // B.1. Immediate --> allows chaining, map,  filter,
+    // B.2. Terminal --> no chaining, end with definite value. eg: count, isParallel, forEach(), any/all/noneMatch, reduce etc
     static void operationOnStream (){
         operationOnStream_distinct(Stream.of("aa1", "bb1", "cc1","aa1", "bb1", "cc1"));
         operationOnStream_map(Stream.of("aa1", "bb1", "cc1","aa1", "bb1", "cc1"));
+        operationOnStream_anyMatch(Stream.of("aa1", "bb1", "cc1")); // T/F
+        operationOnStream_filter(Stream.of("aa1", "bb1", "cc1"));
+        operationOnStream_flatMap(Stream.of("aa1", "bb1", "cc1"));
+        operationOnStream_reduce(Stream.of("aa1", "bb1", "cc1"));
     }
     static void operationOnStream_distinct (Stream stream){
         //p(stream.distinct().count(), "xxxxxx");
@@ -40,6 +44,18 @@ public class MyStream {
     }
     static void operationOnStream_map(Stream stream){
         stream.map(x->x.hashCode()).forEach(System.out::println);
+    }
+    static void operationOnStream_anyMatch(Stream<String> stream){
+        p(stream.anyMatch(x->x.contains("a")));
+    }
+    static void operationOnStream_filter(Stream<String> stream){
+        stream.filter(x->x.contains("a")).forEach(System.out::println);
+    }
+    static void operationOnStream_flatMap(Stream<String> stream){
+        //stream.flatMap(x->x.contains("")).forEach(System.out::println);
+    }
+    static void operationOnStream_reduce(Stream<String> stream){
+        p(stream.reduce("", (agg, cur)-> agg + "_"+ cur));
     }
 }
 
