@@ -3,6 +3,9 @@ package java8;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class MyStream {
@@ -11,6 +14,7 @@ public class MyStream {
     public  static void main(String args[]) throws Exception {
         generate();
         operationOnStream();
+        //primitiveStreams();
     }
 
     // A. generate Stream
@@ -23,6 +27,16 @@ public class MyStream {
         printStream(() -> Stream.builder().add("a").add("b").add("c").build());
         printStream(() -> { List l = new ArrayList<String>(); l.add("a1"); l.add("b1"); return l.parallelStream(); });
         printStream(() -> {String[] sa = new String[] {"a2","b2"}; return Arrays.stream(sa); });
+
+        printStream(() -> Stream.generate(() -> "element").limit(5));
+        printStream(() -> Stream.iterate(40, n -> n + 2).limit(5));
+
+    }
+
+    static void primitiveStreams(){
+        IntStream iStream = IntStream.range(1,3);
+        LongStream lStream = LongStream.range(1,3);
+        DoubleStream dStream = DoubleStream.builder().add(2).build();
     }
 
 
