@@ -19,6 +19,8 @@ public class ListDemo {
         arrayList_Create();
         arrayList_Search("Anna");
         arrayList_MultiThreadEnv();
+
+        LinkedList_test();
     }
 
     static void arrayList_Create(){
@@ -36,7 +38,7 @@ public class ListDemo {
         Iterator<Integer> itr = list.iterator();
         while(itr.hasNext()){
             Integer item = itr.next();
-            // list.add(22); //java.util.ConcurrentModificationException
+            // list.add(22); // FAIL-FAST :: java.util.ConcurrentModificationException
             System.out.print("-------"+item);
         }
 
@@ -85,5 +87,16 @@ public class ListDemo {
         while(itr.hasNext()){
             Integer item = itr.next(); System.out.print("-------"+item); // 0,1,2 / no 100
         }
+    }
+
+    // ====== Linked List +=====
+
+    static void LinkedList_test(){
+        LinkedList list = new LinkedList();
+        list.add("item1");list.add("item2");
+        list.addLast("item-last");
+        list.addFirst("item-First");
+
+        list.stream().forEach(System.out::println);
     }
 }
