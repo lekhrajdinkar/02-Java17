@@ -88,8 +88,8 @@ public class Main
         return string == null || string.isEmpty();
     }
     boolean isEmptyString3(String string) {
-        return string.isBlank(); // java11, better
-    }
+        return string.isBlank() ;
+    }// java11, better
 
     // C. Random String
     // generate random byte and convet byte[] to arrau with UTF-8.
