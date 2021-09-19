@@ -30,7 +30,7 @@ public class MyStream {
         printStream(() -> {String[] sa = new String[] {"a2","b2"}; return Arrays.stream(sa); });
 
         printStream(() -> Stream.generate(() -> "element").limit(5));
-        printStream(() -> Stream.iterate(40, n -> n + 2).limit(5));
+        printStream(() -> Stream.iterate(40, n -> n + 2).limit(5)); //Note: use IntStream is want to get int[], rather that Integer[]
 
         printStream(() -> {
             Stream ret = null;
@@ -123,5 +123,10 @@ We can instantiate a stream, and have an accessible reference to it,
 as long as only intermediate operations are called.
 Executing a terminal operation makes a stream inaccessible.
 
-tream Pipeline :  source, intermediate operation(s) and a terminal operation.
+stream Pipeline ::  source, intermediate operation(s) and a terminal operation.
+
+Collection/Array - parallelStream
+other- stream().parallel
+Note:: uses ExecutorService and ForKJoin framework to achieve it.
+
 */
