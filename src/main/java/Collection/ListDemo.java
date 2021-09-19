@@ -8,12 +8,18 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toCollection;
 
-public class ListDemo {
-    private static void p(Object o){System.out.println(o);}
+public class ListDemo
+{
+    private static void p(Object ...o){
+        System.out.println("\n==============");
+        Arrays.stream(o).forEach(System.out::println);
+    }
+
     private static void pc(String desc, Collection c){
         System.out.println("\n======= "+ desc +" ========");
         c.stream().forEach(System.out::println);
     }
+
     public static void main(String a[]){
         Collections.unmodifiableList(new ArrayList<>()); // create immutable list
         arrayList_Create();
@@ -84,6 +90,8 @@ public class ListDemo {
             Iterator<Integer> itr = list.iterator();
             list.add(200);
 
+
+        //itr.forEachRemaining(i->p(i));
         while(itr.hasNext()){
             Integer item = itr.next(); System.out.print("-------"+item); // 0,1,2 / no 100
         }
@@ -96,7 +104,14 @@ public class ListDemo {
         list.add("item1");list.add("item2");
         list.addLast("item-last");
         list.addFirst("item-First");
+        list.stream().forEach(System.out::println); // maintains insertion order
 
-        list.stream().forEach(System.out::println);
+        // prg: get Random
+        int randomIndex = (int) (new Random().nextFloat() * list.size())+1;
+        p("RANDOM Element from List : ", list.get(randomIndex));
+
+        p(list.getFirst(),list.getLast(),list.get(2));
+
+
     }
 }
