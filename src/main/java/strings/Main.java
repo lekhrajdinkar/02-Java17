@@ -1,6 +1,7 @@
 package strings;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,20 +15,23 @@ import java.util.stream.IntStream;
 
 public class Main
 {
-    // A. Null/empty check
-    boolean isEmptyString(String string) {
-        return string == null || string.length() == 0;
-    }
-    boolean isEmptyString2(String string) {
-        return string == null || string.isEmpty();
-    }
-    boolean isEmptyString3(String string) {
-        return string.isBlank(); // java11, better
-    }
+
 
     static void p(Object ...s){ Arrays.stream(s).forEach(System.out::println) ;}
 
-    public static void main(String args[]) throws Exception{
+    public static void main(String args[]) throws Exception
+    {
+        // String extends CharSequence Class
+        // IndexOf, lastIndexOf, replace, replaceAll, subSeq/SubStr
+
+        // A. Conversion
+        // A.1. to Byte[]
+        p("Anna".getBytes(StandardCharsets.US_ASCII));
+        p("Anna".getBytes(StandardCharsets.UTF_8));
+
+        // A.2. character array to a String
+        char[] charArr = {'a', 'n', 'n', 'a'};
+        p(String.copyValueOf(charArr));
 
         p("AnnaLiu".codePointAt(0), "AnnaLiu".codePointAt(3)); // 65 , 97
         p("AnnaLiu".codePointCount(1,7)); //6
@@ -35,6 +39,9 @@ public class Main
 
         String temp = "";
         String newLine = System.getProperty("line.separator");
+
+    // A. Null/empty check
+        p(temp.isEmpty(), temp.isBlank());
 
     //B. Multi-line String (
         // String sBlock = """hello
@@ -44,7 +51,6 @@ public class Main
         temp = new StringBuilder().append("hello").append(newLine).append("Liu").toString(); p(temp); //Builder
         temp = new String(Files.readAllBytes(Paths.get("src/main/resources/sample.txt"))); p(temp); //files keep in multiple lines.
 
-        p(temp.isEmpty(), temp.isBlank());
 
     // C. Random String
         // String are Char[]
@@ -74,7 +80,16 @@ public class Main
     }
 
 
-
+    // A. Null/empty check
+    boolean isEmptyString(String string) {
+        return string == null || string.length() == 0;
+    }
+    boolean isEmptyString2(String string) {
+        return string == null || string.isEmpty();
+    }
+    boolean isEmptyString3(String string) {
+        return string.isBlank(); // java11, better
+    }
 
     // C. Random String
     // generate random byte and convet byte[] to arrau with UTF-8.
