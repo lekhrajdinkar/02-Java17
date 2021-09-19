@@ -28,6 +28,11 @@ public class Main
     static void p(Object ...s){ Arrays.stream(s).forEach(System.out::println) ;}
 
     public static void main(String args[]) throws Exception{
+
+        p("AnnaLiu".codePointAt(0), "AnnaLiu".codePointAt(3)); // 65 , 97
+        p("AnnaLiu".codePointCount(1,7)); //6
+        p("Anna   Liu".codePointCount(1,7)); //6
+
         String temp = "";
         String newLine = System.getProperty("line.separator");
 
@@ -65,6 +70,7 @@ public class Main
         boolean isPalindrome = IntStream
                 .range(0, temp.length()/2)
                 .noneMatch(i-> finalTemp.charAt(i) != finalTemp.charAt(finalTemp.length()-i-1)); p("isPalindrome:: ",isPalindrome);
+
     }
 
 
