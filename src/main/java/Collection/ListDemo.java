@@ -113,7 +113,7 @@ public class ListDemo
 
         p(list.getFirst(),list.getLast(),list.get(2));
 
-        // --- Partitioning ---
+ // --- Partitioning ---
 
         p(list.stream().collect(Collectors.groupingBy(s->s+"__KEY")));
         // Map<T, List<T>>
@@ -123,6 +123,19 @@ public class ListDemo
         // Map<booleAN, List<T>>
         // {false=[item-First, item1, item2, item-last], true=[]}
 
+  // --- program : find item in list ---
+
+        Optional<String> finditem2 = list.stream()
+         .filter(x -> "item2".equals(x))
+          .findAny(); // IMP :; it return Optional
+          //.orElse(null);
+        p(finditem2.orElse(null), "Found");
+
 
     }
+
+    // .distinct() --> remove duplicates
+    // .filter(Objects::nonNull) --> remove Nulls
+
+
 }
