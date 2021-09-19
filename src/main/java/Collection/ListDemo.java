@@ -100,17 +100,28 @@ public class ListDemo
     // ====== Linked List +=====
 
     static void LinkedList_test(){
-        LinkedList list = new LinkedList();
-        list.add("item1");list.add("item2");
+        LinkedList list = new LinkedList<String>();
+        list.add("item1");list.add("item2");list.add("item2");list.add("item2");
         list.addLast("item-last");
         list.addFirst("item-First");
         list.stream().forEach(System.out::println); // maintains insertion order
 
         // prg: get Random
         int randomIndex = (int) (new Random().nextFloat() * list.size())+1;
+        randomIndex = new Random().nextInt(list.size());
         p("RANDOM Element from List : ", list.get(randomIndex));
 
         p(list.getFirst(),list.getLast(),list.get(2));
+
+        // --- Partitioning ---
+
+        p(list.stream().collect(Collectors.groupingBy(s->s+"__KEY")));
+        // Map<T, List<T>>
+        // {item-First__KEY=[item-First], item-last__KEY=[item-last], item1__KEY=[item1], item2__KEY=[item2, item2, item2]}
+
+        p(list.stream().collect(Collectors.partitioningBy(s-> false)));
+        // Map<booleAN, List<T>>
+        // {false=[item-First, item1, item2, item-last], true=[]}
 
 
     }
