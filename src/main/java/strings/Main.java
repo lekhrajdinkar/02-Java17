@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main
 {
@@ -54,6 +55,16 @@ public class Main
         p(removeLastChar3_2("AnnaLiu"));
         p(removeLastChar3_2("AnnaLiu"));
 
+        p("AnnaLiu".chars().filter(x->x == 'n').count()); // count check
+
+        p(new StringBuilder("AnnaLiu").reverse().toString().equals("AnnaLiu")); //palindrome
+        p(new StringBuilder("hannah").reverse().toString().equals("hannah")); //palindrome
+
+        temp = "hannahh";
+        String finalTemp = temp; // Effective Final
+        boolean isPalindrome = IntStream
+                .range(0, temp.length()/2)
+                .noneMatch(i-> finalTemp.charAt(i) != finalTemp.charAt(finalTemp.length()-i-1)); p("isPalindrome:: ",isPalindrome);
     }
 
 
