@@ -25,16 +25,18 @@ public class ListDemo
         arrayList_Create();
         arrayList_Search("Anna");
         arrayList_MultiThreadEnv();
-        arrayList_Copy();
+        //arrayList_Copy();
 
         LinkedList_test();
+        diff_list();
     }
 
     static void arrayList_Copy(){
         List<Integer> source  = List.of(1,2,3);
 
         List<Integer>  target  = new ArrayList(source); // Way-1
-        target = source.stream().collect(Collectors.toList()); // way-2
+        target = source.stream().collect(Collectors.toList()); // way-2.1
+        source.stream().forEachOrdered(target::add); // way-2.2
         Collections.copy(source,target); // way-3
         target.addAll(source); //way-4
 
@@ -115,6 +117,10 @@ public class ListDemo
         list.add("item1");list.add("item2");list.add("item2");list.add("item2");
         list.addLast("item-last");
         list.addFirst("item-First");
+
+        // list.remove("item2");  //remove
+        // while (list.contains("item2")) list.remove("item2");  //removeAll
+
         list.stream().forEach(System.out::println); // maintains insertion order
 
         // prg: get Random
@@ -123,6 +129,9 @@ public class ListDemo
         p("RANDOM Element from List : ", list.get(randomIndex));
 
         p(list.getFirst(),list.getLast(),list.get(2));
+
+// IMP : Count item
+        p(list.stream().collect(Collectors.groupingBy(s->s, Collectors.counting())));
 
  // --- Partitioning ---
 
@@ -143,6 +152,15 @@ public class ListDemo
         p(finditem2.orElse(null), "Found");
 
 
+    }
+
+    static void diff_list(){
+        List<Integer> listOne = List.of(1,2,3,4);
+        List <Integer>listTwo = List.of(1,2);
+        List<Integer> differences = listOne.stream()
+                .filter(element -> !listTwo.contains(element))
+                .collect(Collectors.toList());
+        p(differences);
     }
 
     // .distinct() --> remove duplicates
