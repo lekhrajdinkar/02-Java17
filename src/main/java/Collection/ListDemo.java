@@ -25,8 +25,19 @@ public class ListDemo
         arrayList_Create();
         arrayList_Search("Anna");
         arrayList_MultiThreadEnv();
+        arrayList_Copy();
 
         LinkedList_test();
+    }
+
+    static void arrayList_Copy(){
+        List<Integer> source  = List.of(1,2,3);
+
+        List<Integer>  target  = new ArrayList(source); // Way-1
+        target = source.stream().collect(Collectors.toList()); // way-2
+        Collections.copy(source,target); // way-3
+        target.addAll(source); //way-4
+
     }
 
     static void arrayList_Create(){
