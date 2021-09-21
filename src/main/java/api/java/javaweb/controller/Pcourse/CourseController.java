@@ -69,7 +69,10 @@ public class CourseController
 
     @Autowired CourseDAO dao;
 
-    @GetMapping("course/q-find-by-cat")
+    @GetMapping(
+            value="course/q-find-by-cat",
+            produces="application/v1+json"
+    )
     private List<CourseDTO> QFindByCategory() {
         logger.debug("CourseController :: QFindByCategory");
         //List<Course>  res =  dao.find2ByCategoryId(1L).get();
@@ -93,7 +96,9 @@ public class CourseController
     private List<CourseDTO> QFindAllPage(@PathVariable int page, @PathVariable int size) {
         logger.debug("CourseController :: QFindAllPage");
         Page<Course> res = dao.findAllWithPagination( PageRequest.of(page, size, Sort.by("title").descending().and(Sort.by("desc"))));
-        return res.getContent().stream()
+        return res
+                .getContent()
+                .stream()
                 .map((Course x )-> CourseMapper.model2Dto(x))
                 .collect(Collectors.toList());
     }

@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class CourseDTO {
         Long id;
         String title;
