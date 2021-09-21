@@ -11,6 +11,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -24,11 +25,12 @@ import java.util.stream.Collectors;
 @ToString
 
 
-@JsonInclude(JsonInclude.Include.ALWAYS)
+@JsonInclude(JsonInclude.Include.ALWAYS) //can also apply on feild level
 @JsonPropertyOrder({ "title", "desc","id" }) //2. ordering
 @JsonRootName(value="COURSE_ROOT")
-//@JsonPropertyOrder(alphabetic=true) //2. ordering
-
+// ß@JsonPropertyOrder(alphabetic=true) //2. ordering
+// @JsonIgnoreProperties({ "id" })
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.PROTECTED_AND_PUBLIC) //overridee all
 public class CategoryDTO {
     @JsonProperty
     Long id;
@@ -44,17 +46,30 @@ public class CategoryDTO {
     @JsonProperty
     String desc;
 
-    //@JsonProperty
+    @JsonProperty
     List<CourseDTO> courses;
 
-    //@JsonProperty
-    //@JsonAnyGetter //1.Expand map
+    @JsonProperty
+    @JsonAnyGetter //1.Expand map
     Map<String, List<CourseDTO>> coursesMap; // <level, >
 
     @JsonProperty
     @JsonSerialize(using = LocalDateSerializer.class) // Custom
     @JsonDeserialize (using = LocalDateDeSerializer.class) // Custom
     LocalDate localDate = LocalDate.now();
+
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "dd-MM-yyyy hh:mm:ss")
+    Date testDate;
+
+    @JsonIgnore
+    String useless;
+
+    @JsonIgnore
+    private String privateProp;
+
+    Optional<String> optionalString;
 
 //    @Override
 //    public String toString() {

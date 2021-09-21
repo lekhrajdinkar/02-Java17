@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class Seriailze {
     public static void main(String[] s) throws JsonProcessingException {
@@ -27,6 +28,7 @@ public class Seriailze {
                 .desc("REST API deserialization")
                 .title("REST")
                 .localDate(LocalDate.now())
+                .optionalString(Optional.of("optional-Value"))
                 //.courses(courses)
                 //.coursesMap(courseMap)
                 .build();
