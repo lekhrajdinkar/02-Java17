@@ -50,7 +50,7 @@ public class CategoryDTO {
     List<CourseDTO> courses;
 
     @JsonProperty
-    @JsonAnyGetter //1.Expand map
+    //@JsonAnyGetter //1.Expand map
     Map<String, List<CourseDTO>> coursesMap; // <level, >
 
     @JsonProperty
@@ -70,6 +70,10 @@ public class CategoryDTO {
     private String privateProp;
 
     Optional<String> optionalString;
+
+    @JsonProperty
+    @JsonAnyGetter
+    Map<String, String> testMap;
 
 //    @Override
 //    public String toString() {

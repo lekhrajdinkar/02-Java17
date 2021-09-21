@@ -1,9 +1,12 @@
 package appEnum;
 
+import api.java.javaweb.controller.Pcourse.serialize.MyEnumDeSerializer;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
+@JsonDeserialize(using = MyEnumDeSerializer.class)
 public enum CatLevel{
     NOVICE(1,"NOVICE"), PRO(1,"PRO");
 
@@ -16,6 +19,7 @@ public enum CatLevel{
     String getValue(){
         return name+"---suffix---JsonValue";
     }
+
 
     // @JsonValue // JsonMappingException
     String getValue2(){

@@ -29,6 +29,7 @@ public class Seriailze {
                 .title("REST")
                 .localDate(LocalDate.now())
                 .optionalString(Optional.of("optional-Value"))
+                .testMap(Map.of("k1","v1","k2","v2","k3","v3"))
                 //.courses(courses)
                 //.coursesMap(courseMap)
                 .build();

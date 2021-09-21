@@ -14,10 +14,11 @@ import java.util.Map;
 public class Deserialize {
     public static void main(String a[]) throws JsonProcessingException {
         //  Unmarshall an Incomplete JSON
-        String json =  "{\"id\":1,\"title2\":\"category-test\",\"localDate\":\"2020\"}"; //Unrecognized field "title2"
+        String json =  "{\"id\":1,\"title2\":\"category-test\",\"localDate\":\"2020\", \"level\":\"PRO\"}"; //Unrecognized field "title2"
 
         CategoryDTO dto = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false) // if we pass title3, it will fail
+                .configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true)
                 .readerFor(CategoryDTO.class)
                 .readValue(json);
 

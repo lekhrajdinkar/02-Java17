@@ -19,9 +19,23 @@ public class LocalDateSerializer extends StdSerializer<LocalDate> {
     }
 
     @Override
-    public void serialize(LocalDate localDate, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+    public void serialize(LocalDate localDate, JsonGenerator generator, SerializerProvider serializerProvider)
             throws IOException {
 
-        jsonGenerator.writeString(String.valueOf(localDate.getYear()));
+        //generator.writeString(String.valueOf(localDate.getYear()));
+
+        generator.writeStartObject();
+            generator.writeFieldName("year");
+            generator.writeString(String.valueOf(localDate.getYear()));
+            generator.writeFieldName("month");
+            generator.writeString(String.valueOf(localDate.getMonth()));
+            generator.writeFieldName("day");
+            generator.writeNumber(String.valueOf(localDate.getDayOfMonth()));
+//            generator.writeStartObject();
+//                generator.writeFieldName("year");
+//                generator.writeString(String.valueOf(localDate.getYear()));
+//            generator.writeEndObject();
+
+        generator.writeEndObject();
     }
 }
