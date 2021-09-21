@@ -1,9 +1,11 @@
 package api.java.javaweb.DTO.Pcourse;
 
+import api.java.javaweb.controller.Pcourse.serialize.LocalDateDeSerializer;
 import api.java.javaweb.controller.Pcourse.serialize.LocalDateSerializer;
 import api.java.javaweb.model.Pcourse.Course;
 import appEnum.CatLevel;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
@@ -11,6 +13,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Setter
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
@@ -31,33 +35,36 @@ public class CategoryDTO {
 
     @JsonProperty CatLevel level;
 
-    @JsonProperty
-    @JsonRawValue
+    @JsonProperty(value="title2")
+    //@JsonRawValue ??
     String title;
+    @JsonSetter //Used while De-serializing :   json to bean
+    public void setTitle(String title){this.title = title+"---fromSetter---";}
 
     @JsonProperty
     String desc;
 
-    @JsonProperty
-    List<Course> courses;
+    //@JsonProperty
+    List<CourseDTO> courses;
 
-    @JsonProperty
-    @JsonAnyGetter //1.Expand map
-    Map<String, List<Course>> coursesMap; // <level, >
+    //@JsonProperty
+    //@JsonAnyGetter //1.Expand map
+    Map<String, List<CourseDTO>> coursesMap; // <level, >
 
     @JsonProperty
     @JsonSerialize(using = LocalDateSerializer.class) // Custom
-    LocalDate localDate; //= LocalDate.now();
+    @JsonDeserialize (using = LocalDateDeSerializer.class) // Custom
+    LocalDate localDate = LocalDate.now();
 
-    @Override
-    public String toString() {
-        return "CategoryDTO{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", desc='" + desc + '\'' +
-                ", courses=" + courses.stream().collect(Collectors.toList())+
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "CategoryDTO{" +
+//                "id=" + id +
+//                ", title='" + title + '\'' +
+//                ", desc='" + desc + '\'' +
+//                ", courses=" + Optional.ofNullable(courses).stream().collect(Collectors.toList())+
+//                '}';
+//    }
 
     // 3. @JsonValue indicates a single method that the library will use to serialize the entire instance.
 //    @JsonValue

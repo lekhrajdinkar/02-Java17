@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-public class Main {
+public class Seriailze {
     public static void main(String[] s) throws JsonProcessingException {
         //make DTO
         CourseDTO c1 = CourseDTO.builder().id(100L).title("c1").desc("c1-desc").instructorId(100L).categoryId(100L).build();
