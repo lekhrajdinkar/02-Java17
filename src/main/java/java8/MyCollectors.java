@@ -57,6 +57,7 @@ public class MyCollectors
                 .map(e->e)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list->list.size() ));
         p(size);
+        p(s.stream().collect(Collectors.counting())); //better way
 
         List c2 = (List) s.stream()
                 .map(e->e)
@@ -71,8 +72,8 @@ public class MyCollectors
         // c2.add("5"); //UnsupportedOperationException
 
 
-        p("\n-----------B. Collectors :: Joining---------");
-        String[][] string2d = new String[][]{ {"1", "2"}, {"3", "3"}};
+        p("\n-----------    C . Collectors :: Joining   ---------");
+        //String[][] string2d = new String[][]{ {"1", "2"}, {"3", "3"}};
 
         //  Join String collection
         p( Arrays.stream(strings).collect(Collectors.joining(" ")),
@@ -88,10 +89,35 @@ public class MyCollectors
                 );
         p( courses.stream()
                 .map(x->x.toString()) //extra step to make charSeq.... <<                           Here
-                .collect(Collectors.joining())); //joining works if instance/item is charSequence
+                .collect(Collectors.joining("\n"))); //joining works if instance/item is charSequence
 
+        p("\n-----------    D. Collectors :: SummarizingDouble, averaging, summing    ---------");
 
+        // SummarizingDouble/Long/Int is a collector that returns a special class
+        // containing statistical information about numerical data in a Stream of extracted elements.
 
+        p( Arrays.stream(strings).collect( Collectors.summarizingDouble(x->1)));
+        // Output: DoubleSummaryStatistics{count=4, sum=4.000000, min=1.000000, average=1.000000, max=1.000000}
+
+        p( Arrays.stream(strings).collect( Collectors.summarizingDouble(x->1L)));
+        p( Arrays.stream(strings).collect( Collectors.summarizingDouble(x-> Double.parseDouble(x))));
+        //p( Arrays.stream(strings).collect( Collectors.summarizingDouble(x->x))); //error
+
+// averagingDouble
+        p( Arrays.stream(strings).collect( Collectors.averagingDouble(x->1L))); //1.0L
+
+// summingDouble
+        p( Arrays.stream(strings).collect( Collectors.summingDouble(x->1L))); //4.0L
+
+// min/max
+        p( Arrays.stream(strings).collect( Collectors.maxBy( (e1,e2) -> (int) (Double.parseDouble(e1) - Double.parseDouble(e2))))); // comparator Fi :: compare(n,n+1)
+        p( Arrays.stream(strings).map(x->Double.parseDouble(x)).collect( Collectors.maxBy( (e1,e2) -> (int) (e1-e2) )));
+        p(List.of(1,2,3).stream().collect(Collectors.minBy( Comparator.naturalOrder()))); // returns Optional[1]
+
+// groupingBy
+        p( Arrays.stream(strings).collect( Collectors.groupingBy(x->x+"GROUP_NAME"))); // {3GROUP_NAME=[3, 3], 2GROUP_NAME=[2], 1GROUP_NAME=[1]}
+// partitioningBy
+        p( Arrays.stream(strings).collect( Collectors.partitioningBy(x-> Integer.parseInt(x)>2)));
     }
 
 }
