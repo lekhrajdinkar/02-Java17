@@ -58,6 +58,15 @@ public class MyCollectors
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list->list.stream().map(x->x+"---modified---").collect(Collectors.toList())));
         p(c2);
 
+        // List.copyOf(list) --> returns Immutable list, ImmutableCollections$ListN
+        c2 = (List) s.stream()
+                .map(e->e)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> List.copyOf(list)));
+        p(c2, c2.getClass().getName());
+        // c2.add("5"); //UnsupportedOperationException
+
+
+
     }
 
 }
