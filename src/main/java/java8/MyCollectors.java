@@ -111,13 +111,23 @@ public class MyCollectors
 
 // min/max
         p( Arrays.stream(strings).collect( Collectors.maxBy( (e1,e2) -> (int) (Double.parseDouble(e1) - Double.parseDouble(e2))))); // comparator Fi :: compare(n,n+1)
-        p( Arrays.stream(strings).map(x->Double.parseDouble(x)).collect( Collectors.maxBy( (e1,e2) -> (int) (e1-e2) )));
+        p( Arrays.stream(strings).map(x->Double.parseDouble(x)).collect( Collectors.maxBy( (e1,e2) -> (int) (e1-e2) ))); //Integer::compareTo better
         p(List.of(1,2,3).stream().collect(Collectors.minBy( Comparator.naturalOrder()))); // returns Optional[1]
 
 // groupingBy
         p( Arrays.stream(strings).collect( Collectors.groupingBy(x->x+"GROUP_NAME"))); // {3GROUP_NAME=[3, 3], 2GROUP_NAME=[2], 1GROUP_NAME=[1]}
 // partitioningBy
         p( Arrays.stream(strings).collect( Collectors.partitioningBy(x-> Integer.parseInt(x)>2)));
+
+
+//        p( Arrays.stream(strings).collect(
+//                Collectors.teeing(
+//                        Collectors.joining(" - ")),  // colllector-1
+//                        Collectors.joining(" -- ")),  // colllector-2
+//                            (c1_res, c2_res) -> { }   // do somethinf with results
+//        ));
     }
+
+
 
 }
