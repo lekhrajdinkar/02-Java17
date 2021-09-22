@@ -1,5 +1,8 @@
 package java8;
 
+import api.java.javaweb.DTO.Pcourse.CourseDTO;
+import api.java.javaweb.model.Pcourse.Course;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -16,6 +19,8 @@ public class MyCollectors
         // List
         ArrayList l = (ArrayList) Arrays.stream(strings).collect(Collectors.toList());
         p(l, l.getClass().getName()); // or toUnmodifiableList()
+
+
 
         // Set
         HashSet s = (HashSet)  Arrays.stream(strings).collect(Collectors.toSet());
@@ -64,6 +69,26 @@ public class MyCollectors
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> List.copyOf(list)));
         p(c2, c2.getClass().getName());
         // c2.add("5"); //UnsupportedOperationException
+
+
+        p("\n-----------B. Collectors :: Joining---------");
+        String[][] string2d = new String[][]{ {"1", "2"}, {"3", "3"}};
+
+        //  Join String collection
+        p( Arrays.stream(strings).collect(Collectors.joining(" ")),
+           Arrays.stream(strings).collect(Collectors.joining(" ", "PRE-- { ", " } --POST")));
+
+        //p( Arrays.stream(string2d).flatMap(x->x).collect(Collectors.joining(" ")); //String
+
+        //  Join Object collection
+        List <CourseDTO> courses = List.of(
+                CourseDTO.builder().title("c1").desc("c1---desc").build(),
+                CourseDTO.builder().title("c2").desc("c2---desc").build(),
+                CourseDTO.builder().title("c3").desc("c3---desc").build()
+                );
+        p( courses.stream()
+                .map(x->x.toString()) //extra step to make charSeq.... <<                           Here
+                .collect(Collectors.joining())); //joining works if instance/item is charSequence
 
 
 
