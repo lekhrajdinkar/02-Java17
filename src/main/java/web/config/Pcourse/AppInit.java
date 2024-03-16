@@ -1,32 +1,24 @@
 package web.config.Pcourse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.servlet.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.WebApplicationInitializer;
-import javax.servlet.*;
 import java.io.IOException;
-
-// TODO in progress....
 
 @Configuration
 public class AppInit implements WebApplicationInitializer {
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        ServletRegistration.Dynamic reg = servletContext.addServlet("download", new DownloadServlet());
-        reg.addMapping("/download");
+        //ServletRegistration.Dynamic reg = servletContext.addServlet("download", new DownloadServlet());
+        //reg.addMapping("/download");
     }
-
 }
 
-
-class DownloadServlet implements Servlet{
-
-    Logger logger = LoggerFactory.getLogger(DownloadServlet.class);
-
+class DownloadServlet implements Servlet {
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
-        logger.info("\n\nINIT DownloadServlet...\n\n");
+
     }
 
     @Override

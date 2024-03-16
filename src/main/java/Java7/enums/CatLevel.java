@@ -1,4 +1,4 @@
-package enums;
+package Java7.enums;
 
 import web.controller.Pcourse.serialize.MyEnumDeSerializer;
 import com.fasterxml.jackson.annotation.JsonValue;

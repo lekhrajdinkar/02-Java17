@@ -2,7 +2,7 @@ package web.DTO.Pcourse;
 
 import web.controller.Pcourse.serialize.LocalDateDeSerializer;
 import web.controller.Pcourse.serialize.LocalDateSerializer;
-import enums.CatLevel;
+import Java7.enums.CatLevel;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

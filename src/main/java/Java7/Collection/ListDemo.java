@@ -1,4 +1,4 @@
-package Collection;
+package Java7.Collection;
 
 
 import java.util.*;

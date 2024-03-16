@@ -2,7 +2,7 @@ package web.controller.Pcourse.serialize;
 
 import web.DTO.Pcourse.CategoryDTO;
 import web.DTO.Pcourse.CourseDTO;
-import enums.CatLevel;
+import Java7.enums.CatLevel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

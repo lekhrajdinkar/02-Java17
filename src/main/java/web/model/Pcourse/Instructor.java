@@ -2,8 +2,7 @@ package web.model.Pcourse;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Setter
 @Getter
