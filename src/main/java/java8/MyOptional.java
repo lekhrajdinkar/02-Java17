@@ -6,7 +6,7 @@ import java8.interfaceMore.MyInterfaceImpl;
 
 import java.util.*;
 
-public class Optional {
+public class MyOptional {
     static void p(Object o){System.out.println(o.toString());}
 
     static List<String> getCourseList(){
@@ -16,15 +16,20 @@ public class Optional {
     }
 
     static Course getCourse(){
-        return Course.builder().title("Java 8").desc("Lamba Expression, Functional Interface, Optional util Class, Method ref all 4 types").build();
+        return Course.builder()
+                .title("Java 8")
+                .desc("Lamba Expression, Functional Interface, Optional util Class, Method ref all 4 types")
+                .build();
     }
 
     public  static void main(String args[]) throws Exception {
         MyInterface.print(); //java 8 interface with static Function
         new MyInterfaceImpl().SayHello(); // Java 8 interface default method
 
-        java.util.Optional<List<String>> courseListO =!getCourseList().isEmpty() ? java.util.Optional.of(getCourseList()): java.util.Optional.of(new ArrayList<String>());
-        courseListO.stream().forEach(Optional::p);
+        java.util.Optional<List<String>> courseListO =!getCourseList().isEmpty()
+                ? java.util.Optional.of(getCourseList())
+                : java.util.Optional.of(new ArrayList<String>());
+        courseListO.stream().forEach(MyOptional::p);
         p(courseListO.get());
         p(courseListO.map(c->c+"_map").get());
 
