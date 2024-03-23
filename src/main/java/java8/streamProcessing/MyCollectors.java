@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class MyCollectors
 {
-    static void p(Object ...o){ Arrays.stream(o).forEach(System.out::println); System.out.println("");}
+    static void p(Object... objArr){ Arrays.stream(objArr).forEach(System.out::println); System.out.println("--------------------------");}
     public static <HasSet> void main(String a[])
     {
         String[] strings = {"1", "2", "3", "3"};
