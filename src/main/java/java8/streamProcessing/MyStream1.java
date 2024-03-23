@@ -9,7 +9,7 @@ import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.stream.*;
 
-public class MyStream {
+public class MyStream1 {
     static void p(Object ...o){ Arrays.stream(o).forEach(System.out::println);}
 
     public  static void main(String args[]) throws Exception {

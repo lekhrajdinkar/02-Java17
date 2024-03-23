@@ -5,6 +5,8 @@ import java8.interfaceMore.MyInterface;
 import java8.interfaceMore.MyInterfaceImpl;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MyOptional {
     static void p(Object o){System.out.println(o.toString());}
@@ -21,6 +23,12 @@ public class MyOptional {
                 .desc("Lamba Expression, Functional Interface, Optional util Class, Method ref all 4 types")
                 .build();
     }
+    static void p(Object... objArr){
+        Arrays.stream(objArr).forEach(System.out::println);
+        System.out.println("--------------------------");
+    }
+
+    //-----------------------------------------------------------------
 
     public  static void main(String args[]) throws Exception {
         MyInterface.print(); //java 8 interface with static Function
@@ -46,7 +54,12 @@ public class MyOptional {
         p(courseO.map(c->c.getCategory()).map(cat-> cat.getDesc()).orElse("Category Unknown")); // fix1
         p(courseO.map(c->c.getCategory()).map(cat-> cat.getDesc()).orElseThrow(CategoryMissingException::new).toLowerCase()); // change into anothor custom Exception with meaning full message
 
-
+        //99 ============= optional ====================
+        List<String> names = Stream.of("lek", "manisha", "bryan", "dinkar", "Prasad").collect(Collectors.toList());
+        Optional<List<String>> optional = Optional.of(names);
+        //p("After Map : ",optional.map(x->x+" !!").get()); p("original :", optional.get());
+        //p("After Filter", optional.filter(x->x.contains("bryan")).get());
+        p("99. Optional MAP Operator", optional.map((List x)->{return x.size();}).get());
     }
 
 

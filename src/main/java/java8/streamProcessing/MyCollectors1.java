@@ -5,7 +5,7 @@ import web.DTO.Pcourse.CourseDTO;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MyCollectors
+public class MyCollectors1
 {
     static void p(Object... objArr){ Arrays.stream(objArr).forEach(System.out::println); System.out.println("--------------------------");}
     public static <HasSet> void main(String a[])

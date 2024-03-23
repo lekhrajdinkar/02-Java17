@@ -1,9 +1,6 @@
 package java8.streamProcessing;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,18 +45,23 @@ public class MyCollecters2 {
         p("2.2. Collectors.partitioningBy(Function, Collectors) - even/old with count",r21);
         //r21.keySet().forEach(x-> { System.out.println("count of "+x+" is "+r21.get(x));});
 
-        //3  ============ toMap =============
+        // 3.  Collectors.collectingAndThen
+        Map<Integer,Boolean>  r31 = l.stream().distinct()
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toMap(x->x, x->x%2==0),
+                        m-> Collections.unmodifiableMap(m)
+                ) );
+        p("3.1. Collectors.collectingAndThen(Collectors, Function) ",r31);
+        //r31.put(6,true); // >>>>> UnsupportedOperationException
 
-        // 3.1 Collectors.toMap(Function, Function)
-        Map<Integer,Boolean>  r31 = l.stream().distinct().collect(Collectors.toMap(x->x, x->x%2==0) );
-        p("3.1. Collectors.toMap(Function, Function) - k:num, v-Is even/odd",r31);
+        //50  ============ toMap =============
 
-        //99 ============= optional ====================
-        List<String> names = Stream.of("lek", "manisha", "bryan", "dinkar", "Prasad").collect(Collectors.toList());
-        Optional<List<String>> optional = Optional.of(names);
-        //p("After Map : ",optional.map(x->x+" !!").get()); p("original :", optional.get());
-        //p("After Filter", optional.filter(x->x.contains("bryan")).get());
-        p("99. Optional MAP Operator", optional.map((List x)->{return x.size();}).get());
+        // 50.1 Collectors.toMap(Function, Function)
+        Map<Integer,Boolean>  r50 = l.stream().distinct().collect(Collectors.toMap(x->x, x->x%2==0) );
+        r50.put(6,true);
+        p("50.1. Collectors.toMap(Function, Function) - k:num, v-Is even/odd",r50);
+
+
 
     }
 }

@@ -1,4 +1,4 @@
-package Java7.strings;
+package Java7Andbefore.strings;
 
 import java.util.Arrays;
 

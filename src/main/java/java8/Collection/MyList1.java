@@ -1,4 +1,4 @@
-package Java7.Collection;
+package java8.Collection;
 
 
 import java.util.*;
@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toCollection;
 
-public class ListDemo
+public class MyList1
 {
     private static void p(Object ...o){
         System.out.println("\n==============");

@@ -1,19 +1,9 @@
-package java8.List;
+package java8.Collection;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import java.util.*;
 
-@Data
-@AllArgsConstructor
-class Student implements Comparable<Student> {
-    String firstname; String lastname; byte age;
-    @Override
-    public int compareTo(Student o) { return this.age > o.age ? 1 : (this.age == o.age ? 0 : -1) ;}
-    @Override
-    public String toString(){  return this.firstname; }
-}
-public class MyArraylist {
+
+public class MyList2 {
     static void print(Collection c){ c.stream().forEach( System.out::println); }
     static void print(String... s){Arrays.stream(s).forEach(System.out::println);}
     public static void main(String... a){
@@ -32,6 +22,7 @@ public class MyArraylist {
         //Immutable list
         List<Student> unmodifiableList = Collections.unmodifiableList(students);
         List<String> unmodifiableList2=List.of(new String[] {"a", "b", "c"});
+        List<String> l = Collections.singletonList("gfd"); // only one item
 
     }
 
