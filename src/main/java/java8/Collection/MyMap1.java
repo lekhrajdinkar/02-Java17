@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 public class MyMap1 {
     public static void main(String... arr){
         initMap();
+        mapOperation();
     }
 
     public static void initMap() {
@@ -34,5 +35,27 @@ public class MyMap1 {
                 new AbstractMap.SimpleEntry<String,String>("mobile", "2")   );
 
         map = new HashMap<String, String>(Map.of("key1","value1", "key2", "value2"));
+    }
+
+     static void mapOperation(){
+         Map map = new HashMap();
+        map.put("1","lekhraj"); map.put("2","Manisha");
+
+        map.compute("1", (k,v)->k+"-"+v);
+        map.compute("10", (k,v)->k+"-"+v);
+        p(map);
+
+        map.computeIfAbsent("1", (k)->k+"-Absent");
+        map.computeIfAbsent("11", (k)->k+"-Absent"); //
+        p(map);
+
+        map.computeIfPresent("1", (k,v)->k+"-Present"+v); //
+        map.computeIfPresent("12", (k,v)->k+"-Present"+v);
+        p(map);
+    }
+
+    static void p(Map m){
+        m.entrySet().forEach(System.out::println);
+        System.out.println("==========================");
     }
 }
