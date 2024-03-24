@@ -36,6 +36,8 @@ public class MyQueue1 {
         pq.add(s2); p(pq);
         pq.add(s3); p(pq);
 
+        Student youngest = Collections.min(pq, Comparator.comparingInt(Student::getAge)); p("youngest", youngest);
+        p("min : ",Collections.min(deque));
         // 3. Thread safe
         // ConcurrentLinkedQueue
         // PriorityBlockingQueue:
