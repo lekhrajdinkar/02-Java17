@@ -1,6 +1,10 @@
 package java8.Collection;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java8.Collection.MyQueue1.p;
 
 
 public class MyList2 {
@@ -23,6 +27,11 @@ public class MyList2 {
         List<Student> unmodifiableList = Collections.unmodifiableList(students);
         List<String> unmodifiableList2=List.of(new String[] {"a", "b", "c"});
         List<String> l = Collections.singletonList("gfd"); // only one item
+
+        // Convert List to Map. key is Index
+        // >>>> Function.identity() == x->x
+        Map<Integer,Student> m = (Map)students.stream().collect(Collectors.toMap(students::indexOf, Function.identity()));
+        m.entrySet().forEach(x->p("key : "+x.getKey()+", value : "+x.getValue()));
 
     }
 
