@@ -4,6 +4,7 @@ import web.model.Pcourse.Student;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -15,6 +16,10 @@ public class MyPrimitiveStream {
     static int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     public static  void main(String a[])
     {
+        // =======================
+        // Int Streams
+        // =======================
+        IntStream streamOfChars = "abc".chars();
         Stream<Integer> streamBoxed = IntStream.of(numbers).boxed();
 
         IntStream intStream1 = IntStream.of(numbers)
@@ -38,7 +43,10 @@ public class MyPrimitiveStream {
                 .mapToObj(String::valueOf)
                 .forEach(System.out::println);
 
-
+        // =======================
+        // Double Streams
+        // =======================
+        DoubleStream doubleStream = new Random().doubles(3);
 
     }
 

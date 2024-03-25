@@ -4,6 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.maxBy;
+import static java.util.stream.Collectors.toCollection;
+
 public class MyCollecters2 {
     static void p(Object... objArr){
         Arrays.stream(objArr).forEach(System.out::println);
@@ -12,6 +15,7 @@ public class MyCollecters2 {
     static List<Integer> l = List.of(1,2,3,4,5,1,2,3,4,5,1,2,3,4,5); //Immutable List.
     public static <HasSet> void main(String a[])
     {
+        // collect(groupingBy, groupingBy, )
         // 1. ============= groupingBy =============
 
         // 1.1 Collectors.groupingBy(Function)
@@ -22,7 +26,9 @@ public class MyCollecters2 {
                 .sorted() // pass comparator, else Comparable of Integer
                 //.peek(MyCollecters2::p)
                 .peek(System.out::println)
+                // group by String - Even/Odd, could also be complex object.
                 .collect(Collectors.groupingBy(n-> n%2==0 ? "EVEN": "ODD"));
+                //.collect(Collectors.groupingBy(n-> n%2==0 ? "EVEN": "ODD", maxBy(Comparator.naturalOrder()) ));
         p("1.1. Collectors.groupingBy(Function) - even/odd",r);
 
         // 1.2 Collectors.groupingBy(Function)
@@ -54,14 +60,90 @@ public class MyCollecters2 {
         p("3.1. Collectors.collectingAndThen(Collectors, Function) ",r31);
         //r31.put(6,true); // >>>>> UnsupportedOperationException
 
-        //50  ============ toMap =============
+        // 4.
+        // Collectors.counting()
+        // Collectors.maxBy()/minBy() -> iggest/smallest element of a Stream according to a provided Comparator instance.
+        // eg : Comparator.naturalOrder(), Integer::compareTo, etc
 
-        // 50.1 Collectors.toMap(Function, Function)
+        // 5. Collectors.joining
+        Stream<Integer> stream = Arrays.stream(new Integer[] {1,2,3,4,5});
+        String joinedvalue = stream.map(x->String.valueOf(x))
+                .collect(Collectors.joining("--", "prefix", "suffix"));
+
+        p("Collectors.joining :: joinedvalue "+joinedvalue, Stream.empty());
+
+        // 6. teeing() / java12
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        double sum = numbers.stream().collect(
+                Collectors.teeing(
+                        Collectors.summingDouble(i -> i),
+                        Collectors.counting(),
+                        (total, count) -> total / count
+                )
+        );
+        System.out.println("teeing: " + sum); // Output: 3.0
+
+        // 7 Collector.Filtering / J9 todo
+
+        // 8 Collector.FlatMapping / J9  todo
+
+        // 9. collector.toCollection - implemnetation
+        // when using the toSet and toList collectors, we can’t make any assumptions of their implementations.
+        List<String> result = Stream.of("lekhraj", "Dinkar").collect(toCollection(LinkedList::new));
+        p("collector.toCollection ", result, result instanceof LinkedList<String>);
+
+        //  ================toMap==============================
+
+        // 50 Collectors.toMap(Function, Function)
+        // notice distinct, to resolve duplicates.
         Map<Integer,Boolean>  r50 = l.stream().distinct().collect(Collectors.toMap(x->x, x->x%2==0) );
         r50.put(6,true);
         p("50.1. Collectors.toMap(Function, Function) - k:num, v-Is even/odd",r50);
 
+        // 50.1 Resolve duplicate key
+        // Collectors.toMap(Function, Function, (old,new)->{})
+        r50 = l.stream().collect(Collectors.toMap(x->x, x->x%2==0, (existing,replacmnet)->existing) );
+        r50.put(6,true);
+        p("50.1. Collectors.toMap(Function, Function, resolver) - k:num, v-Is even/odd",r50);
+
+        // 50.2 Sorted/ConcurrentHashMap Map
+        // Collectors.toMap(Function, Function, (old,new)->{}, Supplier)
+        // >>> 4th arg Supplier
+        TreeMap<Integer,Boolean> tmap = l.stream().collect(Collectors.toMap(x->x,
+                x->x%2==0,
+                (existing,replacmnet)->existing,
+                TreeMap::new // ConcurrentHashMap::new
+        ) );
+        r50.put(6,true);
+        p("50.1. Collectors.toMap(Function, Function, resolver, Supplier) - k:num, v-Is even/odd",tmap);
+
+        //  ================toList==============================
+
+        List<String> list = Stream.of("a", "b", "c", "d").collect(Collectors.toList());
+
+        // 51. Immutable
+        // Collectors.toUnmodifiableList() /Set() / Map
+        // java 19 - handy method -  StreamtoList
+        List<String> immutableList = Stream.of("a", "b", "c", "d").toList(); // without collect()
 
 
+        // 53.
+        // Collectors.summarizingDouble/Long/Int()
+        // Collectors.averagingDouble/Long/Int()
+        // Collectors.summingDouble/Long/Int()
     }
 }
+
+/*
+// Todo
+1. custom collector
+https://www.baeldung.com/java-stream-immutable-collection
+
+2. parallel collector
+ */
+
+/*
+Reference:
+https://www.baeldung.com/java-collectors-tomap
+https://www.baeldung.com/java-stream-immutable-collection
+ */

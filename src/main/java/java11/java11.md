@@ -36,3 +36,6 @@
 7. Dynamic Class-File Constants: Allows the invokedynamic bytecode instruction to reference a dynamically-computed constant.
 8. TLS 1.3: Adds support for the TLS 1.3 protocol.
 9. Remove the Java EE and CORBA Modules: Removes the Java EE and CORBA modules from the JDK.
+---
+
+https://www.baeldung.com/java-httpclient-post
