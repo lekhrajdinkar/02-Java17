@@ -45,6 +45,7 @@ public class MyStream2 {
         stream = Stream.<Integer>builder().add(1).add(200).add(300).build();
         stream = Stream.generate(()->1).limit(2); p("Stream.generate",stream);//Supplier
         stream = Stream.iterate(40, n->n+2).limit(3);  p("Stream.iterate",stream);
+        stream = Stream.iterate(40, n-> n<=46, n->n+2);  p("Stream.iterate",stream); // java 9, 2nd Agr - Predicate,  to terminate it.
         stream = Stream.of(1,2,3);  p("Stream.of",stream);
 
         // A.3 patten/regex + String
