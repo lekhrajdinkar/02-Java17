@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,6 +17,15 @@ public class MyStream2 {
     static Collection collection = list;
     static Stream<Integer> stream = Stream.empty();
     static Stream<String> streamStr = Stream.empty();
+
+    //Reuse above stream (Using Supplier)
+    static Supplier<Stream<Integer>> streamSupplier;
+    static Supplier<Stream<String>> streamStrSupplier;
+    static{
+       streamSupplier = ()-> Arrays.stream(new Integer[] {1,2,3,4,5,6,6,6,6});
+       streamStrSupplier = ()->streamStr = Arrays.stream(new String[] {"zen", "ben", "ten"});
+    }
+
     public static void main (String... arr) throws IOException {
         System.out.println("========== A. Create Streams =============");
         //initStreams();
@@ -60,11 +70,24 @@ public class MyStream2 {
     }
 
     static  void intermediateOperation() {
-        // filter, map, peek
-        stream = Arrays.stream(new Integer[] {1,2,3,4,5,6,6,6,6});
-        streamStr = Arrays.stream(new String[] {"zen", "ben", "dinkar"});
+        // java8 - filter, map, peek, distinct
 
-        p("distinct ",stream.distinct() );
+        // Java 9- takewhile + dropwhile
+
+        // jav 16 - multiMap
+        // https://chat.openai.com/c/a9bd942f-f423-49ef-bc91-85b4cb6af15d
+        streamStr = streamStrSupplier.get().map(name->"prefix-"+name+"-suffix");  //takes consumer
+        p(" map() : ",streamStr ); // 3 elements
+
+        //re-use stream
+        streamStr = streamStrSupplier.get().mapMulti((name,consumer)-> { //takes BiConsumer -> element + Consumer
+            consumer.accept("prefix-1" + name + "suffix-1"); // Emit.
+            consumer.accept("prefix-2" + name + "suffix-3");
+            // ...
+            // emit as many values using Consumer.accept (2nd arg)
+        });
+        p(" mapMulti() : ",streamStr ); //6 elements
+
     }
 
     static void terminalOperation(){
@@ -81,8 +104,6 @@ public class MyStream2 {
         stream = Arrays.stream(new Integer[] {1,2,3});
         count = stream.collect(Collectors.summingInt(x->x));
         p("Collectors.summingInt :: count "+count, Stream.empty());
-
-
 
         stream = Arrays.stream(new Integer[] {1,2,3});
         boolean result = stream.anyMatch(x->x==2); // allMatch, noneMatch

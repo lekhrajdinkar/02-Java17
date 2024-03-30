@@ -92,6 +92,11 @@ public class MyCollecters2 {
         List<String> result = Stream.of("lekhraj", "Dinkar").collect(toCollection(LinkedList::new));
         p("collector.toCollection ", result, result instanceof LinkedList<String>);
 
+        // Collectors::toUnmodifiableList, toUnmodifiableSet, toUnmodifiableMap
+        List<Integer> unmodifiableList = Arrays.asList(1, 2, 3, 4, 5).stream()
+                .filter(n -> n % 2 == 0)
+                .collect(Collectors.toUnmodifiableList());
+
         //  ================toMap==============================
 
         // 50 Collectors.toMap(Function, Function)
@@ -118,6 +123,7 @@ public class MyCollecters2 {
         p("50.1. Collectors.toMap(Function, Function, resolver, Supplier) - k:num, v-Is even/odd",tmap);
 
         //  ================toList==============================
+        // java 16. Streams.toList() :: shortcut for collect(collectors.toList())
 
         List<String> list = Stream.of("a", "b", "c", "d").collect(Collectors.toList());
 
@@ -125,7 +131,6 @@ public class MyCollecters2 {
         // Collectors.toUnmodifiableList() /Set() / Map
         // java 19 - handy method -  StreamtoList
         List<String> immutableList = Stream.of("a", "b", "c", "d").toList(); // without collect()
-
 
         // 53.
         // Collectors.summarizingDouble/Long/Int()
