@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import jakarta.persistence.*;
+//import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,8 @@ import java.util.List;
 //@EntityListeners(AuditListener.class)
 @Entity(name="COURSE")
 public class Course {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     String title;
     String desc;
 

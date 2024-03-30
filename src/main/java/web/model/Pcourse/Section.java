@@ -1,7 +1,7 @@
 package web.model.Pcourse;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+//import javax.persistence.*;
 
 @Entity(name="SECTION")
 public class Section {

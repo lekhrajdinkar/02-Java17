@@ -2,9 +2,9 @@ package web.model.Pcourse;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-
-import jakarta.persistence.*;
+//import javax.persistence.*;
 import java.util.List;
+import jakarta.persistence.*;
 
 @Setter
 @Getter
@@ -15,7 +15,8 @@ import java.util.List;
 
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 
     @Column(nullable = false, name = "title", length = 50)
     String title;

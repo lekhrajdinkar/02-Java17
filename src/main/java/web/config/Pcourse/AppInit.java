@@ -1,8 +1,10 @@
 package web.config.Pcourse;
 
-import jakarta.servlet.*;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.WebApplicationInitializer;
+//import javax.servlet.*;
+import jakarta.servlet.*;
 import java.io.IOException;
 
 @Configuration
