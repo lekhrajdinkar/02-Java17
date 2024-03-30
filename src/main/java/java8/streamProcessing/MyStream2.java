@@ -57,7 +57,11 @@ public class MyStream2 {
         stream = Stream.generate(()->1).limit(2); p("Stream.generate",stream);//Supplier
         stream = Stream.iterate(40, n->n+2).limit(3);  p("Stream.iterate",stream);
         stream = Stream.iterate(40, n-> n<=46, n->n+2);  p("Stream.iterate",stream); // java 9, 2nd Agr - Predicate,  to terminate it.
-        stream = Stream.of(1,2,3);  p("Stream.of",stream);
+
+        stream = Stream.of(1,2,3);  p("Stream.of",stream); //fixed lenght Stream
+
+        //List locatList = new ArrayList<Integer>();
+        //Stream.from( locatList); // java 17, dynamic lenght , Arg - Iterable
 
         // A.3 patten/regex + String
         streamStr = Pattern.compile(" ").splitAsStream("a b c"); p("Pattern.compile",streamStr);
@@ -82,7 +86,7 @@ public class MyStream2 {
         //re-use stream
         streamStr = streamStrSupplier.get().mapMulti((name,consumer)-> { //takes BiConsumer -> element + Consumer
             consumer.accept("prefix-1" + name + "suffix-1"); // Emit.
-            consumer.accept("prefix-2" + name + "suffix-3");
+            consumer.accept("prefix-2" + name + "suffix-2");
             // ...
             // emit as many values using Consumer.accept (2nd arg)
         });
@@ -91,6 +95,9 @@ public class MyStream2 {
     }
 
     static void terminalOperation(){
+
+        // **** Also Check Collection1/2/3 ****
+
         //1. reduce()
         //reduce has 3 variant. 3rd one for parallel reduction
         stream = Arrays.stream(new Integer[] {1,2,3});
@@ -101,6 +108,11 @@ public class MyStream2 {
         Optional<Integer> optionalCount = stream.reduce((acc,x)-> x+acc);
         p("reduce2 :: count "+optionalCount.get(), Stream.empty());
 
+
+        // InsStream.sum()
+        // Collectors.summingInt()
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+        Integer sum = integers.stream().collect(Collectors.summingInt(Integer::intValue));
         stream = Arrays.stream(new Integer[] {1,2,3});
         count = stream.collect(Collectors.summingInt(x->x));
         p("Collectors.summingInt :: count "+count, Stream.empty());
@@ -113,11 +125,15 @@ public class MyStream2 {
         Optional<Integer> opt = stream.findAny(); // findFirst()
         p("findAny / findFirst :: "+result, Stream.empty());
 
-        //  Collectors.summingInt()
-        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
-        Integer sum = integers.stream().collect(Collectors.summingInt(Integer::intValue));
+        // Collectors.teeing
+        Long average = streamStrSupplier.get()
+                .collect(
+                 Collectors.teeing(
+                    Collectors.summingInt(i -> Integer.parseInt(i)),
+                    Collectors.counting(),
+                    (total, countt) -> total / countt //3rd arg - BiFunction <<<<
+        ));
 
     }
-
 
 }
