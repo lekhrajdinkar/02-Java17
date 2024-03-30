@@ -30,7 +30,7 @@ public class MyPrimitiveStream {
 
         long count = intStream1.count(); p("1. Count", count);
 
-        OptionalInt o = IntStream.of(numbers).reduce((x,y)->x+y);
+        OptionalInt o = IntStream.of(numbers).reduce((acc,e)->acc+e);
         o.ifPresent(MyPrimitiveStream::p);
 
         p("2. summaryStatistics().getMax()", IntStream.of(numbers).summaryStatistics().getMax());
@@ -42,6 +42,8 @@ public class MyPrimitiveStream {
         IntStream.of(1, 2, 3, 4, 5)
                 .mapToObj(String::valueOf)
                 .forEach(System.out::println);
+
+        //IntStream.sum() --> Collector
 
         // =======================
         // Double Streams

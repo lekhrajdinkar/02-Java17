@@ -18,12 +18,13 @@ public class MyStream2 {
     static Stream<String> streamStr = Stream.empty();
     public static void main (String... arr) throws IOException {
         System.out.println("========== A. Create Streams =============");
-        initStreams();
+        //initStreams();
 
-        //System.out.println("========== B. Intermediate =============");
+        System.out.println("========== B. Intermediate =============");
+        intermediateOperation();
 
         System.out.println("========== C. terminal operations =============");
-        terminalOperation();
+        //terminalOperation();
     }
     static int accumulatorFunction(int n1, int n2){return n1+n2;}
 
@@ -58,14 +59,23 @@ public class MyStream2 {
         p("read files streamWithCharset", streamWithCharset);
     }
 
+    static  void intermediateOperation() {
+        // filter, map, peek
+        stream = Arrays.stream(new Integer[] {1,2,3,4,5,6,6,6,6});
+        streamStr = Arrays.stream(new String[] {"zen", "ben", "dinkar"});
+
+        p("distinct ",stream.distinct() );
+    }
+
     static void terminalOperation(){
+        //1. reduce()
         //reduce has 3 variant. 3rd one for parallel reduction
         stream = Arrays.stream(new Integer[] {1,2,3});
-        int count = stream.reduce(100, (x,y)-> x+y);
+        int count = stream.reduce(100, (acc,x)-> x+acc);
         p("reduce1 :: count "+count, Stream.empty());
 
         stream = Arrays.stream(new Integer[] {1,2,3});
-        Optional<Integer> optionalCount = stream.reduce((x, y)-> x+y);
+        Optional<Integer> optionalCount = stream.reduce((acc,x)-> x+acc);
         p("reduce2 :: count "+optionalCount.get(), Stream.empty());
 
         stream = Arrays.stream(new Integer[] {1,2,3});
@@ -82,5 +92,11 @@ public class MyStream2 {
         Optional<Integer> opt = stream.findAny(); // findFirst()
         p("findAny / findFirst :: "+result, Stream.empty());
 
+        //  Collectors.summingInt()
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+        Integer sum = integers.stream().collect(Collectors.summingInt(Integer::intValue));
+
     }
+
+
 }

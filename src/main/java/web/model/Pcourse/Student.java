@@ -29,4 +29,5 @@ public class Student {
     //@JsonBackReference
     @JsonManagedReference(value = "student_course_json")
     List<Course> courses;
+
 }

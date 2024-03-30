@@ -1,13 +1,18 @@
 package java8.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java8.Collection.MyQueue1.p;
 
-
 public class MyList2 {
+    static Logger log = LoggerFactory.getLogger(MyList2.class);
+
     static void print(Collection c){ c.stream().forEach( System.out::println); }
     static void print(String... s){Arrays.stream(s).forEach(System.out::println);}
     public static void main(String... a){
@@ -32,6 +37,17 @@ public class MyList2 {
         // >>>> Function.identity() == x->x
         Map<Integer,Student> m = (Map)students.stream().collect(Collectors.toMap(students::indexOf, Function.identity()));
         m.entrySet().forEach(x->p("key : "+x.getKey()+", value : "+x.getValue()));
+
+        // Spliterator - split, tryAdvance(Consumer)-single processing
+        // https://chat.openai.com/c/5a922567-573c-4788-8b4c-071cda3386e0
+        List list =  Stream.generate(()->"item").limit(20).collect(Collectors.toList());
+        Spliterator<String> split1 = Spliterators.spliterator(list, Spliterator.CONCURRENT);
+        Spliterator<String> split2 = split1.trySplit();
+
+        log.info("Size : split1 : {}, split2: {}", split1.estimateSize(), split2.estimateSize());
+        split1.forEachRemaining(x->{System.out.println(x+"-1-"+split1.estimateSize());});
+        split2.forEachRemaining(x->{System.out.println(x+"-2-"+split2.estimateSize());});
+        log.info("Size(AFTER) : split1 : {}, split2: {}", split1.estimateSize(), split2.estimateSize());
 
     }
 
