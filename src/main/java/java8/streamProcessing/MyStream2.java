@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MyStream2 {
+
     static List<Integer> list = new ArrayList();
     static Collection collection = list;
     static Stream<Integer> stream = Stream.empty();
