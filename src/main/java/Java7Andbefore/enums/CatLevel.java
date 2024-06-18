@@ -1,6 +1,6 @@
 package Java7Andbefore.enums;
 
-import web.controller.Pcourse.serialize.MyEnumDeSerializer;
+import web.controller.serialize.MyEnumDeSerializer;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;

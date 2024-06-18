@@ -1,6 +1,6 @@
 package java8.streamProcessing;
 
-import web.DTO.Pcourse.CourseDTO;
+import web.model.dto.CourseDTO;
 
 import java.util.*;
 import java.util.stream.Collectors;

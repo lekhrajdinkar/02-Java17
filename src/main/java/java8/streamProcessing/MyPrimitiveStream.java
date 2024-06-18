@@ -1,9 +1,6 @@
 package java8.streamProcessing;
 
-import web.model.Pcourse.Student;
-
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;

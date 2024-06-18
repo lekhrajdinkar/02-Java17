@@ -1,6 +1,6 @@
 package java8;
 
-import web.model.Pcourse.Course;
+import web.model.entity.Course;
 import java8.interfaceMore.MyInterface;
 import java8.interfaceMore.MyInterfaceImpl;
 

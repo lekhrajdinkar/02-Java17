@@ -1,13 +1,9 @@
 package java8.streamProcessing;
 
-import web.model.Pcourse.Student;
+import web.model.entity.Student;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toCollection;
 
 public class MyCollecters3 {
     static void p(Object... objArr){

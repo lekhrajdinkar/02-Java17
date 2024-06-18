@@ -11,8 +11,6 @@ import java.util.stream.IntStream;
 
 public class Main
 {
-
-
     static void p(Object ...s){ Arrays.stream(s).forEach(System.out::println) ;}
 
     public static void main(String args[]) throws Exception
@@ -29,9 +27,9 @@ public class Main
         char[] charArr = {'a', 'n', 'n', 'a'};
         p(String.copyValueOf(charArr));
 
-        p("AnnaLiu".codePointAt(0), "AnnaLiu".codePointAt(3)); // 65 , 97
-        p("AnnaLiu".codePointCount(1,7)); //6
-        p("Anna   Liu".codePointCount(1,7)); //6
+        p("LekhDin".codePointAt(0), "LekhDin".codePointAt(3)); // 65 , 97
+        p("LekhDin".codePointCount(1,7)); //6
+        p("Lekh   Din".codePointCount(1,7)); //6
 
         String temp = "";
         String newLine = System.getProperty("line.separator");
@@ -43,9 +41,9 @@ public class Main
         // String sBlock = """hello
         // World""" ; // java 15
 
-        temp = String.join(newLine,"hello", "Liu", "How", "are", " you ?"); p(temp); //join
+        temp = String.join(newLine,"hello", "Prasad", "How", "are", " you ?"); p(temp); //join
         temp = new StringBuilder().append("hello").append(newLine).append("Liu").toString(); p(temp); //Builder
-        temp = new String(Files.readAllBytes(Paths.get("src/main/resources/sample.txt"))); p(temp); //files keep in multiple lines.
+        temp = new String(Files.readAllBytes(Paths.get("src/main/resources/banner.txt"))); p(temp); //files keep in multiple lines.
 
 
     // C. Random String
@@ -57,14 +55,14 @@ public class Main
         p(getRandomString3(6));
 
         // D. remove last char
-        p(removeLastChar1("AnnaLiu"));
-        p(removeLastChar2("AnnaLiu"));
-        p(removeLastChar3_2("AnnaLiu"));
-        p(removeLastChar3_2("AnnaLiu"));
+        p(removeLastChar1("LekhDin"));
+        p(removeLastChar2("LekhDin"));
+        p(removeLastChar3_2("LekhDin"));
+        p(removeLastChar3_2("LekhDin"));
 
-        p("AnnaLiu".chars().filter(x->x == 'n').count()); // count check
+        p("LekhDin".chars().filter(x->x == 'n').count()); // count check
 
-        p(new StringBuilder("AnnaLiu").reverse().toString().equals("AnnaLiu")); //palindrome
+        p(new StringBuilder("LekhDin").reverse().toString().equals("LekhDin")); //palindrome
         p(new StringBuilder("hannah").reverse().toString().equals("hannah")); //palindrome
 
         temp = "hannahh";

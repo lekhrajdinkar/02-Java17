@@ -1,0 +1,17 @@
+Check Jobs.
+
+1. CD/CI Model in Cloud/On-prem
+2. harness/banzai/terraform
+3. AWS
+4. RDBMS/Aurora - backup and DR
+5. Okta Auth / SSO
+6. App - ?
+7. Github EMU.
+8. Nexus and Docker
+9. Scan - SonarCube, Sona Type, Vmast, veracode
+10. ETL
+11. Architecture Confluence.
+12. iiq, ServiceNow, Access Central , LDAP
+13. legacy - bamboo, XLD, bitbucket, SLM
+
+===========================================
