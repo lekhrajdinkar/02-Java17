@@ -65,19 +65,27 @@
   - `Array` : int[3], int{1,2,3} : Core DS.
   - List :
     - `ArrayList` : internally Array [varyLength], dynamic Array-grows & shrinks.
-    - `LinkedList` : Nodes with forward/backward references. 
-    - `vector`: Thread-Safe version of ArrayList.
-    - `stack`** : vectors with additional methods: `push,pop,peek`
+    - `LinkedList` 
+      - Nodes with forward/backward references. 
+      - less efficient for random access.
+      - adding/removing  -beginning or middle is fast.
+    - `vector`: Thread-Safe version of ArrayList, provides sync methods. SLOW
+    - `stack`** : vectors with additional methods: `push,pop,peek`. SLOW
     
   - Map 
-    - `HashMap`<K,V> : ArrayList(bucket) Of Entry(k,v)
+    - `HashMap`<K,V>  
+      - ArrayList(bucket) Of Entry(k,v)
       - hashCode(Key)== bucket/index on array + onCollision:add(Tree,J8+/Linked-list,J7)
       - null allowed, no ordering, O(1)
-
+        
+    - `HashTable` 
+      - Thread-Safe of hashMap
+      - null not allowed, thus slower.
+      
     - I:SortedMap<K,V>  
-      - `TreeMap` : self-balancing BinaryTree(R&B), Entry/Nodes has reference to child entry/Nodes.
+      - `TreeMap` : 
+        - self-balancing BinaryTree(R&B), Entry/Nodes has reference to child entry/Nodes.
         - null NOT allowed, ordered, sub-map views, O(log n)
-      - `HashTable` : Thread-Safe of TreeMap
         
   - Set (no duplicate)
     - `HashSet`<V>      : HashMap<K,null> :: bucket -> ArrayList  Of Node
@@ -90,16 +98,22 @@
   - DeQue : `LinkedList` has also implemented methods from Deque Interface.
 
   - Utils:
-    - Collections : toArray(), sort(C), binarySearch(), `Shuffle()`
-    - Arrays : asList(), toString(), sort, binarySearch, `copyOf()`
+    - Collections : `toArray()`, sort(C), binarySearch(), `Shuffle()`
+    - Arrays : `asList()`, toString(), sort(), binarySearch(), `copyOf()`
     - Comparator/FI and Comparable
-    - Iterators, Spliterator-J8
+    - Iterators 
+    - ListIterator - bi-diretion, hasPrevious(),add(),set()
+    - Spliterator-J8
     - enhanced loop - for(item:collection){...}
 
 > - Side-Note:
   > - can think, Linked-list as tree with single branch.
   > - and, tree as object/s randomly stored on heap/main-memory with references.
   > - graph : circular, tree has end note.
+
+- More:
+  - `Fail-fast` (ConcurrentModificationException) vs `fail-safe` (works on cloned copy)
+  - eg: CopyOnWriteArrayList - failSafe, ArrayList - failFast
 
 ---
 ### Exception handing
@@ -109,9 +123,20 @@
 
 ---
 ### IO  
-- io and nio : `Files`, `Path`, `scanner`
+- io (old) and nio(New) : `Files`, `Path`, `scanner`
+- > Check:Java7Andbefore.IO
 - Serializable, transient
-
+- File READ ways:
+``` 
+  - Stream<String> lines = `Files`.lines(`Paths`.get(file))
+  - file :: `InputStream::FileInputStream`(bytes) --> `InputStreamReader`(chars) --> `BufferReader`(efficient)  :: readline
+  - resource > file :: `SB:resourceLoader` --> InputStream::FileInputStream(bytes) --> InputStreamReader(chars) --> BufferReader(efficient)  :: readline
+```
+- File WRITE ways:
+```
+  - List<String> lines --> `fileWriter.write`(line)
+  - `Files`.write( `Paths`.get(fileName1), lines, StandardOpenOption...);
+```
 ---
 ### Extra
 - `natively complied languages`
