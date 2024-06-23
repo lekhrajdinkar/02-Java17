@@ -38,7 +38,7 @@
     - `public` abstract method
     - more flexibility after java 8.
   - Polymorphism - override and overload
-  - keywords : this, super, this(), super(), final, static
+  - keywords : this, super, this(), super(), final, static 
   - More on classes:
     - `Generic class / interface`
       - improved typing, compile-time type safety.
@@ -53,6 +53,7 @@
       - Constructors are not inherited by subclasses, but a subclass constructor implicitly calls a superclass constructor before executing its own code.
       - In inheritance, subclass can provide broader value for overridden method : `accessSpecifier`, throws `exceptionType`, covariant `returnType`.
       - Overloaded methods are resolved at compile time.
+      - static-import
       
 --- 
 ###  Strings (Immutable)
@@ -131,7 +132,7 @@
     - `EnumMap`: keys-Enum,high performance 
     - `WeakHashMap` (keys-GC, if not referenced)
     - update value (new) : `compute`(k, (k,v)->{}),`computeIfAbsent/present`(k, (k,v)->{}), `merge`(k,v2,(v1,v2)->{})
-    - Immutable map(new) : Map.`of`(k,v,k,v...), `copyOf`(m)
+    - Immutable map(new) : Map.`of`(k,v,k,v...), `copyOf`(m), `ofEntries`(AbstractMap.SimpleEntries<K,v>())
 
 ---
 ### Exception handing

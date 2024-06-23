@@ -51,6 +51,8 @@ public class MyList1
         list = intStream.toList();
         pc("1.2. CREATE from IntStream : ",list);
 
+        list = Stream.of(1,2,3,4,5).toList();
+        pc("1.2. CREATE from Stream.of() : ",list);
 
         // 2. Iterate
         System.out.print("---2.1 Iterator---");

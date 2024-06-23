@@ -1,7 +1,6 @@
 package java8.Collection;
 
-import org.springframework.util.comparator.Comparators;
-
+import static util.Print.p;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -77,8 +76,4 @@ public class MyMap1 {
          p(map);
     }
 
-    static void p(Map m){
-        m.entrySet().forEach(System.out::println);
-        System.out.println("==========================");
-    }
 }

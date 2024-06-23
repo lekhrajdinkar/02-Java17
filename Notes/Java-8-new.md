@@ -25,16 +25,43 @@
       - Comparator<T> :  accepts-T and produces-`Integer`
       - custom
 
-- Streams API:
+- Streams API + Collection API new methods.
   - Java 8 - streams (baeldung) :: https://chat.openai.com/c/5a922567-573c-4788-8b4c-071cda3386e0
+  - Executing a terminal operation makes a stream inaccessible, cant be reused. 
+    - trick : create Supplier of streams. `Supplier<Stream> :: get()`
+  - `stream Pipeline` ::  source, intermediate operation(s) and a terminal operation.
+  - `parallelStream`
   - Operators (takes lambdas)
     - intermediate : filter(), map(), boxed(), [list1,list2].stream().`flatmap`(list->list.stream()),
     - terminal : Collect(), findAny()-Optional<T>, etc
   - `Spliterator`: also used internally by parallel stream 
     - trySplit() : to split an iterator 2 multiple parts to be processed in parallel
     - control behaviour: SIZED, SUBSIZED, ORDERED, NONNULL, IMMUTABLE, and CONCURRENT
-  - stream of primitives :: (IntStream, LongStream, DoubleStream)
+  - stream of primitives :: (IntStream, LongStream, DoubleStream), `mapToObj`
   - Function.identity() == x->x
+  
+  - CREATE 
+    - `Stream.of`, `Stream.empty()`,`Stream.builder().add().add()...`, 
+    - `Stream.generate(x-{}).limit(5)`, 
+    - `Stream.iterate(seed,Predicate,x->{})`, `Stream.iterate(seed,x->{}).limit(5)`
+    - `Files.lines(Path.of(file))`, 
+  - INTERMEDIATE
+    - java 8 :
+      - `filter(Predicate)`, `map(Function)`, `flatmap(Function)`, `peek(Consumer)`, `distinct()`, `sorted(),(c)`, `boxed()`
+      - `limit(long)`, `skip(long)`
+    - Java 9 : 
+      - `takewhile(Predicate)`, `dropwhile(Predicate)`
+    - jav 16 : 
+      - `multiMap`
+  - TERMINAL
+    - java 8
+      - `forEach(Consumer)`, `forEachOrdered(Consumer)`
+      - `toArray()`
+      - `reduce()`, `reduce()`, `reduce()`
+      - `collect()`,  `collect()`
+    - java 9
+      - Optional<T> `findFirst()`
+      - Optional<T> `findAny()`
 
 - `Optional<T>` class
   - container object that may or may not contain a value.

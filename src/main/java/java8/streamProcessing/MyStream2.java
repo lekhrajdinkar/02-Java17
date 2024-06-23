@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static util.Print.p;
+
 public class MyStream2 {
 
     static List<Integer> list = new ArrayList();
@@ -32,17 +34,16 @@ public class MyStream2 {
         //initStreams();
 
         System.out.println("========== B. Intermediate =============");
-        intermediateOperation();
+        //intermediateOperation();
 
         System.out.println("========== C. terminal operations =============");
-        //terminalOperation();
+        terminalOperation();
     }
+
+
     static int accumulatorFunction(int n1, int n2){return n1+n2;}
 
-    static void p(String msg, Stream s){
-        System.out.println(msg);
-        s.forEach(System.out::println);
-        System.out.println("-------------------");}
+
 
     static void initStreams() throws IOException {
         // >>> Executing a terminal operation makes a stream inaccessible.
@@ -75,7 +76,7 @@ public class MyStream2 {
     }
 
     static  void intermediateOperation() {
-        // java8 - filter, map, peek, distinct
+        // java8 - filter, map, flatmap, peek, distinct
 
         // Java 9- takewhile + dropwhile
 
@@ -126,14 +127,14 @@ public class MyStream2 {
         Optional<Integer> opt = stream.findAny(); // findFirst()
         p("findAny / findFirst :: "+result, Stream.empty());
 
-        // Collectors.teeing
-        Long average = streamStrSupplier.get()
+        // Collectors.teeing //fix error
+        /*Long average = streamStrSupplier.get()
                 .collect(
                  Collectors.teeing(
                     Collectors.summingInt(i -> Integer.parseInt(i)),
                     Collectors.counting(),
                     (total, countt) -> total / countt //3rd arg - BiFunction <<<<
-        ));
+        ));*/
 
     }
 
