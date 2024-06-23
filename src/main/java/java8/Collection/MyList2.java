@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java8.Collection.MyQueue1.p;
@@ -40,13 +41,15 @@ public class MyList2 {
 
         // Spliterator - split, tryAdvance(Consumer)-single processing
         // https://chat.openai.com/c/5a922567-573c-4788-8b4c-071cda3386e0
-        List list =  Stream.generate(()->"item").limit(20).collect(Collectors.toList());
+        List<String> list =  IntStream.range(0,20).boxed().map(x->"item-"+x).collect(Collectors.toList());
         Spliterator<String> split1 = Spliterators.spliterator(list, Spliterator.CONCURRENT);
         Spliterator<String> split2 = split1.trySplit();
+        Spliterator<String> split3 = split2.trySplit();
 
-        log.info("Size : split1 : {}, split2: {}", split1.estimateSize(), split2.estimateSize());
-        split1.forEachRemaining(x->{System.out.println(x+"-1-"+split1.estimateSize());});
-        split2.forEachRemaining(x->{System.out.println(x+"-2-"+split2.estimateSize());});
+        log.info("Size : split1 : {}, split2: {}, split2: {}", split1.estimateSize(), split2.estimateSize(), split3.estimateSize());
+        split1.forEachRemaining(x->{System.out.println(x+"-1");});
+        split2.forEachRemaining(x->{System.out.println(x+"-2");});
+        split3.forEachRemaining(x->{System.out.println(x+"-3");});
         log.info("Size(AFTER) : split1 : {}, split2: {}", split1.estimateSize(), split2.estimateSize());
 
     }
