@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
 
-public class MyEnumDeSerializer extends StdDeserializer {
+public class MyEnumDeSerializer extends StdDeserializer<CatLevel> {
 
     protected MyEnumDeSerializer() {
         this(null);
@@ -19,7 +19,9 @@ public class MyEnumDeSerializer extends StdDeserializer {
 
     @Override
     public CatLevel deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-    throws IOException, JsonProcessingException {
+    throws IOException, JsonProcessingException
+    {
+        // Automatically happens. this is just Sample to understand more.
         switch(jsonParser.getText()){
             case "NOVICE" : return CatLevel.NOVICE ;
             case "PRO" : return CatLevel.PRO;

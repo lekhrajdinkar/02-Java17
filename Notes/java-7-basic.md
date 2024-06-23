@@ -62,8 +62,13 @@
 
 ---
 ### Java Collection (Data structure)
+> - Side-Note:
+>   - can think, Linked-list as tree with single branch.
+>   - and, tree as object/s randomly stored on heap/main-memory with references.
+>   - graph : circular, tree has end note.
+
   - `Array` : int[3], int{1,2,3} : Core DS.
-  - List : sublist(), addAll()
+  - List : 
     - `ArrayList` : internally Array [varyLength], dynamic Array-grows & shrinks.
     - `LinkedList` 
       - Nodes with forward/backward references. 
@@ -100,7 +105,10 @@
   - can also use same for intra-app problems.
 
   - Utils:
-    - Collections : `toArray()`, sort(C), binarySearch(), `Shuffle()`, `max/min(collection,Comparator)`,
+    - Collections : 
+      - `toArray(c)`, sort(c), reverse(c), binarySearch(c)-gives index, `Shuffle(c)`, `copy(c)`
+      - `max/min(c,Comparator)`
+      - unmodifibleList(l), singletonList() | synchronizedMap()
     - Arrays : `asList()`, toString(), sort(), binarySearch(), `copyOf()`
     - Comparator/FI and Comparable
     - Iterators 
@@ -108,14 +116,17 @@
     - Spliterator-J8
     - enhanced loop - for(item:collection){...}
 
-> - Side-Note:
-  > - can think, Linked-list as tree with single branch.
-  > - and, tree as object/s randomly stored on heap/main-memory with references.
-  > - graph : circular, tree has end note.
-
-- More:
+---
+## More on Collections:
   - `Fail-fast` (ConcurrentModificationException) vs `fail-safe` (works on cloned copy)
-  - eg: `CopyOnWriteArrayList, ConcurrentHashMap`  - fail-Safe, ArrayList - fail-Fast
+  - eg: `CopyOnWriteArrayList, ConcurrentHashMap`  - failSafe + threadSafe | ArrayList - fail-Fast
+  - List more: 
+    - Collections.singletonList : (size-1 + Immutable) , 
+    - Immutable : List.`copyOf`(l),List.`of`(1,2,3)-J9, Collections.unmodifiableList(l)-J7
+    - operations: partition-sublist(), addAll(), `set(i,item):update` , isEmpty()
+    - LinkedList : addLast/first()
+  - Map More:
+    - `EnumMap` and `WeakHashMap`
 
 ---
 ### Exception handing

@@ -27,12 +27,12 @@
 
 - Stream API:
   - Operators (takes lambdas)
-    - intermediate : filter(), map()
-    - terminal : Collect(), etc
+    - intermediate : filter(), map(), boxed(), [list1,list2].stream().`flatmap`(list->list.stream()),
+    - terminal : Collect(), findAny()-Optional<T>, etc
   - `Spliterator`: used internally by parallel stream 
    - trySplit() : to split an iterator 2 multiple parts to be processed in parallel
    - control behaviour: SIZED, SUBSIZED, ORDERED, NONNULL, IMMUTABLE, and CONCURRENT
-  - [list1,list2].stream().`flatmap`(list->list.stream())
+  - stream of primitives :: (IntStream, LongStream, DoubleStream)
 
 - `Optional<T>` class
   - container object that may or may not contain a value.

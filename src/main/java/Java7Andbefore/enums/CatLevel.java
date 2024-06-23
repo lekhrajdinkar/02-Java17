@@ -7,7 +7,8 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @JsonDeserialize(using = MyEnumDeSerializer.class)
-public enum CatLevel{
+public enum CatLevel
+{
     NOVICE(1,"NOVICE"), PRO(1,"PRO");
 
     private Integer id;

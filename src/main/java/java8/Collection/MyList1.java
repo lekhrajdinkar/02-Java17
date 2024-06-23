@@ -20,13 +20,13 @@ public class MyList1
         c.stream().forEach(System.out::println);
     }
 
+    // ====================================
     public static void main(String a[]){
         Collections.unmodifiableList(new ArrayList<>()); // create immutable list
         arrayList_Create();
         arrayList_Search("Anna");
         arrayList_MultiThreadEnv();
         //arrayList_Copy();
-
         LinkedList_test();
         diff_list();
     }
@@ -110,48 +110,45 @@ public class MyList1
         }
     }
 
-    // ====== Linked List +=====
+// ====== Linked List +=====
+// maintains insertion order
 
-    static void LinkedList_test(){
-        LinkedList list = new LinkedList<String>();
-        list.add("item1");list.add("item2");list.add("item2");list.add("item2");
-        list.addLast("item-last");
-        list.addFirst("item-First");
+    static void LinkedList_test()
+    {
+        LinkedList<String> list = new LinkedList();
+        list.addFirst("item1");
+        list.add("item2"); list.add("item2");
+        list.add("item3");list.add("item3");list.add("item3"); // thrice
+        list.addLast("item4");
+        p(list.getFirst(),list.getLast(),list.get(2));
+        list.stream().forEach(System.out::println);
 
-        // list.remove("item2");  //remove
-        // while (list.contains("item2")) list.remove("item2");  //removeAll
-
-        list.stream().forEach(System.out::println); // maintains insertion order
-
-        // prg: get Random
+// Get Random index
         int randomIndex = (int) (new Random().nextFloat() * list.size())+1;
         randomIndex = new Random().nextInt(list.size());
         p("RANDOM Element from List : ", list.get(randomIndex));
 
-        p(list.getFirst(),list.getLast(),list.get(2));
+// Collectors
+        System.out.print("\nCollectors.groupingBy(Function) : ");
+        Map<String,List<String>> result = list.stream().collect(Collectors.groupingBy(s->"<"+s+"-KEY>"));
+        p(result);
 
-// IMP : Count item
+
+        System.out.print("\nCollectors.groupingBy(Function,Collector) : ");
         p(list.stream().collect(Collectors.groupingBy(s->s, Collectors.counting())));
 
- // --- Partitioning ---
 
-        p(list.stream().collect(Collectors.groupingBy(s->s+"__KEY")));
-        // Map<T, List<T>>
-        // {item-First__KEY=[item-First], item-last__KEY=[item-last], item1__KEY=[item1], item2__KEY=[item2, item2, item2]}
+        System.out.print("\nCollectors.Partitioning : ");
+        Map<Boolean,List<String>> result2 = list.stream().collect(Collectors.partitioningBy(s-> s.contains("4")?false:true));
+        p(result2);
 
-        p(list.stream().collect(Collectors.partitioningBy(s-> false)));
-        // Map<booleAN, List<T>>
-        // {false=[item-First, item1, item2, item-last], true=[]}
-
-  // --- program : find item in list ---
-
+// operator : findAny() : it returns Optional<T>
+// Search an Item
         Optional<String> finditem2 = list.stream()
-         .filter(x -> "item2".equals(x))
-          .findAny(); // IMP :; it return Optional
-          //.orElse(null);
-        p(finditem2.orElse(null), "Found");
-
-
+                        .filter(x -> "item2".equals(x))
+                        .distinct() // remove duplicates
+                        .findAny();
+        p(finditem2.orElse("not-found:take-Sample-item-XXXX"));
     }
 
     static void diff_list(){
@@ -162,9 +159,6 @@ public class MyList1
                 .collect(Collectors.toList());
         p(differences);
     }
-
-    // .distinct() --> remove duplicates
-    // .filter(Objects::nonNull) --> remove Nulls
-
-
 }
+// .distinct() --> remove duplicates
+// .filter(Objects::nonNull) --> remove Nulls
