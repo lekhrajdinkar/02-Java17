@@ -13,7 +13,7 @@
   - more building-blocks:
     - Operators & precedence, Expression & statement
     - control/conditional statement, switch expression & block
-    - loop, break/continue.
+    - loop with break/continue.
 
     
   - primitives types/8:
@@ -57,13 +57,13 @@
 --- 
 ###  Strings (Immutable)
   - StringPool : intern()
-  - String Manipulation : charAt, length, substring, reverse, 
+  - String Manipulation : charAt, length, substring, reverse, split, join
   - StringBuffer(Thread-Safe) and StringBuilder(Mutable variant of String)
 
 ---
 ### Java Collection (Data structure)
   - `Array` : int[3], int{1,2,3} : Core DS.
-  - List :
+  - List : sublist(), addAll()
     - `ArrayList` : internally Array [varyLength], dynamic Array-grows & shrinks.
     - `LinkedList` 
       - Nodes with forward/backward references. 
@@ -96,9 +96,11 @@
     
   - Queue : `priorityQueue` , `ArrayDeque`
   - DeQue : `LinkedList` has also implemented methods from Deque Interface.
+  - haven't used these above one, but using external one :: SQS, RMQ and Kafka for interApplication comm. 
+  - can also use same for intra-app problems.
 
   - Utils:
-    - Collections : `toArray()`, sort(C), binarySearch(), `Shuffle()`
+    - Collections : `toArray()`, sort(C), binarySearch(), `Shuffle()`, `max/min(collection,Comparator)`,
     - Arrays : `asList()`, toString(), sort(), binarySearch(), `copyOf()`
     - Comparator/FI and Comparable
     - Iterators 
@@ -113,7 +115,7 @@
 
 - More:
   - `Fail-fast` (ConcurrentModificationException) vs `fail-safe` (works on cloned copy)
-  - eg: CopyOnWriteArrayList - failSafe, ArrayList - failFast
+  - eg: `CopyOnWriteArrayList, ConcurrentHashMap`  - fail-Safe, ArrayList - fail-Fast
 
 ---
 ### Exception handing

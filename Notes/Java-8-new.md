@@ -3,6 +3,12 @@
 - New Date and Time API
   - LocalDateTime,
   - ZonedDateTime
+
+- interfaces flexibility - Multiple inheritance, resolve method conflicts
+    - `Default` Method {...}
+    - static method  {...}
+    - final method  {...}
+    - above 3 can be private
   
 - `@FunctionalInterface` FI - implementation ways:
     - `lambda exp`
@@ -26,6 +32,7 @@
   - `Spliterator`: used internally by parallel stream 
    - trySplit() : to split an iterator 2 multiple parts to be processed in parallel
    - control behaviour: SIZED, SUBSIZED, ORDERED, NONNULL, IMMUTABLE, and CONCURRENT
+  - [list1,list2].stream().`flatmap`(list->list.stream())
 
 - `Optional<T>` class
   - container object that may or may not contain a value.
@@ -48,14 +55,15 @@
       - `map`(Function<T,R>)
       - `flatmap`()
 
-- interfaces flexibility - Multiple inheritance, resolve method conflicts
-  - `Default` Method {...}
-  - static method  {...}
-  - final method  {...}
-  - above 3 can be private
-
-- 
+  
 ---
-### Check with chat-gpt / pending
+### programs
 1. program with Optional<`List<Interger>`>  and  Optional<`Interger`>
-2. parallel stream, Spliterator prg
+2. Spliterator - parallel stream  
+3. Flattening Nested Collections in Java - recursively call flatMap(c::m) 
+4. Zipping Collections in Java : ext lib: `StreamEx.zip`(stream1,stream2, (s1-item,s2-item)->{...})
+   - <artifactId>streamex</artifactId>
+   - or write custom code.
+5. Immutable collection:
+   - Guava library :: ImmutableList/Set/Map::copyOf(c)
+   - j9+ :: List.copyOf(l),  Set.copyOf(s) ,  Map.copyOf(m)
