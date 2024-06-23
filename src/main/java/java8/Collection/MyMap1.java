@@ -15,8 +15,15 @@ public class MyMap1 {
     public static void initMap() {
         Map<Integer,Integer> treemap = new TreeMap(( x,y)->Integer.valueOf((String) x)- (int)y);// pass compartator
 
-        Collections.singletonMap("username1", "password1"); //contain exactly one element.
-        Collections.unmodifiableMap(Map.of("key1","value1", "key2", "value2")); //Immutable map (impure)
+        //Thread safe
+        Collections.synchronizedMap(Map.of("key1","value1", "key2", "value2"));
+
+        //Immutable map
+        Map m1 = Collections.singletonMap("username1", "password1"); //contain exactly one element.
+        Map m2 = Collections.unmodifiableMap(Map.of("key1","value1", "key2", "value2")); //impure
+        Map m3 = Map.of("key1","value1", "key2", "value2"); // J9
+        Map m4 = Map.copyOf(m3); //J9
+
         // An Unmodifiable Map is just a wrapper over a modifiable map and it doesn’t allow modifications to it "directly"
         // But the underlying mutable map can still be changed and the modifications are reflected.
         // use 3rd part lib - guava --> ImmutableMap class
@@ -65,6 +72,8 @@ public class MyMap1 {
         p(map);
 
          map.merge("1","Prasad", (oldValue,newValue)->"old:"+oldValue+" >>MERGE<< new:"+newValue);
+         // key,value-new,remappingFunction -
+         // BiFunction :: (old-value/null , new value) --> {}
          p(map);
     }
 

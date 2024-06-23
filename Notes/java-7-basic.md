@@ -108,7 +108,9 @@
     - Collections : 
       - `toArray(c)`, sort(c), reverse(c), binarySearch(c)-gives index, `Shuffle(c)`, `copy(c)`
       - `max/min(c,Comparator)`
-      - unmodifibleList(l), singletonList() | synchronizedMap()
+      - `unmodifibleList(l), singletonList(i), synchronizedList(l)` 
+      -` unmodifibleList(m), singletonMap(k,v) , synchronizedMap(m)`
+      
     - Arrays : `asList()`, toString(), sort(), binarySearch(), `copyOf()`
     - Comparator/FI and Comparable
     - Iterators 
@@ -122,11 +124,14 @@
   - eg: `CopyOnWriteArrayList, ConcurrentHashMap`  - failSafe + threadSafe | ArrayList - fail-Fast
   - List more: 
     - Collections.singletonList : (size-1 + Immutable) , 
-    - Immutable : List.`copyOf`(l),List.`of`(1,2,3)-J9, Collections.unmodifiableList(l)-J7
+    - Immutable : List.`copyOf`(l),List.`of`(1,2,3).
     - operations: partition-sublist(), addAll(), `set(i,item):update` , isEmpty()
     - LinkedList : addLast/first()
   - Map More:
-    - `EnumMap` and `WeakHashMap`
+    - `EnumMap`: keys-Enum,high performance 
+    - `WeakHashMap` (keys-GC, if not referenced)
+    - update value (new) : `compute`(k, (k,v)->{}),`computeIfAbsent/present`(k, (k,v)->{}), `merge`(k,v2,(v1,v2)->{})
+    - Immutable map(new) : Map.`of`(k,v,k,v...), `copyOf`(m)
 
 ---
 ### Exception handing
