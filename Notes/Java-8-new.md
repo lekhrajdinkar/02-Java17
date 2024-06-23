@@ -26,6 +26,7 @@
       - custom
 
 - Streams API:
+  - Java 8 - streams (baeldung) :: https://chat.openai.com/c/5a922567-573c-4788-8b4c-071cda3386e0
   - Operators (takes lambdas)
     - intermediate : filter(), map(), boxed(), [list1,list2].stream().`flatmap`(list->list.stream()),
     - terminal : Collect(), findAny()-Optional<T>, etc
@@ -33,6 +34,7 @@
     - trySplit() : to split an iterator 2 multiple parts to be processed in parallel
     - control behaviour: SIZED, SUBSIZED, ORDERED, NONNULL, IMMUTABLE, and CONCURRENT
   - stream of primitives :: (IntStream, LongStream, DoubleStream)
+  - Function.identity() == x->x
 
 - `Optional<T>` class
   - container object that may or may not contain a value.
