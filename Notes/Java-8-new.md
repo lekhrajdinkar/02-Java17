@@ -1,0 +1,61 @@
+# Java 8
+
+- New Date and Time API
+  - LocalDateTime,
+  - ZonedDateTime
+  
+- `@FunctionalInterface` FI - implementation ways:
+    - `lambda exp`
+    - `method references` 
+      - way to refer to methods or constructors without invoking them.
+      - further simplify lambda expressions
+    - categorizes of FI:
+      - Consumer<T> : accepts-T
+      - Supplier<T> : produces-T
+      - Predicate<T> | BiPredicate<T,U> : accepts-T,U and produces-`boolean`
+      - Function<T,R> | BiFunction<T,U,R> : accepts-T,U and produces-R
+      - UnaryOperator<T> | BinaryOperator<T> :  accepts-T(1 or 2) and produces-T
+      - Runnable : nothing
+      - Comparator<T> :  accepts-T and produces-`Integer`
+      - custom
+
+- Stream API:
+  - Operators (takes lambdas)
+    - intermediate : filter(), map()
+    - terminal : Collect(), etc
+  - `Spliterator`: used internally by parallel stream 
+   - trySplit() : to split an iterator 2 multiple parts to be processed in parallel
+   - control behaviour: SIZED, SUBSIZED, ORDERED, NONNULL, IMMUTABLE, and CONCURRENT
+
+- `Optional<T>` class
+  - container object that may or may not contain a value.
+  - represent optional values, instead of using null references.
+  - safer alternative to handling null values.
+  - Example. (`can chain them`)
+    - Create:
+      - Optional.`of`(value) --> if value=null, gives NPE.
+      - Optional.`ofNullable`(value) -->  value can be null.
+    - get
+      - `get`() --> can give `NoSuchElementException`
+      - `orElse`(defaultValue)
+      - `orElseGet`(Supplier<T>)
+      - `orElseThrow`(Supplier<X>), X is exception type
+    - value presence
+      - `isPresent`() - t/f
+      - `ifPresent`(Consumer<T>) - if t, execute consumer
+    - more(try)
+      - `filter`( Predicate<T> )
+      - `map`(Function<T,R>)
+      - `flatmap`()
+
+- interfaces flexibility - Multiple inheritance, resolve method conflicts
+  - `Default` Method {...}
+  - static method  {...}
+  - final method  {...}
+  - above 3 can be private
+
+- 
+---
+### Check with chat-gpt / pending
+1. program with Optional<`List<Interger>`>  and  Optional<`Interger`>
+2. parallel stream, Spliterator prg
