@@ -112,10 +112,10 @@
       - `unmodifibleList(l), singletonList(i), synchronizedList(l)` 
       -` unmodifibleList(m), singletonMap(k,v) , synchronizedMap(m)`
       
-    - Arrays : `asList()`, toString(), sort(), binarySearch(), `copyOf()`
+    - Arrays : `asList()`, toString(), sort(), binarySearch(), `copyOf()`, `stream()`
     - Comparator/FI and Comparable
     - Iterators 
-    - ListIterator - bi-diretion, hasPrevious(),add(),set()
+    - ListIterator - bi-direction, hasPrevious(),add(),set()
     - Spliterator-J8
     - enhanced loop - for(item:collection){...}
 

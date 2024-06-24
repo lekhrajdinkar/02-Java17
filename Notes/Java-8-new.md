@@ -1,9 +1,11 @@
 # Java 8
 
-- New Date and Time API
-  - LocalDateTime,
-  - ZonedDateTime
+## New Date and Time API
+  - `LocalDateTime`
+  - `ZonedDateTime`
 
+---
+## Interfaces
 - interfaces flexibility - Multiple inheritance, resolve method conflicts
     - `Default` Method {...}
     - static method  {...}
@@ -25,7 +27,10 @@
       - Comparator<T> :  accepts-T and produces-`Integer`
       - custom
 
-- Streams API + Collection API new methods.
+---
+## `Streams` and collections
+- Streams API 
+- Collection API - new methods.
   - Java 8 - streams (baeldung) :: https://chat.openai.com/c/5a922567-573c-4788-8b4c-071cda3386e0
   - Executing a terminal operation makes a stream inaccessible, cant be reused. 
     - trick : create Supplier of streams. `Supplier<Stream> :: get()`
@@ -38,8 +43,10 @@
     - trySplit() : to split an iterator 2 multiple parts to be processed in parallel
     - control behaviour: SIZED, SUBSIZED, ORDERED, NONNULL, IMMUTABLE, and CONCURRENT
   - stream of primitives :: (IntStream, LongStream, DoubleStream), `mapToObj`
-  - Function.identity() == x->x
+  - Function.identity() == x->x, a function that returns its input.
+  - List.copyOf(l1),of(l1)  instanceOf  `ImmutableCollections$ListN`
   
+  - `java 8 - stream operators` : https://chatgpt.com/c/4616e081-ba31-4587-9343-8d1b2adf142e
   - CREATE 
     - `Stream.of`, `Stream.empty()`,`Stream.builder().add().add()...`, 
     - `Stream.generate(x-{}).limit(5)`, 
@@ -47,23 +54,61 @@
     - `Files.lines(Path.of(file))`, 
   - INTERMEDIATE
     - java 8 :
-      - `filter(Predicate)`, `map(Function)`, `flatmap(Function)`, `peek(Consumer)`, `distinct()`, `sorted(),(c)`, `boxed()`
-      - `limit(long)`, `skip(long)`
+      - `filter(Predicate)`, `map(Function)`, `flatmap(Function)`, `peek(Consumer)`, `distinct()`,  `boxed()`
+      - `sorted()` : natural order : comparable,`sorted(Compartor)`,
+      - `limit(long)`, `skip(long)`, `peek(Consumer)`
     - Java 9 : 
-      - `takewhile(Predicate)`, `dropwhile(Predicate)`
+      - `takewhile(Predicate)` : Takes elements from the stream while the predicate is true. BREAK
+      - `dropwhile(Predicate)` : Drops elements from the stream while the predicate is true. CONTINUE
     - jav 16 : 
-      - `multiMap`
+      - `multiMap(*)` ??????
   - TERMINAL
     - java 8
-      - `forEach(Consumer)`, `forEachOrdered(Consumer)`
-      - `toArray()`
-      - `reduce()`, `reduce()`, `reduce()`
-      - `collect()`,  `collect()`
+      - void `forEach(Consumer)`, `forEachOrdered(Consumer)`
+      - void `toArray()`
+      - T `min/max(Comparator)` , Long `count()`
+      - Optional<Integer>  `reduce(BinaryOperator<T>)`, // accumulator ( partial-result, next-element)
+      - List<T>            `reduce(T,BinaryOperator<T>)` //  seed, accumulator 
+      - List<T>            `reduce(U,BiFunction<U,T>, BinaryOperator<U>)` ** 
+        - (seed, accumulator, combiner) -> for parallel processing
+        - takes two partial results and combines them into a single partial result.
+      - ? `collect(Collector)`, 
+      - ? `collect(Supplier<R>,BiConsumer<R,T>, BiConsumer<R,R>)` **
+      - return boolean : `anyMatch(Predicate)`, `allMatch(Predicate)`, `noneMatch(Predicate)`
+       
     - java 9
       - Optional<T> `findFirst()`
       - Optional<T> `findAny()`
+      
+  - COLLECTORS
+    - java 8
+      - long Collectors.`counting`() : count result after stream-processing.
+      - String Collectors.`joining`(delimterStr, prefixStr, suffixStr) : Concatenates the input elements into a single `String`
+      - Collectors.`reducing`( BinaryOperator) : (u,u)->u
+      - Collectors.`reducing`(seed, BinaryOperator) : (u,u)->u
+      - Collectors.`reducing`(seed, Function, BinaryOperator) **
+      - Collectors.`mapping`(Function, Collector) **
+      
+      - Collectors.`collectingAndThen`(Collectors.*, collectedValue -> {})
+      - Collectors.`groupingBy`(Function), Collectors.`groupingBy`(Function, Collector.*) **
+      - Collectors.`partitioningBy`(Predicate)
+      
+      - `summarizingInt`(ToIntFunction)
+         - IntSummaryStatistics stats = stream.collect(Collectors.summarizingInt(String::length));
+      - Collectors.`toList`(),`toSet`()
+      - Collectors.`toMap`(i->k, i->v), `toMap`(i->k, i->v, (i,duplicate_key)->v) : 3rd agr to resolve duplicate key.
+      
+    - java10,11
+      - Collectors.`toUnmodifiableSet`(),`toUnmodifiableList`()
+      - Collectors.`toUnmodifiableMap`(Function,Function), `toUnmodifiableMap`(Function,Function,BiFunction)
+    
+    - java 17
+      - Collectors.`teeing` **
 
-- `Optional<T>` class
+imp: understand downstream Collector
+        
+---
+## `Optional<T>`
   - container object that may or may not contain a value.
   - represent optional values, instead of using null references.
   - safer alternative to handling null values.

@@ -4,11 +4,11 @@ import web.model.dto.CourseDTO;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import static util.Print.p;
 
 public class MyCollectors1
 {
-    static void p(Object... objArr){ Arrays.stream(objArr).forEach(System.out::println); System.out.println("--------------------------");}
-    public static <HasSet> void main(String a[])
+    public static void main(String a[])
     {
         String[] strings = {"1", "2", "3", "3"};
 
@@ -17,8 +17,6 @@ public class MyCollectors1
         // List
         ArrayList l = (ArrayList) Arrays.stream(strings).collect(Collectors.toList());
         p(l, l.getClass().getName()); // or toUnmodifiableList()
-
-
 
         // Set
         HashSet s = (HashSet)  Arrays.stream(strings).collect(Collectors.toSet());
@@ -30,16 +28,17 @@ public class MyCollectors1
 
         // collision : IllegalStateException due to duplkicate 3
         // HashMap m2 = (HashMap)  l.stream().map(e->e).collect(Collectors.toMap(k->k,k->k)); p(m2);
-        // Function.identity() === k->k
+        // Function.identity() === k->k a function that returns its input.
 
         // Fix collision : 3rd arg, another fi
-        HashMap m2 = (HashMap)  l.stream().map(e->e).collect(Collectors.toMap(k->k,k->k, (k,dup)->dup+"__dup"));
+        HashMap m2 = (HashMap)  l.stream().collect(Collectors.toMap(k->k,k->k, (k,dup)->dup+"__dup"));
         p(m2, m2.getClass().getName());
         m2.put("4","4"); p(m2); //works...
 
         //toUnmodifiableMap
-        //HashMap m2_final = (HashMap) l.stream().map(e->e).collect(Collectors.toUnmodifiableMap(k->k, k->k, (k, dup)->dup+"__dup")); p(m2); // class cast exception, could be concuurenthashmap
-        Map m2_final = (Map) l.stream().map(e->e).collect(Collectors.toUnmodifiableMap(k->k, k->k, (k, dup)->dup+"__dup"));
+        //HashMap m2_final = (HashMap) l.stream().collect(Collectors.toUnmodifiableMap(k->k, k->k, (k, dup)->dup+"__dup")); p(m2);
+        // class cast exception, could be concurenthashmap
+        Map m2_final = (Map) l.stream().collect(Collectors.toUnmodifiableMap(k->k, k->k, (k, dup)->dup+"__dup"));
         p(m2_final, m2_final.getClass().getName()); // java.util.ImmutableCollections$MapN
         //m2_final.put("4","4");  //UnsupportedOperationException
 

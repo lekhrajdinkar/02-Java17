@@ -110,8 +110,13 @@ public class MyStream2 {
         Optional<Integer> optionalCount = stream.reduce((acc,x)-> x+acc);
         p("reduce2 :: count "+optionalCount.get(), Stream.empty());
 
+        List<String> words = Arrays.asList("apple", "banana", "cherry");
+        String resultReduce3 = words.parallelStream()
+                .reduce("",
+                        (partialResult, word) -> partialResult + "[" + word + "]",
+                        (partialResult1, partialResult2) -> partialResult1 + partialResult2);
+        p("reduce3 :: ", resultReduce3);
 
-        // InsStream.sum()
         // Collectors.summingInt()
         List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
         Integer sum = integers.stream().collect(Collectors.summingInt(Integer::intValue));
@@ -119,10 +124,12 @@ public class MyStream2 {
         count = stream.collect(Collectors.summingInt(x->x));
         p("Collectors.summingInt :: count "+count, Stream.empty());
 
+        // anyMatch
         stream = Arrays.stream(new Integer[] {1,2,3});
         boolean result = stream.anyMatch(x->x==2); // allMatch, noneMatch
         p("anyMatch / allMatch / noneMatch :: "+result, Stream.empty());
 
+        // findAny
         stream = Arrays.stream(new Integer[] {1,2,3});
         Optional<Integer> opt = stream.findAny(); // findFirst()
         p("findAny / findFirst :: "+result, Stream.empty());
