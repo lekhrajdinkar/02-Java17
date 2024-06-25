@@ -17,15 +17,15 @@
     - `method references` 
       - way to refer to methods or constructors without invoking them.
       - further simplify lambda expressions
-    - categorizes of FI:
-      - Consumer<T> : accepts-T
-      - Supplier<T> : produces-T
-      - Predicate<T> | BiPredicate<T,U> : accepts-T,U and produces-`boolean`
-      - Function<T,R> | BiFunction<T,U,R> : accepts-T,U and produces-R
-      - UnaryOperator<T> | BinaryOperator<T> :  accepts-T(1 or 2) and produces-T
-      - Runnable : nothing
-      - Comparator<T> :  accepts-T and produces-`Integer`
-      - custom
+      - categorizes of FI:
+        - Consumer<T> : accepts-T
+        - Supplier<T> : produces-T
+        - Predicate<T> | BiPredicate<T,U> : accepts-T,U and produces-`boolean`
+        - Function<T,R> | BiFunction<T,U,R> : accepts-T,U and produces-R
+        - UnaryOperator<T> | BinaryOperator<T> :  accepts-T or T,T and produces-T
+        - Runnable : nothing
+        - Comparator<T> :  accepts-T,T and produces-`Integer`
+        - custom
 
 ---
 ## `Streams` and collections
@@ -56,6 +56,7 @@
     - `Stream.iterate(seed,Predicate,x->{})`, `Stream.iterate(seed,x->{}).limit(5)`
     - `Files.lines(Path.of(file))`,
     - Stream.`from`(Iterable) - J17
+    - `Optional`.stream() - J9
   - INTERMEDIATE
     - java 8 :
       - `filter(Predicate)`, `map(Function)`, `flatmap(Function)`, `peek(Consumer)`, `distinct()`,  `boxed()`
@@ -156,8 +157,9 @@
       - `orElseGet`(Supplier<T>)
       - `orElseThrow`(Supplier<X>), X is exception type
     - value presence
-      - `isPresent`() - t/f
-      - `ifPresent`(Consumer<T>) - if t, execute consumer
+      - `isPresent`() , `isEmpty`()
+      - `ifPresent`(Consumer<T>) - if true, execute consumer
+      - `ifPresentOrElse`(Consumer (x)->{}, Runnable ()->{}); J9
     - more(try)
       - `filter`( Predicate<T> )
       - `map`(Function<T,R>)

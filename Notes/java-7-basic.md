@@ -60,6 +60,13 @@
   - StringPool : intern()
   - String Manipulation : charAt, length, substring, reverse, split, join
   - StringBuffer(Thread-Safe) and StringBuilder(Mutable variant of String)
+  - java 10
+    -  "Lekhraj".`repeat`(3) //  "LekhrajLekhrajLekhraj"
+    - `isBlank`() : check contains only `white space characters` .
+    - `lines`() : Returns a Stream of lines extracted from the String, delimited by `\n,\r`
+    - `strip, stripLeading, stripTrailing`() 
+      - like `trim()`,  but Also removed `\u00A0` (non breaking space)
+      - "    hello   ", "    hello", "hello   "
 
 ---
 ### Java Collection (Data structure)

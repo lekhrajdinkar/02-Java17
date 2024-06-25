@@ -1,16 +1,11 @@
 package java8.streamProcessing;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.maxBy;
 import static java.util.stream.Collectors.toCollection;
 import static util.Print.p;
 
-@Slf4j
 public class MyCollecters2 {
 
     static List<Integer> l = List.of(1,2,3,4,5,1,2,3,4,5,1,2,3,4,5); //Immutable List.
