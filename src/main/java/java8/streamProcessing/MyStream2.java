@@ -143,6 +143,14 @@ public class MyStream2 {
                     (total, countt) -> total / countt //3rd arg - BiFunction <<<<
         ));*/
 
+        p("mapMulti");
+        stream = Arrays.stream(new Integer[] {1,2,3});
+        stream.mapMulti( (item, consumer ) -> {
+                consumer.accept(item);
+                consumer.accept(item);
+                consumer.accept(item);
+        }).forEach(System.out::print);
+
     }
 
 }

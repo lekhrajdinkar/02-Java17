@@ -42,7 +42,9 @@
   - `Spliterator`: also used internally by parallel stream 
     - trySplit() : to split an iterator 2 multiple parts to be processed in parallel
     - control behaviour: SIZED, SUBSIZED, ORDERED, NONNULL, IMMUTABLE, and CONCURRENT
-  - stream of primitives :: (IntStream, LongStream, DoubleStream), `mapToObj`
+  - stream of primitives :: (IntStream, LongStream, DoubleStream), `mapToObj`()
+    - https://chatgpt.com/c/83648e41-d8aa-4623-af1c-0236dd664293 : nothing much here.
+    - IntStream.of(1,2,3,4,5).`summaryStatistics`();
   - Function.identity() == x->x, a function that returns its input.
   - List.copyOf(l1),of(l1)  instanceOf  `ImmutableCollections$ListN`
   - stream.collect(Collectors.toList()) --> shortcut :` stream.toList()`
@@ -52,7 +54,8 @@
     - `Stream.of`, `Stream.empty()`,`Stream.builder().add().add()...`, 
     - `Stream.generate(x-{}).limit(5)`, 
     - `Stream.iterate(seed,Predicate,x->{})`, `Stream.iterate(seed,x->{}).limit(5)`
-    - `Files.lines(Path.of(file))`, 
+    - `Files.lines(Path.of(file))`,
+    - Stream.`from`(Iterable) - J17
   - INTERMEDIATE
     - java 8 :
       - `filter(Predicate)`, `map(Function)`, `flatmap(Function)`, `peek(Consumer)`, `distinct()`,  `boxed()`
@@ -60,9 +63,21 @@
       - `limit(long)`, `skip(long)`, `peek(Consumer)`
     - Java 9 : 
       - `takewhile(Predicate)` : Takes elements from the stream while the predicate is true. BREAK
-      - `dropwhile(Predicate)` : Drops elements from the stream while the predicate is true. CONTINUE
+      - `dropwhile(Predicate)` : Drops elements from the stream while the predicate is true. 
     - jav 16 : 
-      - `multiMap(*)` ??????
+      - `mapMulti`(`BiConsumer`<T, `Consumer<R>`>) :
+        - designed to take each element of the stream,
+        - and produce `zero` or more elements, which are then combined into a new stream.
+        - ```        
+          stream = Arrays.stream(new Integer[] {1,2,3});
+          stream.mapMulti( (item, consumer ) -> {
+               consumer.accept(item);
+               consumer.accept(item);
+               consumer.accept(item);
+          }).forEach(System.out::print);
+          // 111222333
+          ```
+
   - TERMINAL
     - java 8
       - void `forEach(Consumer)`, `forEachOrdered(Consumer)`
@@ -122,7 +137,9 @@
     - Java12
       - Collectors.`teeing`(Collector1, Collector2, (result1,result2)->{})
 
-> imp: understand `downstream-Collector` behaviour
+> 1.  IMPORTANT: understand `downstream-Collector` behaviour
+>     - eg: Collectors.`groupingBy`(Classify-Fn, Collectors.`Filtering( filter Fn , Collectors.toList())` )
+>     - eg: Collectors.`groupingBy`(Classify-Fn, Collectors.`flatmapping( filter Fn , Collectors.toList())` )
         
 ---
 ## `Optional<T>`
