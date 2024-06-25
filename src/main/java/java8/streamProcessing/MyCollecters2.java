@@ -1,24 +1,25 @@
 package java8.streamProcessing;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.maxBy;
 import static java.util.stream.Collectors.toCollection;
+import static util.Print.p;
 
+@Slf4j
 public class MyCollecters2 {
-    static void p(Object... objArr){
-        Arrays.stream(objArr).forEach(System.out::println);
-        System.out.println("--------------------------");
-    }
+
     static List<Integer> l = List.of(1,2,3,4,5,1,2,3,4,5,1,2,3,4,5); //Immutable List.
     public static <HasSet> void main(String a[])
     {
-        // collect(groupingBy, groupingBy, )
+        // collect(Collectors.* )
         // 1. ============= groupingBy =============
 
-        // 1.1 Collectors.groupingBy(Function)
+        // 1.1 Collectors.groupingBy(Classify Function)
 
         Map<String,List<Integer>> r = l.stream()
                 .skip(5)
@@ -35,9 +36,9 @@ public class MyCollecters2 {
         Map<Integer,List<Integer>> r11 = l.stream().collect(Collectors.groupingBy(n->n));
         p("1.2. Collectors.groupingBy(Function) - group by same number",r11);
 
-        // 1.3 Collectors.groupingBy(Function, Collectors)
+        // 1.3 Collectors.groupingBy(Function, downstream-Collectors)
         Map<Integer,Long> r12 = l.stream().collect(Collectors.groupingBy(n->n, Collectors.counting()) );
-        p("1.3. Collectors.groupingBy(Function) - group by count",r12);
+        p("1.3. Collectors.groupingBy(Function, downstream-Collector) - group by count",r12);
         r12.keySet().forEach(x-> { p("count of "+x+" is "+r12.get(x));});
 
         //2  ============ partitioningBy =============
@@ -83,9 +84,18 @@ public class MyCollecters2 {
         );
         System.out.println("teeing: " + sum); // Output: 3.0
 
-        // 7 Collector.Filtering / J9 todo
+        // 7 Collector.Filtering / J9
+        // like Filter().collect(Collector.*)
+        p( "7. Collector.Filtering" , numbers.stream().collect(Collectors.filtering(
+                i->i>3, Collectors.toList()
+        )) );
 
-        // 8 Collector.FlatMapping / J9  todo
+        // 8 Collector.FlatMapping / J9
+        // like flatmap().collect(Collector.*)
+        List list = List.of(List.of(1,2,3), List.of(4,5,6));
+        p( "8. Collector.FlatMapping" , list.stream().collect(Collectors.flatMapping(
+                (List i)->i.stream(), Collectors.toList()
+        )) );
 
         // 9. collector.toCollection - implemnetation
         // when using the toSet and toList collectors, we can’t make any assumptions of their implementations.
@@ -125,7 +135,7 @@ public class MyCollecters2 {
         //  ================toList==============================
         // java 16. Streams.toList() :: shortcut for collect(collectors.toList())
 
-        List<String> list = Stream.of("a", "b", "c", "d").collect(Collectors.toList());
+        list = Stream.of("a", "b", "c", "d").collect(Collectors.toList());
 
         // 51. Immutable
         // Collectors.toUnmodifiableList() /Set() / Map

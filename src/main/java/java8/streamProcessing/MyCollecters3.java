@@ -5,18 +5,17 @@ import web.model.entity.Student;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MyCollecters3 {
-    static void p(Object... objArr){
-        Arrays.stream(objArr).forEach(System.out::println);
-        System.out.println("--------------------------");
-    }
+import static util.Print.p;
 
-    public static <HasSet> void main(String a[]){
+public class MyCollecters3
+{
+    public static <HasSet> void main(String a[])
+    {
          List<Student> students = new ArrayList<>();
             Student s1 = Student.builder().id(1L).name("Lekhraj").email("ld-1@g.com").build();
             Student s2 = Student.builder().id(2L).name("Lekhraj").email("ld-2@g.com").build();
-            Student s3 = Student.builder().id(3L).name("hrithik").email("ld-3@g.com").build();
-        students.add(s1); students.add(s2); students.add(s3);
+            Student s3 = Student.builder().id(3L).name("Manisha").email("ld-3@g.com").build();
+            students.add(s1); students.add(s2); students.add(s3);
          //------------ Java Collector ----------
 
          // ====== 1. Collector.mapping
@@ -55,12 +54,6 @@ public class MyCollecters3 {
                                 Collectors.toList())
                 ));
         p(r2);
-
-
-        //====== 2. Collector.filtering(Predicate, Collector) ======
-
-        // ====== 3. Collector.flatMapping(Predicate, Collector) ======
-
 
     }
 }

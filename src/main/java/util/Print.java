@@ -25,4 +25,6 @@ public class Print {
         System.out.println(msg);
         s.forEach(System.out::println);
         System.out.println("-------------------");}
+
+
 }

@@ -45,6 +45,7 @@
   - stream of primitives :: (IntStream, LongStream, DoubleStream), `mapToObj`
   - Function.identity() == x->x, a function that returns its input.
   - List.copyOf(l1),of(l1)  instanceOf  `ImmutableCollections$ListN`
+  - stream.collect(Collectors.toList()) --> shortcut :` stream.toList()`
   
   - `java 8 - stream operators` : https://chatgpt.com/c/4616e081-ba31-4587-9343-8d1b2adf142e
   - CREATE 
@@ -67,45 +68,61 @@
       - void `forEach(Consumer)`, `forEachOrdered(Consumer)`
       - void `toArray()`
       - T `min/max(Comparator)` , Long `count()`
-      - Optional<Integer>  `reduce(BinaryOperator<T>)`, // accumulator ( partial-result, next-element)
-      - List<T>            `reduce(T,BinaryOperator<T>)` //  seed, accumulator 
-      - List<T>            `reduce(U,BiFunction<U,T>, BinaryOperator<U>)` ** 
-        - (seed, accumulator, combiner) -> for parallel processing
-        - takes two partial results and combines them into a single partial result.
+      - `reduce`
+        - Optional<Integer>  `reduce(BinaryOperator<T>)`, // accumulator ( partial-result, next-element)
+        - List<T>            `reduce(T,BinaryOperator<T>)` //  seed, accumulator 
+        - List<T>            `reduce(U,BiFunction<U,T>, BinaryOperator<U>)` ** 
+          - (seed, accumulator, combiner) -> for parallel processing
+          - takes two partial results and combines them into a single partial result.
       - ? `collect(Collector)`, 
-      - ? `collect(Supplier<R>,BiConsumer<R,T>, BiConsumer<R,R>)` **
       - return boolean : `anyMatch(Predicate)`, `allMatch(Predicate)`, `noneMatch(Predicate)`
+      - `toCollection`(LinkedList::new)
        
     - java 9
       - Optional<T> `findFirst()`
       - Optional<T> `findAny()`
       
-  - COLLECTORS
+  - COLLECTORS : terminal operation >> .collect(Collectors.*)
     - java 8
       - long Collectors.`counting`() : count result after stream-processing.
+      - T Collectors.`[min/max]By`(Comparator<T>)
       - String Collectors.`joining`(delimterStr, prefixStr, suffixStr) : Concatenates the input elements into a single `String`
-      - Collectors.`reducing`( BinaryOperator) : (u,u)->u
-      - Collectors.`reducing`(seed, BinaryOperator) : (u,u)->u
-      - Collectors.`reducing`(seed, Function, BinaryOperator) **
-      - Collectors.`mapping`(Function, Collector) **
-      
-      - Collectors.`collectingAndThen`(Collectors.*, collectedValue -> {})
-      - Collectors.`groupingBy`(Function), Collectors.`groupingBy`(Function, Collector.*) **
-      - Collectors.`partitioningBy`(Predicate)
-      
-      - `summarizingInt`(ToIntFunction)
+      - Collectors.`reducing`
+        - Collectors.reducing( BinaryOperator) : (u,u)->u
+        - Collectors.reducing(seed, BinaryOperator) : (u,u)->u
+        - Collectors.reducing(seed, Function, BinaryOperator) **
+        
+      - Collectors.`collectingAndThen`(downstream-Collector.*, collectedValue -> {})
+      - Map Collectors.`partitioningBy`(Predicate)
+      - Map Collectors.`groupingBy`(Function), Collectors.`groupingBy`(Function, downstream-Collector.*) **
+        ```
+         List<Integer> l = List.of(1,2,3,4,5,1,2,3,4,5,1,2,3,4,5);  
+         Map<Integer,Long> r12 = l.stream().collect(Collectors.groupingBy(n->n, Collectors.counting()) );
+        ```
+      - `summarizingInt|Double`(ToIntFunction), `[Averaging|Sumuing][Int|Double]`
          - IntSummaryStatistics stats = stream.collect(Collectors.summarizingInt(String::length));
-      - Collectors.`toList`(),`toSet`()
-      - Collectors.`toMap`(i->k, i->v), `toMap`(i->k, i->v, (i,duplicate_key)->v) : 3rd agr to resolve duplicate key.
-      
+      - List/Set Collectors.`toList`(),`toSet`()
+      - Map      Collectors.`toMap`(i->k, i->v), `toMap`(i->k, i->v, (existing,replacment)->v) : 3rd agr to resolve duplicate entry/key.
+    
+    - java 9
+      - Collectors.`mapping`(transform-Function, downstream-Collector.*)
+        - transform a stream of collections into a single stream  and collect the results using a downstream collector, at same time.
+        - like map().collect(Collector.*)
+      - Collectors.`Filtering`(filter-Function, downstream-Collector.*) :
+        - filter a stream of collections into a single stream  and collect the results using a downstream collector, at same time.
+        - like filter().collect(Collector.*)
+      - Collectors.`FlatMapping`(flapmap-Function, downstream-Collector.*): 
+        - flatten a stream of collections into a single stream  and collect the results using a downstream collector, at same time.   
+        - like flatmap().collect(Collector.*)
+  
     - java10,11
       - Collectors.`toUnmodifiableSet`(),`toUnmodifiableList`()
       - Collectors.`toUnmodifiableMap`(Function,Function), `toUnmodifiableMap`(Function,Function,BiFunction)
-    
-    - java 17
-      - Collectors.`teeing` **
+      
+    - Java12
+      - Collectors.`teeing`(Collector1, Collector2, (result1,result2)->{})
 
-imp: understand downstream Collector
+> imp: understand `downstream-Collector` behaviour
         
 ---
 ## `Optional<T>`
@@ -131,7 +148,7 @@ imp: understand downstream Collector
   
 ---
 ### programs
-1. program with Optional<`List<Interger>`>  and  Optional<`Interger`>
+1. program with Optional<`List<Integer>`>  and  Optional<`Integer`>
 2. Spliterator - parallel stream  
 3. Flattening Nested Collections in Java - recursively call flatMap(c::m) 
 4. Zipping Collections in Java : ext lib: `StreamEx.zip`(stream1,stream2, (s1-item,s2-item)->{...})

@@ -46,24 +46,20 @@ public class MyCollectors1
         p("\n-----------B. Collectors :: CollectingAndThen---------");
         // if want to perform some operation on result after collecting
         HashSet c1 = (HashSet) s.stream()
-                .map(e->e)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list->new HashSet(list) ));
         p(c1, c1.getClass().getName());
 
         int size = (int) s.stream()
-                .map(e->e)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list->list.size() ));
         p(size);
         p(s.stream().collect(Collectors.counting())); //better way
 
         List c2 = (List) s.stream()
-                .map(e->e)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list->list.stream().map(x->x+"---modified---").collect(Collectors.toList())));
         p(c2);
 
         // List.copyOf(list) --> returns Immutable list, ImmutableCollections$ListN
         c2 = (List) s.stream()
-                .map(e->e)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> List.copyOf(list)));
         p(c2, c2.getClass().getName());
         // c2.add("5"); //UnsupportedOperationException
@@ -86,7 +82,7 @@ public class MyCollectors1
                 );
         p( courses.stream()
                 .map(x->x.toString()) //extra step to make charSeq.... <<                           Here
-                .collect(Collectors.joining("\n"))); //joining works if instance/item is charSequence
+                .collect(Collectors.joining("\n--delimiter--\n"))); //joining works if instance/item is charSequence
 
         p("\n-----------    D. Collectors :: SummarizingDouble, averaging, summing    ---------");
 
@@ -111,9 +107,11 @@ public class MyCollectors1
         p( Arrays.stream(strings).map(x->Double.parseDouble(x)).collect( Collectors.maxBy( (e1,e2) -> (int) (e1-e2) ))); //Integer::compareTo better
         p(List.of(1,2,3).stream().collect(Collectors.minBy( Comparator.naturalOrder()))); // returns Optional[1]
 
-// groupingBy
-        p( Arrays.stream(strings).collect( Collectors.groupingBy(x->x+"GROUP_NAME"))); // {3GROUP_NAME=[3, 3], 2GROUP_NAME=[2], 1GROUP_NAME=[1]}
-// partitioningBy
+// Collectors.groupingBy(Classification Function)
+        p( Arrays.stream(strings).collect( Collectors.groupingBy(x->x+"-GROUP_NAME")));
+        // {3-GROUP_NAME=[3, 3], 2-GROUP_NAME=[2], 1-GROUP_NAME=[1]}
+
+// Collectors.partitioningBy(Classification Function)
         p( Arrays.stream(strings).collect( Collectors.partitioningBy(x-> Integer.parseInt(x)>2)));
 
 
