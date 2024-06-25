@@ -22,7 +22,10 @@
       - byte, int **, short, long
       - double **, floating
       
-  - More Reference Type : WrapperForPrimitive with autoboxing, `BigInteger`, `AtomicInteger`, `BigDecimal`
+  - More Reference Type : WrapperForPrimitive with autoboxing, 
+    - `BigInteger`: immutable, java.math, mathematical operations for large int value outside range of long. rich API at bit manipulation level.
+    - `AtomicInteger`, lock-free thread-safe 
+    - `BigDecimal` : high-precision arithmetic, overcome rounding issue with float,Double
   - `varargs` in methods : 
     - variable-length arguments. eg: psvm(String[]), psvm(String...)
     - can have only one vararg, and must be last arg.
