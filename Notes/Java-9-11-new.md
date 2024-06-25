@@ -1,8 +1,10 @@
 # Java 11 new Features
+- Java Evolution: 9 to 11 https://chatgpt.com/c/8cbcbca6-603c-4831-9da3-54bf9eb49bd5
+- Java 11 - Http Client : https://chatgpt.com/c/bfa71868-583f-471e-aa68-34c3c207fe0d
 
 ## Java 9
 1. `JShell`: A Read-Eval-Print Loop (REPL) tool.
-2. `Module System` (Project Jigsaw): for better modularizing of code,  help to encapsulate packages.
+> 2. `Module System` (Project Jigsaw): for better modularizing of code,  help to encapsulate packages.
 3. `Interfaces` Enhancement : `private methods`.
 4. `try-with-resources statement`.
 5. Stream API Enhancements: `takeWhile`, `dropWhile`
