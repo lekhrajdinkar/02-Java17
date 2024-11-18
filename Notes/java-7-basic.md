@@ -160,15 +160,30 @@
       - `toArray(c)`, sort(c), reverse(c), binarySearch(c)-gives index, `Shuffle(c)`, `copy(c)`
       - `max/min(c,Comparator)`
       - `unmodifibleList(l), singletonList(i), synchronizedList(l)` 
-      -` unmodifibleList(m), singletonMap(k,v) , synchronizedMap(m)`
-      
+      - `unmodifibleMap(m),  singletonMap(k,v), synchronizedMap(m)`
+      ```
+        - unmodifiableList/unmodifiableMap: Provides an unmodifiable view; cannot modify the returned collection, but changes to the original collection reflect in the view.
+        - singletonList/singletonMap: Provides an immutable collection with only one element or entry; no modifications are allowed.
+        - synchronizedList/synchronizedMap: Provides a thread-safe wrapper for collections, ensuring that method calls are synchronized.
+      ```  
     - Arrays : `asList()`, toString(), sort(), binarySearch(), `copyOf()`, `stream()`
-    - Comparator/FI and Comparable
-    - Iterators 
-    - ListIterator - bi-direction, hasPrevious(),add(),set()
-    - Spliterator-J8
+    - `Comparator`(FI) and `Comparable`
+      - Comparator.naturalOrder()/reverseOrder() for string collection
+      - Comparator.comparingInt(person -> person.age)
+      - arraylist.sort(String.CASE_INSENSITIVE_ORDER)
+    - Iterators : for list,set,map
+    - `ListIterator` - **bi-directional traversal** for list, hasPrevious(),add(),set()
+    - `Spliterator` - J8
+      - designed for traversing and partitioning elements for parallel computation (Improved Performance)
+      - works with function stream API, bts (without requiring the programmer to interact with it directly :)
+      - Safe for concurrent modifications
+      ```
+        Spliterator<String> spliterator1 = list.spliterator();
+        Spliterator<String> spliterator2 = spliterator1.trySplit();
+        spliterator1.forEachRemaining(System.out::println);
+        spliterator2.forEachRemaining(System.out::println);
+      ```
     - enhanced loop - for(item:collection){...}
-
 ---
 ## More on Collections:
   - `Fail-fast` (ConcurrentModificationException) vs `fail-safe` (works on cloned copy)
