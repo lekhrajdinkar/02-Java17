@@ -29,6 +29,9 @@
   - `varargs` in methods : 
     - variable-length arguments. eg: psvm(String[]), psvm(String...)
     - can have only one vararg, and must be last arg.
+  - float -  Sign (1 bit) | Exponent (8 bits) | Mantissa (23 bits)
+  - double - Sign (1 bit) | Exponent (11 bits) | Mantissa (52 bits)
+   
 
 ---   
 ### OOPS 
@@ -52,12 +55,12 @@
       - final class, final method, final property
       - no setter,
       - make defensive copies... create new object.
-    some fact:
-      - Constructors are not inherited by subclasses, but a subclass constructor implicitly calls a superclass constructor before executing its own code.
-      - In inheritance, subclass can provide broader value for overridden method : `accessSpecifier`, throws `exceptionType`, covariant `returnType`.
-      - Overloaded methods are resolved at compile time.
-      - static-import
-      - public abstract `sealed` class Shape  `permits` Circle, Rectangle, Square {} : control which classes can be subclasses. J18
+- **some fact**:
+  - Constructors are not inherited by subclasses, but a subclass constructor implicitly calls a superclass constructor before executing its own code.
+  - In inheritance, subclass can provide broader value for overridden method : `accessSpecifier`, throws `exceptionType`, covariant `returnType`.
+  - Overloaded methods are resolved at compile time.
+  - static-import
+  - public abstract `sealed` class Shape  `permits` Circle, Rectangle, Square {} : control which classes can be subclasses. J18
 
 --- 
 ###  Strings (Immutable)
