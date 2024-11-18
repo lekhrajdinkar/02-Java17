@@ -49,7 +49,7 @@
       - final class, final method, final property
       - no setter,
       - make defensive copies... create new object.
-    some fact:
+- some fact:
       - Constructors are not inherited by subclasses, but a subclass constructor implicitly calls a superclass constructor before executing its own code.
       - In inheritance, subclass can provide broader value for overridden method : `accessSpecifier`, throws `exceptionType`, covariant `returnType`.
       - Overloaded methods are resolved at compile time.
