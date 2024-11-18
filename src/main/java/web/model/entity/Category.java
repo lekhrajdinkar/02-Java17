@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "CATEGORY")
-
+@Builder
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
     @Id

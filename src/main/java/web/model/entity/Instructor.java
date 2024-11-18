@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
+@ToString
 @Entity(name="INSTRUCTOR")
 public class Instructor {
     @Id

@@ -1,38 +1,73 @@
+- https://chatgpt.com/c/673b8813-e304-800d-b370-1bc02f980b28
+--- 
 ## Java Topic
 ### Fundamental:
-  - JVM JRE JDK classLoader/ Memory Model : GC, heap,stack,permGen etc.
-    - custom ClassLoader - load classes from `non-standard sources`(databases, network-locations, or encrypted files)
-    - dynamic loading : classes at runtime based on certain conditions, user-input,etc.
-  - SourceCode --> [compile]  byteCode --> [interpreter] --> execute
-    - frequently executed byteCode -->  [JIT] --> native machine-code
-    - `JIT Compile` (performance)
-      - identifies portions of the bytecode that are `frequently executed`
-      - Compiles them into native machine-code at runtime.
-      - native code is cached and reused.
+- JVM JRE JDK classLoader/ Memory Model : GC, heap,stack,permGen etc.
+  - custom ClassLoader - load classes from `non-standard sources`(databases, network-locations, or encrypted files)
+  - dynamic loading : classes at runtime based on certain conditions, user-input,etc.
+- SourceCode --> [compile]  byteCode --> [interpreter] --> execute
+  - frequently executed byteCode -->  [JIT] --> native machine-code
+  - `JIT Compile` (performance)
+    - identifies portions of the bytecode that are `frequently executed`
+    - Compiles them into native machine-code at runtime.
+    - native code is cached and reused.
     
-  - more building-blocks:
-    - Operators & precedence, Expression & statement
-    - control/conditional statement, switch expression & block
-    - loop with break/continue.
+- more building-blocks:
+  - Operators & precedence, Expression & statement
+  - control/conditional statement, switch expression & block
+  - loop with break/continue.
 
     
-  - primitives types/8:
-    - char and boolean
-    - Number :
-      - byte, int **, short, long
-      - double **, floating
+- primitives types/8:
+  - char and boolean
+  - Number :
+    - byte, int **, short, long
+    - float -     Sign (1 bit) | Exponent (8 bits) | Mantissa (23 bits)
+    - double ** - Sign (1 bit) | Exponent (11 bits) | Mantissa (52 bits)
       
-  - More Reference Type : WrapperForPrimitive with autoboxing, 
-    - `BigInteger`: immutable, java.math, mathematical operations for large int value outside range of long. rich API at bit manipulation level.
-    - `AtomicInteger`, lock-free thread-safe 
-    - `BigDecimal` : high-precision arithmetic, overcome rounding issue with float,Double
+- More Reference Type : WrapperForPrimitive with autoboxing, 
+  - `BigInteger`: immutable, java.math, mathematical operations for large int value outside range of long. rich API at bit manipulation level.
+  - `AtomicInteger`, lock-free thread-safe 
+  - `BigDecimal` : high-precision arithmetic, overcome rounding issue with float,Double
   - `varargs` in methods : 
     - variable-length arguments. eg: psvm(String[]), psvm(String...)
     - can have only one vararg, and must be last arg.
-  - float -  Sign (1 bit) | Exponent (8 bits) | Mantissa (23 bits)
-  - double - Sign (1 bit) | Exponent (11 bits) | Mantissa (52 bits)
-   
 
+- more datatype:
+  - `BigDecimal`
+    - handle very large and very small numbers with a high degree of accuracy
+    - represents numbers in a **decimal format**, avoiding these issues and ensuring that calculations involving decimals remain accurate
+    - provides various rounding modes (e.g., HALF_UP, HALF_DOWN, FLOOR, etc.)
+    - requires more memory and processing time.
+
+  - `BigInteger`
+--- 
+### Multi-threading
+- **Multi-threading / Parallel Processing** (not using much, why ?)
+  - Web applications are generally stateless, with each request handled independently. 
+  - **Modern web server/application** 
+    - designed to handle multiple requests concurrently
+    - And automatically create and manage threads to process incoming HTTP requests, using **threadpools**
+    - so developer don't write it.
+  - **Complexity** : race conditions, deadlocks, and synchronization problems (thread safe)
+  - **Distributed Systems**
+    - modern web applare designed to run in distributed environments (e.g., microservices architecture).
+    - In such systems, multi-threading at the application level is less beneficial because tasks are distributed across multiple instances and nodes, 
+    - each running independently.
+  - Alternative: 
+    - **Asynchronous Programming** for non-blocking operation.
+    - **Message Queues**: 
+      - For processing intensive or long-running tasks, web applications can use message queues (e.g., RabbitMQ, Kafka)
+      - to decouple task execution from user requests,
+      - allowing tasks to be handled asynchronously in the background.
+- race condition
+  - Concurrent Access on shared resource, leads to unpredictable result. 
+  - outcome depends on the sequence or timing of the thread execution
+  - thus give,  Data Corruption,  Inconsistent States,  Security Risks (eg: race con in authentication.)
+  - avoid : sync block, locks, atomic variable, volatile keyword, immutable object, avoid shared resource, use Thread safe DS.
+- `volatile` keyword
+  - indicate that a variable's value will be modified by different threads
+  - ensures that every read of the variable is done directly from the main memory and not from a thread's local cache
 ---   
 ### OOPS 
   - Concepts to create modular, maintainable, and scalable Java applications
@@ -55,6 +90,7 @@
       - final class, final method, final property
       - no setter,
       - make defensive copies... create new object.
+      
 - **some fact**:
   - Constructors are not inherited by subclasses, but a subclass constructor implicitly calls a superclass constructor before executing its own code.
   - In inheritance, subclass can provide broader value for overridden method : `accessSpecifier`, throws `exceptionType`, covariant `returnType`.
