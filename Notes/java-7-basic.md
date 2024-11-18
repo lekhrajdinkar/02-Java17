@@ -26,6 +26,9 @@
   - `varargs` in methods : 
     - variable-length arguments. eg: psvm(String[]), psvm(String...)
     - can have only one vararg, and must be last arg.
+  - float -  Sign (1 bit) | Exponent (8 bits) | Mantissa (23 bits)
+  - double - Sign (1 bit) | Exponent (11 bits) | Mantissa (52 bits)
+   
 
 ---   
 ### OOPS 
