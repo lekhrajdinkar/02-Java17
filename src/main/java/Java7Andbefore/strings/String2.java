@@ -16,7 +16,8 @@ public class String2 {
                 dsbcjhbcjbajkbmz
                 xhgvcsdlaskoapscjbj 
                 """; //str.isLatin1(); compact String :: char-16 vs bytes-8
-    static Supplier<Stream<String>> strStreamSupplier = ()->Arrays.stream(str.split(""));
+    static String[] strArray = str.split("");
+    static Supplier<Stream<String>> strStreamSupplier = ()->Arrays.stream(strArray);
     public static void main(String... a)
     {
         // 1. remove all whitespace characters (spaces, tabs, line breaks, etc.) from the string
@@ -25,8 +26,6 @@ public class String2 {
         // 2. Count Char
         Map<String,Long> r = strStreamSupplier.get().collect(Collectors.groupingBy(x->x, Collectors.counting()));
         log.info("\n1. char count in string :: {}", r.toString());
-
-
     }
 
 }

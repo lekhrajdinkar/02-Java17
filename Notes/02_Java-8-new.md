@@ -1,4 +1,10 @@
 # Java 8
+- java 8 - stream operator - 2 : https://chatgpt.com/c/8857b819-6a75-4dfe-a217-bc6b26c6875b
+- java 8 - stream operator - 1 : https://chatgpt.com/c/83648e41-d8aa-4623-af1c-0236dd664293
+- java 8 - int streams : https://chatgpt.com/c/3679b8bd-9ae4-4906-a46d-9238408c8e20
+- java 8 - int streams pg examples: https://chatgpt.com/c/4616e081-ba31-4587-9343-8d1b2adf142e
+
+---
 
 ## New Date and Time API
   - `LocalDateTime`

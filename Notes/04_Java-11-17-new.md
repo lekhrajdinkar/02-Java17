@@ -1,5 +1,6 @@
 # Java 17 new Features
-
+- https://chatgpt.com/c/a9bd942f-f423-49ef-bc91-85b4cb6af15d
+---
 ## Java 12
 - Compact Number Formatting: Provides a more concise way to format numbers.
 - JVM Constants API: Introduces an API to model the key class-file and run-time artifacts, the constant pool, and dynamic constants.

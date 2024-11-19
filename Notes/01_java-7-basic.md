@@ -1,4 +1,10 @@
 - https://chatgpt.com/c/673b8813-e304-800d-b370-1bc02f980b28
+- Core java 1 : https://chatgpt.com/c/3d0ee54a-34c7-4501-9fbe-f9fb21479339
+- Core java 2 : https://chatgpt.com/c/518e4a83-d192-428a-a2a0-c45ee9b0bb17
+- Core java 3 collection  : https://chatgpt.com/c/eb94768c-122d-49d4-955b-2d5d46cfe1c0
+- Core java 4 collection  :https://chatgpt.com/c/d1a3d740-2904-4a27-8132-3b26f96387c8
+- Core java 5 collection - lIST : https://chatgpt.com/c/82cc34ae-de89-4672-b43d-65e94730a382
+- Core java 6 collection - MAP : https://chatgpt.com/c/c50132a3-ca62-4b2a-b868-7ed1d5f61af5
 --- 
 ## Java Topic
 ### Fundamental:
@@ -24,6 +30,10 @@
     - byte, int **, short, long
     - float -     Sign (1 bit) | Exponent (8 bits) | Mantissa (23 bits)
     - double ** - Sign (1 bit) | Exponent (11 bits) | Mantissa (52 bits)
+  - `Strictfp`
+    - mark on - class and method,
+    - fp calculation based on IEEE-754 standard, to achieve consistent result on all platform/os
+    - use double over float.
       
 - More Reference Type : WrapperForPrimitive with autoboxing, 
   - `BigInteger`: immutable, java.math, mathematical operations for large int value outside range of long. rich API at bit manipulation level.
@@ -97,29 +107,37 @@
   - Overloaded methods are resolved at compile time.
   - static-import
   - public abstract `sealed` class Shape  `permits` Circle, Rectangle, Square {} : control which classes can be subclasses. J18
+  - Object : Deep / shallow copies
+    - use <artifactId>commons-lang3</artifactId> : `SerializationUtils.clone()`
 
 --- 
 ###  Strings (Immutable)
-  - StringPool : intern()
-  - String Manipulation : charAt, length, substring, reverse, split, join
-  - StringBuffer(Thread-Safe) and StringBuilder(Mutable variant of String)
-  - java 10
-    -  "Lekhraj".`repeat`(3) //  "LekhrajLekhrajLekhraj"
-    - `isBlank`() : check contains only `white space characters` .
-    - `lines`() : Returns a Stream of lines extracted from the String, delimited by `\n,\r`
-    - `strip, stripLeading, stripTrailing`() 
-      - like `trim()`,  but Also removed `\u00A0` (non breaking space)
-      - "    hello   ", "    hello", "hello   "
+- bauldeng Q&A : https://chatgpt.com/c/0d16a9c0-8c29-4ccb-aec9-8a934e0c0e8b
+- StringPool : intern()
+- interface: `CharSequence` --> implementation --> string
+- String Manipulation : charAt, length, substring, reverse, split, join
+- StringBuffer(Thread-Safe) and StringBuilder(Mutable variant of String)
+- `StringJoiner` - J8
+  - sb.`append(i1).append(",")`.`append(i2).append(",")`
+  - new StringJoiner(",").`join("i1")`.`join("i2")`  -- better
+- replaceAll("\\s+", "") - remove all whitespace characters
+- java 10
+  -  "Lekhraj".`repeat`(3) //  "LekhrajLekhrajLekhraj"
+  - `isBlank`() : check contains only `white space characters` .
+  - `lines`() : Returns a Stream of lines extracted from the String, delimited by `\n,\r`
+  - `strip, stripLeading, stripTrailing`() 
+    - like `trim()`,  but Also removed `\u00A0` (non breaking space)
+    - "    hello   ", "    hello", "hello   "
 
 ---
-### Java Collection (Data structure)
+### Java Collection (Data structure) - commonly used
 > - Side-Note:
 >   - can think, Linked-list as tree with single branch.
 >   - and, tree as object/s randomly stored on heap/main-memory with references.
 >   - graph : circular, tree has end note.
 
   - `Array` : int[3], int{1,2,3} : Core DS.
-  - List : 
+  - **List** : 
     - `ArrayList` : internally Array [varyLength], dynamic Array-grows & shrinks.
     - `LinkedList` 
       - Nodes with forward/backward references. 
@@ -128,7 +146,7 @@
     - `vector`: Thread-Safe version of ArrayList, provides sync methods. SLOW
     - `stack`** : vectors with additional methods: `push,pop,peek`. SLOW
     
-  - Map 
+  - **Map** 
     - `HashMap`<K,V>  
       - ArrayList(bucket) Of Entry(k,v)
       - hashCode(Key)== bucket/index on array + onCollision:add(Tree,J8+/Linked-list,J7)
@@ -138,25 +156,27 @@
       - Thread-Safe of hashMap
       - null not allowed, thus slower.
       
-    - I:SortedMap<K,V>  
+    - **SortedMap** 
       - `TreeMap` : 
         - self-balancing BinaryTree(R&B), Entry/Nodes has reference to child entry/Nodes.
         - null NOT allowed, ordered, sub-map views, O(log n)
         
-  - Set (no duplicate)
+  - **Set** (no duplicate)
     - `HashSet`<V>      : HashMap<K,null> :: bucket -> ArrayList  Of Node
     - `LinkedHashSet`** : HashMap<K,null> :: bucket -> linkedList Of Node
     
-    - I:SortedSet<V> 
+    - **SortedSet** 
       - `TreeSet` : Treemap<K,null>
-    
-  - Queue : `priorityQueue` , `ArrayDeque`
-  - DeQue : `LinkedList` has also implemented methods from Deque Interface.
+
+### Java Collection (Data structure) - NOT commonly used 
+- https://chatgpt.com/c/10d60bdd-b384-4dea-a9a0-3cca395f835c
+- **Queue** : `priorityQueue` , `ArrayDeque`
+- **DeQue** : `LinkedList` has also implemented methods from Deque Interface.
   - haven't used these above one, but using external one :: SQS, RMQ and Kafka for interApplication comm. 
   - can also use same for intra-app problems.
-
+    
   - Utils:
-    - Collections : 
+    - **Collections** : 
       - `toArray(c)`, sort(c), reverse(c), binarySearch(c)-gives index, `Shuffle(c)`, `copy(c)`
       - `max/min(c,Comparator)`
       - `unmodifibleList(l), singletonList(i), synchronizedList(l)` 
@@ -166,12 +186,12 @@
         - singletonList/singletonMap: Provides an immutable collection with only one element or entry; no modifications are allowed.
         - synchronizedList/synchronizedMap: Provides a thread-safe wrapper for collections, ensuring that method calls are synchronized.
       ```  
-    - Arrays : `asList()`, toString(), sort(), binarySearch(), `copyOf()`, `stream()`
+    - **Arrays** : `asList()`, toString(), sort(), binarySearch(), `copyOf()`, `stream()`
     - `Comparator`(FI) and `Comparable`
       - Comparator.naturalOrder()/reverseOrder() for string collection
       - Comparator.comparingInt(person -> person.age)
       - arraylist.sort(String.CASE_INSENSITIVE_ORDER)
-    - Iterators : for list,set,map
+    - **Iterators** : for list,set,map
     - `ListIterator` - **bi-directional traversal** for list, hasPrevious(),add(),set()
     - `Spliterator` - J8
       - designed for traversing and partitioning elements for parallel computation (Improved Performance)
@@ -190,37 +210,37 @@
   - eg: `CopyOnWriteArrayList, ConcurrentHashMap`  - failSafe + threadSafe | ArrayList - fail-Fast
   - List more: 
     - Collections.singletonList : (size-1 + Immutable) , 
-    - Immutable : List.`copyOf`(l),List.`of`(1,2,3).
-    - operations: partition-sublist(), addAll(), `set(i,item):update` , isEmpty()
+    - Immutable : 
+      - List.`copyOf`(l)
+      - List.`of`(1,2,3)
+    - operations: partition-sublist(), addAll(), set(i,item):update , isEmpty()
     - LinkedList : addLast/first()
   - Map More:
-    - `EnumMap`: keys-Enum,high performance 
-    - `WeakHashMap` (keys-GC, if not referenced)
+    - `EnumMap`: keys are of Enum type, gives high performance. 
+    - `WeakHashMap` (keys gets GC, if not referenced)
     - update value (new) : `compute`(k, (k,v)->{}),`computeIfAbsent/present`(k, (k,v)->{}), `merge`(k,v2,(v1,v2)->{})
     - Immutable map(new) : Map.`of`(k,v,k,v...), `copyOf`(m), `ofEntries`(AbstractMap.SimpleEntries<K,v>())
 
 ---
 ### Exception handing
-  - checked
-  - un-checked / RuntimeExcetion
-  - `throwable`, 
+- throwable
+  - Exception / checked - `compile-time`
+  - RuntimeException / un-checked
 
 ---
 ### IO  
 - io (old) and nio(New) : `Files`, `Path`, `scanner`
-- > Check:Java7Andbefore.IO
+- Check: Java7Andbefore.IO programs.
+  - [FileReadDemo.java](..%2Fsrc%2Fmain%2Fjava%2FJava7Andbefore%2FIO%2FFileReadDemo.java)
+  - [FileWriteDemo.java](..%2Fsrc%2Fmain%2Fjava%2FJava7Andbefore%2FIO%2FFileWriteDemo.java)
 - Serializable, transient
-- File READ ways:
-``` 
-  - Stream<String> lines = `Files`.lines(`Paths`.get(file))
-  - file :: `InputStream::FileInputStream`(bytes) --> `InputStreamReader`(chars) --> `BufferReader`(efficient)  :: readline
-  - resource > file :: `SB:resourceLoader` --> InputStream::FileInputStream(bytes) --> InputStreamReader(chars) --> BufferReader(efficient)  :: readline
-```
-- File WRITE ways:
-```
-  - List<String> lines --> `fileWriter.write`(line)
-  - `Files`.write( `Paths`.get(fileName1), lines, StandardOpenOption...);
-```
+
+--- 
+### Fromatting
+- String.format("%s %s", a1, a2) when you need to create and return a formatted string.
+- System.out.printf() for quick console output with formatting.
+- MessageFormat( "{0} {1} ", a1, a2)
+- DecimalFormat("#.##")
 ---
 ### Extra
 - `natively complied languages`
