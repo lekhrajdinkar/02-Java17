@@ -166,7 +166,8 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
     - Collectors.`toUnmodifiableMap`(Function,Function), `toUnmodifiableMap`(Function,Function,BiFunction)
       
   - **Java 12**
-    - Collectors.`teeing`(Collector1, Collector2, (result1,result2)->{})
+    - Collectors.`teeing`(**downstream-Collector-1**.*, **downstream-Collector-2**.*, (result-1,result-2)->{})
+    - fact: more like Collectors.`collectingAndThen`(**downstream-Collector**.*, result -> {})
 
 > 1.  IMPORTANT: understand `downstream-Collector` behaviour
 >     - eg: Collectors.`groupingBy`(Classify-Fn, Collectors.`Filtering( filter Fn , Collectors.toList())` )
