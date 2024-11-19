@@ -1,6 +1,5 @@
 # Java 7
 ## References
-- interview question : https://chatgpt.com/c/673b8813-e304-800d-b370-1bc02f980b28
 - Core java 1 : https://chatgpt.com/c/3d0ee54a-34c7-4501-9fbe-f9fb21479339 :green_circle:
 - Core java 2 : https://chatgpt.com/c/518e4a83-d192-428a-a2a0-c45ee9b0bb17 :green_circle:
 - Core java 3 collection  : https://chatgpt.com/c/eb94768c-122d-49d4-955b-2d5d46cfe1c0 :green_circle:
