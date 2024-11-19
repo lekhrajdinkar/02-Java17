@@ -41,19 +41,19 @@
 ## 3. `Streams` and collections
 - Streams API 
 - Collection API - new methods.
-  - Executing a terminal operation makes a stream inaccessible, cant be reused. 
-    - trick : create Supplier of streams. `Supplier<Stream> :: get()`
-  - **stream Pipeline** 
-    - source, 
-    - intermediate operation(s) (immutable, doesn't change ori collection)
-    - single terminal operation 
-  - `parallelStream`
-  - Operators (takes lambdas)
-    - intermediate : filter(), map(), boxed(), [list1,list2].stream().`flatmap`(list->list.stream()),
-    - terminal : Collect(), findAny()-Optional<T>, etc
-  - `Spliterator`: also used internally by parallel stream 
-    - trySplit() : to split an iterator 2 multiple parts to be processed in parallel
-    - control behaviour: SIZED, SUBSIZED, ORDERED, NONNULL, IMMUTABLE, and CONCURRENT
+- Executing a terminal operation makes a stream inaccessible, cant be reused. 
+  - trick : create Supplier of streams. `Supplier<Stream> :: get()`
+- **stream Pipeline** 
+  - source, 
+  - intermediate operation(s) (immutable, doesn't change ori collection)
+  - single terminal operation 
+- `parallelStream`
+- Operators (takes lambdas)
+  - intermediate : filter(), map(), boxed(), [list1,list2].stream().`flatmap`(list->list.stream()),
+  - terminal : Collect(), findAny()-Optional<T>, etc
+- `Spliterator`: also used internally by parallel stream 
+  - trySplit() : to split an iterator 2 multiple parts to be processed in parallel
+  - control behaviour: SIZED, SUBSIZED, ORDERED, NONNULL, IMMUTABLE, and CONCURRENT
 ```
 Characteristic	  Description	                        Example Source
 
@@ -64,9 +64,9 @@ NONNULL	          Contains no null elements	            HashSet (without null)
 IMMUTABLE	      Cannot be modified during traversal	unmodifiableList()
 CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap      
 ```
-  - stream of primitives :: (IntStream, LongStream, DoubleStream), `mapToObj`()
-    - https://chatgpt.com/c/83648e41-d8aa-4623-af1c-0236dd664293 : nothing much here.
-    - IntStream.of(1,2,3,4,5).`summaryStatistics`();
+- stream of primitives :: (IntStream, LongStream, DoubleStream), `mapToObj`()
+  - IntStream.of(1,2,3,4,5).`summaryStatistics`();
+- some fact:
   - Function.identity() == x->x, a function that returns its input.
   - List.copyOf(l1),of(l1)  instanceOf  `ImmutableCollections$ListN`
   - stream.collect(Collectors.toList()) --> shortcut :` stream.toList()`
@@ -80,14 +80,20 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
   - `Optional`.stream() - J9
 
 ### INTERMEDIATE
-  - java 8 :
+  - each operator function ,returns another Stream<?> :point_left:
+  - **java 8** :
     - `filter(Predicate)`, `map(Function)`, `flatmap(Function)`, `peek(Consumer)`, `distinct()`,  `boxed()`
     - `sorted()` : natural order : comparable,`sorted(Compartor)`,
     - `limit(long)`, `skip(long)`, `peek(Consumer)`
-  - Java 9 : 
-    - `takewhile(Predicate)` : Takes elements from the stream while the predicate is true. BREAK
-    - `dropwhile(Predicate)` : Drops elements from the stream while the predicate is true. 
-  - jav 16 : 
+  - **Java 9** : 
+    - `takewhile(Predicate)` : 
+      - Takes elements from the stream while the predicate is true. 
+      - once predicate is false, it will stop taking element. stream ends here.
+      - so more likely BREAK.
+    - `dropwhile(Predicate)` : 
+      - Drops elements from the stream while the predicate is true. 
+      - once predicate is false, it will start taking element till end of stream.
+  - **jav 16** : 
     - `mapMulti`(`BiConsumer`<T, `Consumer<R>`>) :
       - designed to take each element of the stream,
       - and produce `zero` or more elements, which are then combined into a new stream.
@@ -102,7 +108,8 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
         ```
 
 ### TERMINAL
-  - `java 8`
+  - each terminal operator function ,returns somethings. notice it. :point_left:
+  - **java 8**
     - void `forEach(Consumer)`, `forEachOrdered(Consumer)`
     - void `toArray()`
     - T `min/max(Comparator)` , Long `count()`
@@ -112,17 +119,15 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
       - List<T>            `reduce(U,BiFunction<U,T>, BinaryOperator<U>)` ** 
         - (seed, accumulator, combiner) -> for parallel processing
         - takes two partial results and combines them into a single partial result.
-    - ? `collect(Collector)`, 
-    - return boolean : `anyMatch(Predicate)`, `allMatch(Predicate)`, `noneMatch(Predicate)`
-    - `toCollection`(LinkedList::new)
-       
-  - `java 9`
-    - Optional<T> `findFirst()`
-    - Optional<T> `findAny()`
+    - boolean `anyMatch(Predicate)`, `allMatch(Predicate)`, `noneMatch(Predicate)`
+    - ?`collect(Collector)` (check new section)
+    
+  - **java 9**
+    - Optional<T> `findFirst()`, `findAny()`
       
 ### TERMINAL - COLLECTORS 
   - terminal operation >> .collect(Collectors.*)
-  - `java 8`
+  - **java 8**
     - long Collectors.`counting`() : count result after stream-processing.
     - T Collectors.`[min/max]By`(Comparator<T>)
     - String Collectors.`joining`(delimterStr, prefixStr, suffixStr) : Concatenates the input elements into a single `String`
@@ -130,10 +135,11 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
       - Collectors.reducing( BinaryOperator) : (u,u)->u
       - Collectors.reducing(seed, BinaryOperator) : (u,u)->u
       - Collectors.reducing(seed, Function, BinaryOperator) **
-        
+    - Collectors.`toCollection`(LinkedList::new)    
     - Collectors.`collectingAndThen`(downstream-Collector.*, collectedValue -> {})
     - Map Collectors.`partitioningBy`(Predicate)
-    - Map Collectors.`groupingBy`(Function), Collectors.`groupingBy`(Function, downstream-Collector.*) **
+    - Map Collectors.`groupingBy`(Function) - variant-1
+    - Map Collectors.`groupingBy`(Function, downstream-Collector.*) variant-2 **
       ```
        List<Integer> l = List.of(1,2,3,4,5,1,2,3,4,5,1,2,3,4,5);  
        Map<Integer,Long> r12 = l.stream().collect(Collectors.groupingBy(n->n, Collectors.counting()) );
@@ -143,7 +149,7 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
     - List/Set Collectors.`toList`(),`toSet`()
     - Map      Collectors.`toMap`(i->k, i->v), `toMap`(i->k, i->v, (existing,replacment)->v) : 3rd agr to resolve duplicate entry/key.
     
-  - `java 9`
+  - **java 9**
     - Collectors.`mapping`(transform-Function, downstream-Collector.*)
       - transform a stream of collections into a single stream  and collect the results using a downstream collector, at same time.
       - like map().collect(Collector.*)
@@ -154,11 +160,11 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
       - flatten a stream of collections into a single stream  and collect the results using a downstream collector, at same time.   
       - like flatmap().collect(Collector.*)
   
-  - `java10,11`
+  - **java 10,11**
     - Collectors.`toUnmodifiableSet`(),`toUnmodifiableList`()
     - Collectors.`toUnmodifiableMap`(Function,Function), `toUnmodifiableMap`(Function,Function,BiFunction)
       
-  - `Java12`
+  - **Java 12**
     - Collectors.`teeing`(Collector1, Collector2, (result1,result2)->{})
 
 > 1.  IMPORTANT: understand `downstream-Collector` behaviour
