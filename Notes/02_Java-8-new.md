@@ -127,26 +127,27 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
       
 ### TERMINAL - COLLECTORS 
   - terminal operation >> .collect(Collectors.*)
+  - notice **downstream-Collector** below.
   - **java 8**
     - long Collectors.`counting`() : count result after stream-processing.
     - T Collectors.`[min/max]By`(Comparator<T>)
     - String Collectors.`joining`(delimterStr, prefixStr, suffixStr) : Concatenates the input elements into a single `String`
-    - Collectors.`reducing`
+    - U Collectors.`reducing` - 3 variants
       - Collectors.reducing( BinaryOperator) : (u,u)->u
       - Collectors.reducing(seed, BinaryOperator) : (u,u)->u
-      - Collectors.reducing(seed, Function, BinaryOperator) **
-    - Collectors.`toCollection`(LinkedList::new)    
-    - Collectors.`collectingAndThen`(downstream-Collector.*, collectedValue -> {})
+      - Collectors.reducing(seed, Function, BinaryOperator) :small_red_triangle:
+    - Collectors.`collectingAndThen`(**downstream-Collector**.*, collectedValue -> {}) 
     - Map Collectors.`partitioningBy`(Predicate)
-    - Map Collectors.`groupingBy`(Function) - variant-1
-    - Map Collectors.`groupingBy`(Function, downstream-Collector.*) variant-2 **
-      ```
-       List<Integer> l = List.of(1,2,3,4,5,1,2,3,4,5,1,2,3,4,5);  
-       Map<Integer,Long> r12 = l.stream().collect(Collectors.groupingBy(n->n, Collectors.counting()) );
-      ```
+    - Map Collectors.`groupingBy` - 2 variants
+      - Map Collectors.groupingBy(Function) 
+      - Map Collectors.groupingBy(Function, **downstream-Collector**.*) :small_red_triangle:
+        ```
+         List<Integer> l = List.of(1,2,3,4,5,1,2,3,4,5,1,2,3,4,5);  
+         Map<Integer,Long> r12 = l.stream().collect(Collectors.groupingBy(n->n, Collectors.counting()) );
+        ```
     - `summarizingInt|Double`(ToIntFunction), `[Averaging|Sumuing][Int|Double]`
        - IntSummaryStatistics stats = stream.collect(Collectors.summarizingInt(String::length));
-    - List/Set Collectors.`toList`(),`toSet`()
+    - List/Set Collectors.`toList`(),`toSet`(), `toCollection`(LinkedList::new)
     - Map      Collectors.`toMap`(i->k, i->v), `toMap`(i->k, i->v, (existing,replacment)->v) : 3rd agr to resolve duplicate entry/key.
     
   - **java 9**
