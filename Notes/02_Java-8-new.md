@@ -195,7 +195,9 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
       - `filter`( Predicate<T> )
       - `map`(Function<T,R>)
       - `flatmap`()
-  
+ 
+---
+![img.png](streams.png)
 ---
 ## programs
 1. program with Optional<`List<Integer>`>  and  Optional<`Integer`>
