@@ -1,13 +1,14 @@
-- https://chatgpt.com/c/673b8813-e304-800d-b370-1bc02f980b28
-- Core java 1 : https://chatgpt.com/c/3d0ee54a-34c7-4501-9fbe-f9fb21479339
-- Core java 2 : https://chatgpt.com/c/518e4a83-d192-428a-a2a0-c45ee9b0bb17
-- Core java 3 collection  : https://chatgpt.com/c/eb94768c-122d-49d4-955b-2d5d46cfe1c0
-- Core java 4 collection  :https://chatgpt.com/c/d1a3d740-2904-4a27-8132-3b26f96387c8
-- Core java 5 collection - lIST : https://chatgpt.com/c/82cc34ae-de89-4672-b43d-65e94730a382
-- Core java 6 collection - MAP : https://chatgpt.com/c/c50132a3-ca62-4b2a-b868-7ed1d5f61af5
---- 
-## Java Topic
-### Fundamental:
+# Java 7
+## References
+- interview question : https://chatgpt.com/c/673b8813-e304-800d-b370-1bc02f980b28
+- Core java 1 : https://chatgpt.com/c/3d0ee54a-34c7-4501-9fbe-f9fb21479339 :green_circle:
+- Core java 2 : https://chatgpt.com/c/518e4a83-d192-428a-a2a0-c45ee9b0bb17 :green_circle:
+- Core java 3 collection  : https://chatgpt.com/c/eb94768c-122d-49d4-955b-2d5d46cfe1c0 :green_circle:
+- Core java 4 collection  :https://chatgpt.com/c/d1a3d740-2904-4a27-8132-3b26f96387c8 :green_circle:
+- Core java 5 collection - `LIST` : https://chatgpt.com/c/82cc34ae-de89-4672-b43d-65e94730a382
+- Core java 6 collection - `MAP` : https://chatgpt.com/c/c50132a3-ca62-4b2a-b868-7ed1d5f61af5
+---
+## Fundamental:
 - JVM JRE JDK classLoader/ Memory Model : GC, heap,stack,permGen etc.
   - custom ClassLoader - load classes from `non-standard sources`(databases, network-locations, or encrypted files)
   - dynamic loading : classes at runtime based on certain conditions, user-input,etc.
@@ -52,7 +53,7 @@
 
   - `BigInteger`
 --- 
-### Multi-threading
+## Multi-threading
 - **Multi-threading / Parallel Processing** (not using much, why ?)
   - Web applications are generally stateless, with each request handled independently. 
   - **Modern web server/application** 
@@ -79,7 +80,7 @@
   - indicate that a variable's value will be modified by different threads
   - ensures that every read of the variable is done directly from the main memory and not from a thread's local cache
 ---   
-### OOPS 
+## OOPS 
   - Concepts to create modular, maintainable, and scalable Java applications
   - class(Enum/Record), object, access specifier, immutable class, Encapsulation
   - inheritance, abstraction, Association(has-a)/dependencies.
@@ -111,7 +112,7 @@
     - use <artifactId>commons-lang3</artifactId> : `SerializationUtils.clone()`
 
 --- 
-###  Strings (Immutable)
+##  Strings (Immutable)
 - bauldeng Q&A : https://chatgpt.com/c/0d16a9c0-8c29-4ccb-aec9-8a934e0c0e8b
 - StringPool : intern()
 - interface: `CharSequence` --> implementation --> string
@@ -128,8 +129,9 @@
   - `strip, stripLeading, stripTrailing`() 
     - like `trim()`,  but Also removed `\u00A0` (non breaking space)
     - "    hello   ", "    hello", "hello   "
-
+  - String.join(", ", strArray);
 ---
+## Java Collection 
 ### Java Collection (Data structure) - commonly used
 > - Side-Note:
 >   - can think, Linked-list as tree with single branch.
@@ -174,61 +176,68 @@
 - **DeQue** : `LinkedList` has also implemented methods from Deque Interface.
   - haven't used these above one, but using external one :: SQS, RMQ and Kafka for interApplication comm. 
   - can also use same for intra-app problems.
-    
-  - Utils:
-    - **Collections** : 
-      - `toArray(c)`, sort(c), reverse(c), binarySearch(c)-gives index, `Shuffle(c)`, `copy(c)`
-      - `max/min(c,Comparator)`
-      - `unmodifibleList(l), singletonList(i), synchronizedList(l)` 
-      - `unmodifibleMap(m),  singletonMap(k,v), synchronizedMap(m)`
-      ```
-        - unmodifiableList/unmodifiableMap: Provides an unmodifiable view; cannot modify the returned collection, but changes to the original collection reflect in the view.
-        - singletonList/singletonMap: Provides an immutable collection with only one element or entry; no modifications are allowed.
-        - synchronizedList/synchronizedMap: Provides a thread-safe wrapper for collections, ensuring that method calls are synchronized.
-      ```  
-    - **Arrays** : `asList()`, toString(), sort(), binarySearch(), `copyOf()`, `stream()`
-    - `Comparator`(FI) and `Comparable`
-      - Comparator.naturalOrder()/reverseOrder() for string collection
-      - Comparator.comparingInt(person -> person.age)
-      - arraylist.sort(String.CASE_INSENSITIVE_ORDER)
-    - **Iterators** : for list,set,map
-    - `ListIterator` - **bi-directional traversal** for list, hasPrevious(),add(),set()
-    - `Spliterator` - J8
-      - designed for traversing and partitioning elements for parallel computation (Improved Performance)
-      - works with function stream API, bts (without requiring the programmer to interact with it directly :)
-      - Safe for concurrent modifications
-      ```
-        Spliterator<String> spliterator1 = list.spliterator();
-        Spliterator<String> spliterator2 = spliterator1.trySplit();
-        spliterator1.forEachRemaining(System.out::println);
-        spliterator2.forEachRemaining(System.out::println);
-      ```
-    - enhanced loop - for(item:collection){...}
----
-## More on Collections:
-  - `Fail-fast` (ConcurrentModificationException) vs `fail-safe` (works on cloned copy)
-  - eg: `CopyOnWriteArrayList, ConcurrentHashMap`  - failSafe + threadSafe | ArrayList - fail-Fast
-  - List more: 
-    - Collections.singletonList : (size-1 + Immutable) , 
-    - Immutable : 
-      - List.`copyOf`(l)
-      - List.`of`(1,2,3)
-    - operations: partition-sublist(), addAll(), set(i,item):update , isEmpty()
-    - LinkedList : addLast/first()
-  - Map More:
-    - `EnumMap`: keys are of Enum type, gives high performance. 
-    - `WeakHashMap` (keys gets GC, if not referenced)
-    - update value (new) : `compute`(k, (k,v)->{}),`computeIfAbsent/present`(k, (k,v)->{}), `merge`(k,v2,(v1,v2)->{})
-    - Immutable map(new) : Map.`of`(k,v,k,v...), `copyOf`(m), `ofEntries`(AbstractMap.SimpleEntries<K,v>())
 
+### Utility class:
+- **Collections** : 
+  - `toArray(c)`, sort(c), reverse(c), binarySearch(c)-gives index, `Shuffle(c)`, `copy(c)`
+  - `max/min(c,Comparator)`
+  - `unmodifibleList(l), singletonList(i), synchronizedList(l)` 
+  - `unmodifibleMap(m),  singletonMap(k,v), synchronizedMap(m)`
+      
+  ```
+    - unmodifiableList/unmodifiableMap: Provides an unmodifiable view; cannot modify the returned collection, but changes to the original collection reflect in the view.
+    - singletonList/singletonMap: Provides an immutable collection with only one element or entry; no modifications are allowed.
+    - synchronizedList/synchronizedMap: Provides a thread-safe wrapper for collections, ensuring that method calls are synchronized.
+  ```  
+- **Arrays** : `asList()`, toString(), sort(), binarySearch(), `copyOf()`, `stream()`
+
+### Sorting and iteration
+- Comparator(FI) and `Comparable
+  - Comparator.naturalOrder()/reverseOrder() for string collection
+  - Comparator.comparingInt(person -> person.age)
+  - arraylist.sort(String.CASE_INSENSITIVE_ORDER)
+- **Iterators** : for list,set,map
+  - `ListIterator` - **bi-directional traversal** for list, hasPrevious(),add(),set()
+  - `Spliterator` - J8
+    - designed for traversing and partitioning elements for parallel computation (Improved Performance)
+    - works with function stream API, bts (without requiring the programmer to interact with it directly :)
+    - Safe for concurrent modifications
+    ```
+      Spliterator<String> spliterator1 = list.spliterator();
+      Spliterator<String> spliterator2 = spliterator1.trySplit();
+      spliterator1.forEachRemaining(System.out::println);
+      spliterator2.forEachRemaining(System.out::println);
+    ```
+  - enhanced loop - for(item:collection){...}
 ---
-### Exception handing
+### More on Collections:
+- `Fail-fast` (ConcurrentModificationException) vs `fail-safe` (works on cloned copy)
+- eg: `CopyOnWriteArrayList, ConcurrentHashMap`  - failSafe + threadSafe | ArrayList - fail-Fast
+- List more: 
+  - Collections.singletonList : (size-1 + Immutable) , 
+  - Immutable : 
+    - List.`copyOf`(l)
+    - List.`of`(1,2,3)
+  - operations: partition-sublist(), addAll(), set(i,item):update , isEmpty()
+  - LinkedList : addLast/first()
+- Map More:
+  - `EnumMap`: keys are of Enum type, gives high performance. 
+  - `WeakHashMap` (keys gets GC, if not referenced)
+  - update value (new) : `compute`(k, (k,v)->{}),`computeIfAbsent/present`(k, (k,v)->{}), `merge`(k,v2,(v1,v2)->{})
+  - Immutable map(new) : Map.`of`(k,v,k,v...), `copyOf`(m), `ofEntries`(AbstractMap.SimpleEntries<K,v>())
+- Collection.stream().forEach() vs Collection.forEach()
+  - parallel
+  - immutable , original string stay same
+  - internal exception handled. check more. :small_red_triangle:
+---
+
+## Exception handing
 - throwable
   - Exception / checked - `compile-time`
   - RuntimeException / un-checked
 
 ---
-### IO  
+## IO  
 - io (old) and nio(New) : `Files`, `Path`, `scanner`
 - Check: Java7Andbefore.IO programs.
   - [FileReadDemo.java](..%2Fsrc%2Fmain%2Fjava%2FJava7Andbefore%2FIO%2FFileReadDemo.java)
@@ -236,14 +245,14 @@
 - Serializable, transient
 
 --- 
-### Fromatting
-- String.format("%s %s", a1, a2) when you need to create and return a formatted string.
-- System.out.printf() for quick console output with formatting.
-- MessageFormat( "{0} {1} ", a1, a2)
-- DecimalFormat("#.##")
+## Formatting
+- `String.format`("%s %s", a1, a2) when you need to create and return a formatted string.
+- `System.out.printf`() for quick console output with formatting.
+- `MessageFormat`( "{0} {1} ", a1, a2)
+- `DecimalFormat`("#.##")
 ---
-### Extra
-- `natively complied languages`
+## Extra
+- **natively complied languages**
   - source code is directly compiled into machine code
   - C, C++, Golang
   - offer better performance
