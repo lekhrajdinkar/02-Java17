@@ -1,13 +1,10 @@
 package java8.Collection;
 
-
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toCollection;
 import static util.Print.pc;
 import static util.Print.p;
 
@@ -78,7 +75,7 @@ public class MyList1
                 .range(0,5)
                 .boxed()
                 .map(i->Integer.toHexString(i))//           here
-                .collect(toCollection(ArrayList::new));
+                .collect(Collectors.toCollection(ArrayList::new));
                 //.collect(Collectors.toList());
         list.add("Anna");
         pc("4.1. Search List : ",list);

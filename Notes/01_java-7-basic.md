@@ -170,8 +170,7 @@
     - **SortedSet** 
       - `TreeSet` : Treemap<K,null>
 
-### Java Collection (Data structure) - NOT commonly used 
-- https://chatgpt.com/c/10d60bdd-b384-4dea-a9a0-3cca395f835c
+### Java Collection (Data structure) - NOT commonly used
 - **Queue** : `priorityQueue` , `ArrayDeque`
 - **DeQue** : `LinkedList` has also implemented methods from Deque Interface.
   - haven't used these above one, but using external one :: SQS, RMQ and Kafka for interApplication comm. 

@@ -1,14 +1,18 @@
 # Java 8
+## references
 - java 8 - stream operator - 2 : https://chatgpt.com/c/8857b819-6a75-4dfe-a217-bc6b26c6875b
 - java 8 - stream operator - 1 : https://chatgpt.com/c/83648e41-d8aa-4623-af1c-0236dd664293
 - java 8 - int streams : https://chatgpt.com/c/3679b8bd-9ae4-4906-a46d-9238408c8e20
 - java 8 - int streams pg examples: https://chatgpt.com/c/4616e081-ba31-4587-9343-8d1b2adf142e
+- Java 8 - streams (baeldung) :: https://chat.openai.com/c/5a922567-573c-4788-8b4c-071cda3386e0
 
 ---
 
 ## New Date and Time API
-  - `LocalDateTime`
+  - `LocalDateTime`, `LocalDate`, `LocalTime`
   - `ZonedDateTime`
+  - `Instant` - from 1 jan 1970. / seconds + nanoSec / number greater than logng
+  - [DateTime_1.java](..%2Fsrc%2Fmain%2Fjava%2Fjava8%2FDateTime%2FDateTime_1.java)
 
 ---
 ## Interfaces
