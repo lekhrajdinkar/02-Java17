@@ -1,33 +1,39 @@
 package java8;
 
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
-
 import static java.lang.Thread.sleep;
-
-//Record User(Long id,String name){}
-//Record Order(Long id,String name){}
 
 @Slf4j
 public class CompletableFutureDemo
 {
-    public static void main(String[] args) throws InterruptedException {
-        CompletableFutureDemo temp = new CompletableFutureDemo();
-        temp.m1(100L);
-        temp.m2();
+/*
+Creation
+    supplyAsync() - Runs a Supplier asynchronously
+    runAsync() - Runs a Runnable asynchronously
 
-        // Keep main thread alive to see all results
-        sleep(10000);
-    }
+Chaining:
+    thenApply() - Transform result
+    thenAccept() - Consume result
+    thenRun() - Run action after completion
+
+Combining
+    thenCombine() - Combine two futures
+    allOf() - Wait for all futures
+    anyOf() - Wait for any future
+
+Error Handling
+    exceptionally() - Handle exceptions
+    handle() - Handle both success and failure
+*/
 
     // --------- Example-1
-    // Handler
-    String fetchUser(Long id){
+    String fetchUser(Long id) //throws Exception
+    {
         String temp = "lekhraj_Dinkar, (#" +id+")";
         log.info(temp);
         return temp;
+        //return throw new Exception("fetchUser:ManualError");
     }
     String enrichUser(String UserAsString){
         String temp = UserAsString+"_enrichUser";
@@ -42,8 +48,8 @@ public class CompletableFutureDemo
     void m1(Long userId){
         // Like promise in javaScript
         CompletableFuture.supplyAsync(() -> fetchUser(userId))
-                .thenApply(user -> enrichUser(user))
-                .thenAccept(user -> sendNotification(user))
+                .thenApply(user -> enrichUser(user))  // Transform result
+                .thenAccept(user -> sendNotification(user)) // Consume result
                 .exceptionally(ex -> {
                     log.error("Error processing user", ex);
                     return null;
@@ -81,7 +87,14 @@ public class CompletableFutureDemo
             log.info("2. Transforming: " + s );
             return s + " World";
         });
-
     }
 
+    public static void main(String[] args) throws InterruptedException {
+        CompletableFutureDemo temp = new CompletableFutureDemo();
+        temp.m1(100L);
+        temp.m2();
+
+        // Keep main thread alive to see all results
+        sleep(10000);
+    }
 }
