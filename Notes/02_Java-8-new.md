@@ -7,6 +7,8 @@
   - Java 8 - streams (baeldung) :: https://chat.openai.com/c/5a922567-573c-4788-8b4c-071cda3386e0
 
 ---
+## 0. Future and CompletableFuture.
+- program: [CompletableFutureDemo.java](../src/main/java/java8/CompletableFutureDemo.java)
 
 ## 1. New Date and Time API
   - `LocalDateTime`, `LocalDate`, `LocalTime`
@@ -216,4 +218,4 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
 5. Immutable collection:
    - Guava library :: ImmutableList/Set/Map::copyOf(c)
    - j9+ :: List.copyOf(l),  Set.copyOf(s) ,  Map.copyOf(m)
-6.  **custom collector** : [CustomCollector.java](../src/main/java/java8/streamProcessing/CustomCollector.java)
+6.  **custom collector** : [CustomCollector.java](../src/main/java/java8/streamProcessing/custom/CustomCollector.java)
