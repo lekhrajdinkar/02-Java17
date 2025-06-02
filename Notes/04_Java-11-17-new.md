@@ -34,6 +34,19 @@
 - JEP 338: Vector API (Incubator): Introduces an initial iteration of an API for expressing vector computations.
 - JEP 376: ZGC: Adds support for concurrent thread-stack processing, improving scalability.
 - Unix-Domain Socket Channels: Adds Unix-domain socket support to the socket channel and server socket channel APIs.
+- if (obj instanceof String) vs if (obj instanceof String s)
+```Java
+if (obj instanceof String s) {
+    // s is automatically cast to String and available here
+    System.out.println(s.length());
+}
+
+OLD:
+if (obj instanceof String) {
+    String s = (String) obj; // Explicit casting needed
+    // use s
+}
+```
 ---
 
 ## Java 17

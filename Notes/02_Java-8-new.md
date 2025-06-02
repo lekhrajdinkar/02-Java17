@@ -40,6 +40,13 @@
 ---
 ## 3. `Streams` and collections
 - Streams API 
+  - Stream operations don't modify the source
+  - Terminal operations often produce **immutable results**
+- **Method reference types**
+  - Reference to a Static Method `ClassName::staticMethodName`
+  - Instance Method of a Particular Object `objectReference::instanceMethodName`
+  - Reference to a Constructor `ArrayList::new`
+  - special case --> int[]::new, super::m1()
 - Collection API - new methods.
 - Executing a terminal operation makes a stream inaccessible, cant be reused. 
   - trick : create Supplier of streams. `Supplier<Stream> :: get()`
@@ -209,3 +216,4 @@ CONCURRENT	      Can be modified concurrently	        ConcurrentHashMap
 5. Immutable collection:
    - Guava library :: ImmutableList/Set/Map::copyOf(c)
    - j9+ :: List.copyOf(l),  Set.copyOf(s) ,  Map.copyOf(m)
+6.  **custom collector** : [CustomCollector.java](../src/main/java/java8/streamProcessing/CustomCollector.java)
