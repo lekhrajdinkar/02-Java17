@@ -79,3 +79,16 @@ public class CompletableFutureExample
 
         future2.thenAccept(result -> System.out.println("Final result: " + result));
 ```
+
+### .completeOnTimeout
+```Java
+@GetMapping("/async-with-timeout")
+public CompletableFuture<ResponseEntity<String>> asyncWithTimeout() {
+    return asyncService.performTask("data")
+            .thenApply(ResponseEntity::ok)
+            .completeOnTimeout(         // Timeout Handling in REST api, asyn
+                ResponseEntity.status(504).body("Request timeout"),
+                2, TimeUnit.SECONDS
+            );
+}
+```

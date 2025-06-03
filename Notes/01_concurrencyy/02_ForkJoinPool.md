@@ -16,11 +16,13 @@ CPU-intensive operations
 Stateless, independent operations
 ```
 
-## ForkJoinPool
+## ForkJoinPool (pool of thread)
 - https://chat.deepseek.com/a/chat/s/72fb223a-30f7-4d66-aab9-a6062959d6b9
 - **ForkJoinPool** is the underlying framework that powers parallel streams.
   - can power our code. check : [Fibonacci.java](../../src/main/java/java8/Fibonacci.java)
+  - parallelStream() uses ForkJoinPool.commonPool()
   - pool of thread/s.
+  - new ForkJoinPool(4)
   - thread works on task/s. has 2 imple:
     - **ForkJoinTask** - for tasks that don't return results
     - **RecursiveAction** - for tasks that return results
@@ -30,3 +32,26 @@ Stateless, independent operations
   - Tree/graph traversal algorithms
   - Divide-and-conquer problems (e.g., merge sort, quick sort)
   - ...
+
+---
+# Similar solution from Spring
+- **ThreadPoolTaskExecutor**
+```java
+@Bean  
+public ThreadPoolTaskExecutor taskExecutor() {  
+    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();  
+    executor.setCorePoolSize(5);  
+    executor.setMaxPoolSize(10);  
+    executor.setQueueCapacity(100);  
+    executor.setThreadNamePrefix("Async-");  
+    executor.initialize();  
+    return executor;  
+}
+
+@Async("taskExecutor")
+public void asyncTask() {
+  // Runs in thread pool  
+}
+
+@EnableAsync @SpringBootApplication
+```
