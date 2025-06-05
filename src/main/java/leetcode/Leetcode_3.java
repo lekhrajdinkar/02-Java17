@@ -1,4 +1,4 @@
-package Java7Andbefore.strings;
+package leetcode;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Leethcode3
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
+public class Leetcode_3
 {
     public static void main(String[] args)
     {
         String s = "abccde"; //cdefg
         String result ="";
+        int key = 0;
         char[] ca = s.toCharArray();
         Map<String, Integer> tracker = new HashMap<>();
         for(int i = 0; i < ca.length ; i++ ){
@@ -37,7 +39,7 @@ public class Leethcode3
             System.out.println("\t tracker (substring by length) ::"+ tracker);
             Map<Integer, List<Map.Entry<String,Integer>>> s1 = tracker.entrySet().stream().collect(Collectors.groupingBy(x->x.getValue()));
             System.out.println("\t tracker_grouped ::"+ s1);
-            int key = s1.keySet().stream().sorted(Comparator.reverseOrder()).findFirst().get();
+            key = s1.keySet().stream().sorted(Comparator.reverseOrder()).findFirst().get();
             System.out.println("\t longest ::"+ s1.get(key));
 
             result = s1.get(key).stream()
@@ -45,6 +47,7 @@ public class Leethcode3
                     .collect(Collectors.joining(",", "", ""));
         }
         System.out.println("\n ===  FINAL Result === "+ result);
+        //return key;
     }
 }
 /*
